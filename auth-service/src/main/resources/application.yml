@@ -1,0 +1,56 @@
+#spring相关配置
+spring:
+  application:
+    name: auth
+  datasource:
+      sql-script-encoding: UTF-8
+      druid:
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+  jpa:
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: true
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+      hibernate.cache.use_second_level_cache: false
+      hibernate.show_sql: true
+      hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+
+# 认证登录
+colors:
+  security:
+    enable: false
+    oauth2:
+      tokenStore : redis
+      clients[0]:
+        client-id: colors
+        client-secret: colors
+        access-token-validate-seconds: 3600
+    social:
+      weixin:
+        app-id: wxd99431bbff8305a0
+        app-secret: 60f78681d063590a469f1b297feff3c4
+      qq:
+        app-id: wxd99431bbff8305a0
+        app-secret: 60f78681d063590a469f1b297feff3c4
+
+redisson:
+  config: classpath:redisson/single-server.yml
+
+#日志相关配置
+logging:
+  config: classpath:logback.xml
+  path: /data/log/auth

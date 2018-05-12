@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>auth-interface</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <parent>
+        <artifactId>auth-parent</artifactId>
+        <groupId>com.github.hicolors.service</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.github.hicolors.service</groupId>
+            <artifactId>auth-model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.hicolors.colors.framework</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-RELEASE</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
