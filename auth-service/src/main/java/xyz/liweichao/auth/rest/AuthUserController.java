@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 import xyz.liweichao.auth.api.IAuthUserApi;
 import xyz.liweichao.auth.model.persistence.AuthUser;
 import xyz.liweichao.auth.service.IAuthUserService;
@@ -17,7 +18,6 @@ import xyz.liweichao.auth.service.IAuthUserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("auth-user")
 public class AuthUserController extends AbstractController<AuthUser, Long> implements IAuthUserApi {
 
     @Autowired
@@ -32,7 +32,7 @@ public class AuthUserController extends AbstractController<AuthUser, Long> imple
     @JsonResultFilter(values = {
             @JsonBeanFilter(clazz = AuthUser.class,excludes = {"id"})
     })
-    public Page<AuthUser> paging(Pageable pageable, List<ColorsExpression> filters) {
+    public Page<AuthUser> paging(Pageable pageable, @ApiIgnore List<ColorsExpression> filters) {
         return this.service.queryPage(pageable, filters);
     }
 }

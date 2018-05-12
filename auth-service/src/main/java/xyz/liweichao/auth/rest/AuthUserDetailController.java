@@ -10,7 +10,6 @@ import xyz.liweichao.auth.service.IAuthUserDetailService;
 
 
 @RestController
-@RequestMapping("auth-user-detail")
 public class AuthUserDetailController extends AbstractController<AuthUserDetail, Long> implements IAuthUserDetailApi {
 
     @Autowired
