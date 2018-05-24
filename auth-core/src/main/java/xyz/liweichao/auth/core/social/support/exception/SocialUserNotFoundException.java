@@ -1,7 +1,7 @@
 package xyz.liweichao.auth.core.social.support.exception;
 
 
-import xyz.liweichao.auth.core.AuthException;
+import xyz.liweichao.auth.core.exception.AuthException;
 
 /**
  * APP 模块异常

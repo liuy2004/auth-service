@@ -1,6 +1,3 @@
-/**
- *
- */
 package xyz.liweichao.auth.core.social.support;
 
 import org.springframework.beans.factory.annotation.Autowired;

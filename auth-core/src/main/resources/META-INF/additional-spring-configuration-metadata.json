@@ -1,0 +1,51 @@
+{
+  "properties": [
+    {
+      "name": "colors.security.enable",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "Description for colors.security.enable."
+    },
+    {
+      "name": "colors.security.oauth2.tokenStore ",
+      "type": "java.lang.String",
+      "defaultValue": "redis",
+      "description": "Description for colors.security.oauth2.tokenStore ."
+    },
+    {
+      "name": "colors.security.oauth2.clients[0].client-id",
+      "type": "java.lang.String",
+      "description": "Description for colors.security.oauth2.clients[0].client-id."
+    },
+    {
+      "name": "colors.security.oauth2.clients[0].client-secret",
+      "type": "java.lang.String",
+      "description": "Description for colors.security.oauth2.clients[0].client-secret."
+    },
+    {
+      "name": "colors.security.oauth2.clients[0].access-token-validate-seconds",
+      "type": "java.lang.String",
+      "description": "Description for colors.security.oauth2.clients[0].access-token-validate-seconds."
+    },
+    {
+      "name": "colors.security.social.weixin.app-id",
+      "type": "java.lang.String",
+      "description": "Description for colors.security.social.weixin.app-id."
+    },
+    {
+      "name": "colors.security.social.weixin.app-secret",
+      "type": "java.lang.String",
+      "description": "Description for colors.security.social.weixin.app-secret."
+    },
+    {
+      "name": "colors.security.social.qq.app-id",
+      "type": "java.lang.String",
+      "description": "Description for colors.security.social.qq.app-id."
+    },
+    {
+      "name": "colors.security.social.qq.app-secret",
+      "type": "java.lang.String",
+      "description": "Description for colors.security.social.qq.app-secret."
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import xyz.liweichao.auth.core.code.base.ValidateCodeGenerator;
 import xyz.liweichao.auth.core.properties.SecurityProperties;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 

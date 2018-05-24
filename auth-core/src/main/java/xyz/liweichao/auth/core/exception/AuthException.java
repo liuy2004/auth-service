@@ -1,4 +1,4 @@
-package xyz.liweichao.auth.core;
+package xyz.liweichao.auth.core.exception;
 
 import com.github.hicolors.colors.framework.core.common.exception.RestfulException;
 import org.springframework.http.HttpStatus;
@@ -12,10 +12,9 @@ import org.springframework.http.HttpStatus;
  */
 public class AuthException extends RestfulException {
 
-    public static final Long code = 10100001L;
-
+    public static final Long CODE = 10100001L;
 
     public AuthException(String message) {
-        super(HttpStatus.UNAUTHORIZED.value(), code, message);
+        super(HttpStatus.BAD_REQUEST.value(), CODE, message);
     }
 }
