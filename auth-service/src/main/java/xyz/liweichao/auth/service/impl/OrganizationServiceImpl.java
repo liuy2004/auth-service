@@ -4,7 +4,6 @@ import com.github.hicolors.colors.framework.core.common.abs.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.liweichao.auth.dao.OrganizationDao;
-import xyz.liweichao.auth.dao.UserDao;
 import xyz.liweichao.auth.model.persistence.Organization;
 import xyz.liweichao.auth.service.IOrganizationService;
 
@@ -14,7 +13,7 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
     @Autowired
     private OrganizationDao dao;
 
-    public OrganizationServiceImpl(UserDao dao) {
+    public OrganizationServiceImpl(OrganizationDao dao) {
         super(dao);
     }
 }

@@ -25,4 +25,8 @@ public class AuthServiceApplication {
         SpringApplication.run(AuthServiceApplication.class, args);
     }
 
+    @Bean
+    public ExceptionHandlerAdvice exceptionHandlerAdvice(){
+        return new ExceptionHandlerAdvice();
+    }
 }
