@@ -18,6 +18,7 @@
         <dependency>
             <groupId>com.github.hicolors.colors.framework</groupId>
             <artifactId>core</artifactId>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
