@@ -21,12 +21,6 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.hicolors.colors.framework</groupId>
-            <artifactId>core</artifactId>
-            <version>1.0-RELEASE</version>
-        </dependency>
-
     </dependencies>
 
 </project>

@@ -14,8 +14,12 @@
     <parent>
         <groupId>com.github.hicolors.colors.framework</groupId>
         <artifactId>parent</artifactId>
-        <version>1.0-RELEASE</version>
+        <version>${framework.version}</version>
     </parent>
+
+    <properties>
+        <framework.version>1.0-SNAPSHOT</framework.version>
+    </properties>
 
     <modules>
         <module>auth-model</module>
@@ -24,5 +28,23 @@
         <module>auth-core</module>
         <module>auth-sdk</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.github.hicolors.colors.framework</groupId>
+                <artifactId>core</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.hicolors.colors.framework</groupId>
+                <artifactId>lock</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>

@@ -17,21 +17,7 @@
 
         <dependency>
             <groupId>com.github.hicolors.colors.framework</groupId>
-            <artifactId>core</artifactId>
-            <version>1.0-RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.hicolors.colors.framework</groupId>
             <artifactId>lock</artifactId>
-            <version>1.0-RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.hicolors.colors.framework</groupId>
-            <artifactId>generator</artifactId>
-            <version>1.0-RELEASE</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>

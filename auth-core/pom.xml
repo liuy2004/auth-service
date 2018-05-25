@@ -16,7 +16,6 @@
         <dependency>
             <groupId>com.github.hicolors.colors.framework</groupId>
             <artifactId>core</artifactId>
-            <version>1.0-RELEASE</version>
         </dependency>
 
         <dependency>
