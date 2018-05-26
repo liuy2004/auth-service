@@ -5,7 +5,6 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>auth-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
 
     <parent>
         <artifactId>auth-parent</artifactId>
@@ -22,20 +21,14 @@
 
         <dependency>
             <groupId>com.github.hicolors.service</groupId>
-            <artifactId>auth-model</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>auth-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.github.hicolors.service</groupId>
             <artifactId>auth-interface</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.hicolors.service</groupId>
-            <artifactId>auth-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

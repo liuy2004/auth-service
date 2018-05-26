@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.api;
 
-import com.github.hicolors.colors.framework.core.common.abs.intf.IController;
+import com.github.hicolors.colors.framework.common.controller.IController;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import xyz.liweichao.auth.model.persistence.User;

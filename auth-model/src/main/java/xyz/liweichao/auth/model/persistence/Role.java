@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.model.persistence;
 
-import com.github.hicolors.colors.framework.core.common.abs.AbstractBean;
+import com.github.hicolors.colors.framework.common.model.AbstractBean;
 
 import javax.persistence.*;
 
