@@ -1,6 +1,8 @@
 package xyz.liweichao.auth.core.code;
 
-import org.springframework.security.core.AuthenticationException;
+
+import com.github.hicolors.colors.framework.common.exception.RestfulException;
+import org.springframework.http.HttpStatus;
 
 /**
  * 异常
@@ -9,10 +11,12 @@ import org.springframework.security.core.AuthenticationException;
  * @email liweichao0102@gmail.com
  * @date 2018/3/1
  */
-public class ValidateCodeException extends AuthenticationException {
+public class ValidateCodeException extends RestfulException {
+
+    private static final long code = 1001002;
 
     public ValidateCodeException(String msg) {
-        super(msg);
+        super(HttpStatus.BAD_REQUEST, code, msg, null);
     }
 
 }

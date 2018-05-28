@@ -31,7 +31,6 @@ public class FormAuthenticationSecurityConfig {
                 .successHandler(colorsAuthenticationSuccessHandler)
                 .failureHandler(colorsAuthenticationFailureHandler);
 
-        //取消session
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         //废弃 session

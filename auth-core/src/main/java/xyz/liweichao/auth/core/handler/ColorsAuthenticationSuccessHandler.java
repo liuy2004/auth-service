@@ -5,17 +5,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.codec.Base64;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestBindingException;
+import xyz.liweichao.auth.core.exception.AuthException;
 import xyz.liweichao.auth.core.utils.ResponseUtils;
 
 import javax.annotation.Resource;
@@ -53,7 +52,7 @@ public class ColorsAuthenticationSuccessHandler extends SavedRequestAwareAuthent
     private OAuth2AccessToken createToken(HttpServletRequest request, Authentication authentication) throws IOException {
         String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Basic ")) {
-            throw new UnapprovedClientAuthenticationException("请求头中无client信息!");
+            throw new AuthException("请求头中无client信息!");
         }
 
         String[] tokens = extractAndDecodeHeader(header);
@@ -63,9 +62,9 @@ public class ColorsAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
 
         if (clientDetails == null) {
-            throw new UnapprovedClientAuthenticationException("clientId对应的配置信息不存在:" + clientId);
+            throw new AuthException("clientId对应的配置信息不存在:" + clientId);
         } else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
-            throw new UnapprovedClientAuthenticationException("clientSecret不匹配:" + clientId);
+            throw new AuthException("clientSecret不匹配:" + clientId);
         }
         TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId, clientDetails.getScope(), "custom");
         OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
@@ -80,12 +79,12 @@ public class ColorsAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         try {
             decoded = Base64.decode(base64Token);
         } catch (IllegalArgumentException e) {
-            throw new BadCredentialsException("Failed to decode basic authentication token");
+            throw new AuthException("Failed to decode basic authentication token");
         }
         String token = new String(decoded, "UTF-8");
         int delim = token.indexOf(":");
         if (delim == -1) {
-            throw new BadCredentialsException("Invalid basic authentication token");
+            throw new AuthException("Invalid basic authentication token");
         }
         return new String[]{token.substring(0, delim), token.substring(delim + 1)};
     }

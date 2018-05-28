@@ -1,4 +1,4 @@
-package xyz.liweichao.auth.core.code.config;
+package xyz.liweichao.auth.core.authentication.code;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

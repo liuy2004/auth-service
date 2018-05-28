@@ -8,11 +8,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.social.security.SpringSocialConfigurer;
+import xyz.liweichao.auth.core.authentication.code.ValidateCodeSecurityConfig;
 import xyz.liweichao.auth.core.authentication.form.FormAuthenticationSecurityConfig;
 import xyz.liweichao.auth.core.authentication.openid.OpenIdAuthenticationSecurityConfig;
 import xyz.liweichao.auth.core.authentication.sms.SmsCodeAuthenticationSecurityConfig;
 import xyz.liweichao.auth.core.authorize.AuthorizeConfigManager;
-import xyz.liweichao.auth.core.code.config.ValidateCodeSecurityConfig;
 
 /**
  * 资源服务器配置

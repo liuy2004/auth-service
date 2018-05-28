@@ -17,6 +17,7 @@ public class ImageCodeProperties extends SmsCodeProperties {
      * 图片高
      */
     private int height = 23;
+
     public ImageCodeProperties() {
         setLength(4);
     }

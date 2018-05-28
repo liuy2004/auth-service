@@ -1,19 +1,22 @@
-package xyz.liweichao.auth.core.code;
+package xyz.liweichao.auth.core.authentication.code;
 
+import com.github.hicolors.colors.framework.common.exception.RestfulException;
+import com.github.hicolors.colors.framework.common.utils.RegexpUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
+import xyz.liweichao.auth.core.code.ValidateCodeProcessorHolder;
 import xyz.liweichao.auth.core.code.base.ValidateCodeType;
 import xyz.liweichao.auth.core.properties.SecurityConstants;
 import xyz.liweichao.auth.core.properties.SecurityProperties;
+import xyz.liweichao.auth.core.utils.ResponseUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -36,11 +39,6 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidateCodeFilter.class);
 
-    /**
-     * 验证码校验失败处理器
-     */
-    @Autowired
-    private AuthenticationFailureHandler authenticationFailureHandler;
     /**
      * 系统配置信息
      */
@@ -66,8 +64,6 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
-//        urlMap.put(SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_FORM, ValidateCodeType.IMAGE);
-//        addUrlToMap(securityProperties.getCode().getImage().getUrl(), ValidateCodeType.IMAGE);
         urlMap.put(SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);
         addUrlToMap(securityProperties.getCode().getSms().getUrl(), ValidateCodeType.SMS);
     }
@@ -96,10 +92,11 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
             LOGGER.info("校验请求 [{}] 中的验证码,验证码类型 : [{}]", request.getRequestURI(), type);
             try {
                 validateCodeProcessorHolder.findValidateCodeProcessor(type).validate(new ServletWebRequest(request, response));
-            } catch (ValidateCodeException exception) {
-                authenticationFailureHandler.onAuthenticationFailure(request, response, exception);
+            } catch (RestfulException exception) {
+                ResponseUtils.json(request, response, exception);
                 return;
             }
+
         }
         chain.doFilter(request, response);
 
@@ -116,7 +113,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         if (!StringUtils.equalsIgnoreCase(request.getMethod(), RequestMethod.GET.name())) {
             Set<String> urls = urlMap.keySet();
             for (String url : urls) {
-                if (pathMatcher.match(url, request.getRequestURI())) {
+                if (RegexpUtils.isMatch(request.getRequestURI(), url)) {
                     result = urlMap.get(url);
                 }
             }

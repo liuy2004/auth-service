@@ -4,9 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import xyz.liweichao.auth.core.exception.AuthException;
 import xyz.liweichao.auth.core.code.base.ValidateCode;
 import xyz.liweichao.auth.core.code.base.ValidateCodeType;
+import xyz.liweichao.auth.core.exception.AuthException;
 
 import java.util.concurrent.TimeUnit;
 

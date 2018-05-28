@@ -26,7 +26,7 @@ public class AuthServiceApplication {
     }
 
     @Bean
-    public ExceptionHandlerAdvice exceptionHandlerAdvice(){
+    public ExceptionHandlerAdvice exceptionHandlerAdvice() {
         return new ExceptionHandlerAdvice();
     }
 }
