@@ -19,9 +19,6 @@
 </profile>
 ```
 
-
-
-Welcome to the auth-service wiki!
 ## 异常码说明
 
 > 此处参见 framework 异常码说明
