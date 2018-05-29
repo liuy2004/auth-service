@@ -12,7 +12,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
-import xyz.liweichao.auth.core.code.ValidateCodeProcessorHolder;
+import xyz.liweichao.auth.core.code.base.ValidateCodeProcessorHolder;
 import xyz.liweichao.auth.core.code.base.ValidateCodeType;
 import xyz.liweichao.auth.core.properties.SecurityConstants;
 import xyz.liweichao.auth.core.properties.SecurityProperties;

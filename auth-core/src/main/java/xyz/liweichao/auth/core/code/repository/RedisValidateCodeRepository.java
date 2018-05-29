@@ -4,10 +4,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import xyz.liweichao.auth.core.code.ValidateCodeException;
+import xyz.liweichao.auth.core.code.exception.ValidateCodeException;
 import xyz.liweichao.auth.core.code.base.ValidateCode;
 import xyz.liweichao.auth.core.code.base.ValidateCodeType;
-import xyz.liweichao.auth.core.exception.AuthException;
+import xyz.liweichao.auth.core.code.exception.ValidateMessageEnum;
 
 import java.text.MessageFormat;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +62,7 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
      */
     private String buildKey(String key, ValidateCodeType type) {
         if (StringUtils.isBlank(key)) {
-            throw new ValidateCodeException(7, MessageFormat.format("type[{0}]：生成验证码 key 时出错，key 为 null。",type.name()));
+            throw new ValidateCodeException(ValidateMessageEnum.valueOf(7), type.name());
         }
         return "code:" + type.name() + ":" + key;
     }

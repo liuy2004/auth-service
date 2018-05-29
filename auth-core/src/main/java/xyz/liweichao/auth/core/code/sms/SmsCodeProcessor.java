@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
-import xyz.liweichao.auth.core.code.ValidateCodeException;
+import xyz.liweichao.auth.core.code.exception.ValidateCodeException;
 import xyz.liweichao.auth.core.code.base.AbstractValidateCodeProcessor;
 import xyz.liweichao.auth.core.code.base.ValidateCode;
 import xyz.liweichao.auth.core.code.base.ValidateCodeGenerator;
+import xyz.liweichao.auth.core.code.exception.ValidateMessageEnum;
 import xyz.liweichao.auth.core.code.repository.RedisValidateCodeRepository;
-import xyz.liweichao.auth.core.exception.AuthException;
 import xyz.liweichao.auth.core.properties.SecurityConstants;
 import xyz.liweichao.auth.core.utils.ResponseUtils;
 
@@ -50,7 +50,7 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
         try {
             mobile = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), paramName);
         } catch (ServletRequestBindingException e) {
-            throw new ValidateCodeException(2, "request 请求中获取验证码参数失败！");
+            throw new ValidateCodeException(ValidateMessageEnum.valueOf(2));
         }
         smsCodeSender.send(mobile, validateCode.getCode());
         HttpServletResponse response = request.getResponse();
@@ -73,7 +73,8 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
     public ValidateCode generate(ServletWebRequest request) {
         //校验
         if (redisValidateCodeRepository.hasKey(getUniqueKey(request), getValidateCodeType())) {
-            throw new ValidateCodeException(8,String.format("请在 %d 秒后尝试获取验证码！", redisValidateCodeRepository.getExpire(getUniqueKey(request), getValidateCodeType())));
+            long s = redisValidateCodeRepository.getExpire(getUniqueKey(request), getValidateCodeType());
+            throw new ValidateCodeException(ValidateMessageEnum.valueOf(8),s);
         }
         return smsValidateCodeGenerator.generate(request);
     }
@@ -88,7 +89,7 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
         try {
             result = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), paramName);
         } catch (ServletRequestBindingException e) {
-            throw new ValidateCodeException(2, "request 请求中获取验证码参数失败！");
+            throw new ValidateCodeException(ValidateMessageEnum.valueOf(2));
         }
         return result;
     }

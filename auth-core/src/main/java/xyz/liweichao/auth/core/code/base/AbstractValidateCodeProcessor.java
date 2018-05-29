@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
-import xyz.liweichao.auth.core.code.ValidateCodeException;
+import xyz.liweichao.auth.core.code.exception.ValidateCodeException;
+import xyz.liweichao.auth.core.code.exception.ValidateMessageEnum;
 import xyz.liweichao.auth.core.code.repository.ValidateCodeRepository;
 
 import java.text.MessageFormat;
@@ -50,7 +51,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         String generatorName = type + ValidateCodeGenerator.class.getSimpleName();
         ValidateCodeGenerator validateCodeGenerator = validateCodeGenerators.get(generatorName);
         if (validateCodeGenerator == null) {
-            throw new ValidateCodeException(1, MessageFormat.format("验证码生成器{0}不存在。", generatorName));
+            throw new ValidateCodeException(ValidateMessageEnum.valueOf(1), generatorName);
         }
         return (C) validateCodeGenerator.generate(request);
     }
@@ -87,24 +88,24 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         try {
             codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), codeType.getParamNameOnValidate());
         } catch (ServletRequestBindingException e) {
-            throw new ValidateCodeException(2, "request 请求中获取验证码参数失败！");
+            throw new ValidateCodeException(ValidateMessageEnum.valueOf(2));
         }
 
         if (StringUtils.isBlank(codeInRequest)) {
-            throw new ValidateCodeException(3, MessageFormat.format("{0} :验证码的值不能为空", codeType));
+            throw new ValidateCodeException(ValidateMessageEnum.valueOf(3), codeType);
         }
 
         if (c == null) {
-            throw new ValidateCodeException(4, MessageFormat.format("{0} :验证码不存在", codeType));
+            throw new ValidateCodeException(ValidateMessageEnum.valueOf(4), codeType);
         }
 
         if (c.isExpried()) {
             validateCodeRepository.remove(getUniqueKey(request), getValidateCodeType());
-            throw new ValidateCodeException(5, MessageFormat.format("{0} :验证码已过期", codeType));
+            throw new ValidateCodeException(ValidateMessageEnum.valueOf(5), codeType);
         }
 
         if (!StringUtils.equals(c.getCode(), codeInRequest)) {
-            throw new ValidateCodeException(6, MessageFormat.format("{0} :验证码不匹配", codeType));
+            throw new ValidateCodeException(ValidateMessageEnum.valueOf(6), codeType);
         }
 
         validateCodeRepository.remove(getUniqueKey(request), getValidateCodeType());
@@ -133,7 +134,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         try {
             result = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "unique");
         } catch (ServletRequestBindingException e) {
-            throw new ValidateCodeException(2, "request 请求中获取验证码参数失败！");
+            throw new ValidateCodeException(ValidateMessageEnum.valueOf(2));
         }
         return result;
     }

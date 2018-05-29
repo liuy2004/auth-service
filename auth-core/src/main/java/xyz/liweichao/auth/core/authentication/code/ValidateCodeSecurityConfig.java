@@ -26,5 +26,4 @@ public class ValidateCodeSecurityConfig extends SecurityConfigurerAdapter<Defaul
     public void configure(HttpSecurity http) {
         http.addFilterBefore(validateCodeFilter, AbstractPreAuthenticatedProcessingFilter.class);
     }
-
 }
