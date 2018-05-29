@@ -7,6 +7,8 @@ import xyz.liweichao.auth.dao.UserDetailDao;
 import xyz.liweichao.auth.model.persistence.UserDetail;
 import xyz.liweichao.auth.service.IUserDetailService;
 
+import javax.persistence.criteria.Predicate;
+
 @Service
 public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> implements IUserDetailService {
 
@@ -15,5 +17,15 @@ public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> imp
 
     public UserDetailServiceImpl(UserDetailDao dao) {
         super(dao);
+    }
+
+    @Override
+    public UserDetail queryByUniqueKey(String uniqueKey) {
+        return dao.findOne((root, query, cb) -> {
+            Predicate mobile = cb.equal(root.get("mobile").as(String.class), uniqueKey);
+            Predicate email = cb.equal(root.get("email").as(String.class), uniqueKey);
+            query.where(cb.or(mobile, email));
+            return query.getRestriction();
+        });
     }
 }

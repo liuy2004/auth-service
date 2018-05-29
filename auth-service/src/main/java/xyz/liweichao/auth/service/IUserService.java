@@ -5,5 +5,8 @@ import xyz.liweichao.auth.model.persistence.User;
 
 public interface IUserService extends IService<User, Long> {
 
-    User queryByUniqueKey(String uniqueKey);
+    User queryUserByUniqueKey(String uniqueKey);
+
+    User loadUserAuthInfo(String uniqueKey);
+
 }

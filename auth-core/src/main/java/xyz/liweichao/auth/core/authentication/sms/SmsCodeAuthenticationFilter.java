@@ -25,7 +25,6 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
     private static final String SUPPORT_METHOD = "POST";
     private String mobileParameter = SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
-    private boolean postOnly = true;
 
     public SmsCodeAuthenticationFilter() {
         super(new AntPathRequestMatcher(SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_MOBILE, SUPPORT_METHOD));
@@ -34,7 +33,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
-        if (postOnly && !request.getMethod().equals(SUPPORT_METHOD)) {
+        if (!request.getMethod().equals(SUPPORT_METHOD)) {
             throw new AuthenticationServiceException
                     ("Authentication method not supported: " + request.getMethod());
         }
