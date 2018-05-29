@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
  */
 
 @SpringBootApplication
-@EnableRedisson
+//@EnableRedisson
 public class AuthServiceApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthServiceApplication.class);

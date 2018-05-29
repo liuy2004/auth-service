@@ -1,6 +1,8 @@
 package xyz.liweichao.auth.core.code.sms;
 
 import com.google.common.collect.Maps;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestBindingException;
@@ -24,6 +26,8 @@ import java.util.Map;
  */
 @Component("smsValidateCodeProcessor")
 public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SmsCodeProcessor.class);
 
     /**
      * 短信验证码发送器
@@ -71,12 +75,13 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
      */
     @Override
     protected String getUniqueKey(ServletWebRequest request) {
-        String result = "";
+        String result = null;
         String paramName = SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
         try {
             result = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), paramName);
         } catch (ServletRequestBindingException e) {
-            e.printStackTrace();
+            LOGGER.error("SMS 获取 key 值获取参数中的 mobile 值方法中出错，出错地址为[SmsCodeProcessor.getUniqueKey]");
+            throw new AuthException("request 中未获取到参数 mobile 。");
         }
         return result;
     }

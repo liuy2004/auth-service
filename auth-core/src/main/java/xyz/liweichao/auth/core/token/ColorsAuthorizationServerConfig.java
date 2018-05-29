@@ -76,7 +76,7 @@ public class ColorsAuthorizationServerConfig extends AuthorizationServerConfigur
     }
 
     /**
-     * tokenKey的访问权限表达式配置
+     * token Key的访问权限表达式配置
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {

@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.util.Assert;
 import xyz.liweichao.auth.core.properties.SecurityConstants;
 import xyz.liweichao.auth.core.utils.ResponseUtils;
 
@@ -24,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     private static final String SUPPORT_METHOD = "POST";
+
     private String mobileParameter = SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
 
     public SmsCodeAuthenticationFilter() {
@@ -34,8 +34,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
         if (!request.getMethod().equals(SUPPORT_METHOD)) {
-            throw new AuthenticationServiceException
-                    ("Authentication method not supported: " + request.getMethod());
+            throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         }
 
         String mobile = obtainMobile(request);
@@ -49,6 +48,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
         SmsCodeAuthenticationToken authRequest = new SmsCodeAuthenticationToken(mobile);
 
         setDetails(request, authRequest);
+
         Authentication authentication;
         try {
             authentication = this.getAuthenticationManager().authenticate(authRequest);
@@ -59,28 +59,16 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
         return authentication;
     }
 
-
     /**
      * 获取手机号
      */
-    protected String obtainMobile(HttpServletRequest request) {
+    private String obtainMobile(HttpServletRequest request) {
         return request.getParameter(mobileParameter);
     }
 
 
-    protected void setDetails(HttpServletRequest request, SmsCodeAuthenticationToken authRequest) {
+    private void setDetails(HttpServletRequest request, SmsCodeAuthenticationToken authRequest) {
         authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
-    }
-
-
-    public final String getMobileParameter() {
-        return mobileParameter;
-    }
-
-
-    public void setMobileParameter(String usernameParameter) {
-        Assert.hasText(usernameParameter, "Username parameter must not be empty or null");
-        this.mobileParameter = usernameParameter;
     }
 
 }

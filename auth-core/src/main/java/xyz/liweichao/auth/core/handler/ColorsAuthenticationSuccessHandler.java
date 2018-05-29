@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.core.handler;
 
-import org.apache.commons.collections.MapUtils;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,7 +66,7 @@ public class ColorsAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         } else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
             throw new AuthException("clientSecret不匹配:" + clientId);
         }
-        TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId, clientDetails.getScope(), "custom");
+        TokenRequest tokenRequest = new TokenRequest(Maps.newHashMap(), clientId, clientDetails.getScope(), "custom");
         OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
         OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
         return authorizationServerTokenServices.createAccessToken(oAuth2Authentication);

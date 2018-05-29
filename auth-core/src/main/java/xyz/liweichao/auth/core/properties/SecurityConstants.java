@@ -28,7 +28,7 @@ public interface SecurityConstants {
     /**
      * 默认的OPENID登录请求处理url
      */
-    String DEFAULT_SIGN_IN_PROCESSING_URL_OPENID = "/authentication/openid";
+    String DEFAULT_SIGN_IN_PROCESSING_URL_OPENID = "/authentication/open-id";
     /**
      * 验证短信验证码时，http请求中默认的携带短信验证码信息的参数的名称
      */
@@ -40,11 +40,11 @@ public interface SecurityConstants {
     /**
      * openid参数名
      */
-    String DEFAULT_PARAMETER_NAME_OPENID = "openid";
+    String DEFAULT_PARAMETER_NAME_OPENID = "open_id";
     /**
      * providerId参数名
      */
-    String DEFAULT_PARAMETER_NAME_PROVIDERID = "providerId";
+    String DEFAULT_PARAMETER_NAME_PROVIDERID = "provider_id";
     /**
      * 获取第三方用户信息的url
      */
