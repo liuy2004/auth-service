@@ -60,4 +60,23 @@ public class ResponseUtils {
         return error;
 
     }
+
+
+    public static ErrorResponse transfer(Exception exception, HttpServletRequest request) {
+        ErrorResponse error = new ErrorResponse(request);
+        //特定异常处理所需要的参数
+        Object data = new Object();
+        if (exception instanceof RestfulException) {
+            RestfulException restful = (RestfulException) exception;
+            error.setStatus(restful.getStatusCode().value()).setCode(restful.getCode()).setMessage(restful.getMessage());
+            data = restful.getData();
+        } else {
+            LOGGER.error(exception.getMessage(), exception);
+            error.setCode(1000000L);
+            error.setMessage(exception.getMessage());
+        }
+        SpringContextUtils.publish(new ErrorEvent(error, data));
+        return error;
+
+    }
 }

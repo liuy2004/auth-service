@@ -33,8 +33,7 @@ public class ValidateCodeController {
      * @throws Exception
      */
     @GetMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}")
-    public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type)
-            throws Exception {
+    public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type){
         validateCodeProcessorHolder.findValidateCodeProcessor(type).create(new ServletWebRequest(request, response));
     }
 

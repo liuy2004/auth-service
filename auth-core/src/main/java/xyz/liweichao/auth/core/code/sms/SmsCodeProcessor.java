@@ -1,5 +1,6 @@
 package xyz.liweichao.auth.core.code.sms;
 
+import com.github.hicolors.colors.framework.common.utils.DateUtils;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
+import xyz.liweichao.auth.core.code.ValidateCodeException;
 import xyz.liweichao.auth.core.code.base.AbstractValidateCodeProcessor;
 import xyz.liweichao.auth.core.code.base.ValidateCode;
 import xyz.liweichao.auth.core.code.base.ValidateCodeGenerator;
@@ -42,14 +44,20 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
     private RedisValidateCodeRepository redisValidateCodeRepository;
 
     @Override
-    protected void send(ServletWebRequest request, ValidateCode validateCode) throws Exception {
+    protected void send(ServletWebRequest request, ValidateCode validateCode){
         String paramName = SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
-        String mobile = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), paramName);
+        String mobile = null;
+        try {
+            mobile = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), paramName);
+        } catch (ServletRequestBindingException e) {
+            throw new ValidateCodeException(2, "request 请求中获取验证码参数失败！");
+        }
         smsCodeSender.send(mobile, validateCode.getCode());
         HttpServletResponse response = request.getResponse();
         response.setStatus(HttpServletResponse.SC_OK);
         Map<String, Object> result = Maps.newHashMap();
         result.put("message", "已发送成功，请注意查收！");
+        result.put("timestamp",DateUtils.now());
         ResponseUtils.json(response, result);
     }
 
@@ -64,8 +72,8 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
     @Override
     public ValidateCode generate(ServletWebRequest request) {
         //校验
-        if (redisValidateCodeRepository.hasKey(getUniqueKey(request), getValidateCodeType(request))) {
-            throw new AuthException(String.format("请在 %d 秒后尝试获取验证码！", redisValidateCodeRepository.getExpire(getUniqueKey(request), getValidateCodeType(request))));
+        if (redisValidateCodeRepository.hasKey(getUniqueKey(request), getValidateCodeType())) {
+            throw new ValidateCodeException(8,String.format("请在 %d 秒后尝试获取验证码！", redisValidateCodeRepository.getExpire(getUniqueKey(request), getValidateCodeType())));
         }
         return smsValidateCodeGenerator.generate(request);
     }
@@ -80,8 +88,7 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
         try {
             result = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), paramName);
         } catch (ServletRequestBindingException e) {
-            LOGGER.error("SMS 获取 key 值获取参数中的 mobile 值方法中出错，出错地址为[SmsCodeProcessor.getUniqueKey]");
-            throw new AuthException("request 中未获取到参数 mobile 。");
+            throw new ValidateCodeException(2, "request 请求中获取验证码参数失败！");
         }
         return result;
     }

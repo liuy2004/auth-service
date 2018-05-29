@@ -14,14 +14,13 @@ import org.springframework.stereotype.Component;
  * @date 2018/5/29
  */
 
-@Component("customWebResponseExceptionTranslator")
-public class CustomWebResponseExceptionTranslator implements WebResponseExceptionTranslator {
+@Component("colorsWebResponseExceptionTranslator")
+public class ColorsWebResponseExceptionTranslator implements WebResponseExceptionTranslator {
     @Override
-    public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {
-
+    public ResponseEntity<OAuth2Exception> translate(Exception e) {
         OAuth2Exception oAuth2Exception = (OAuth2Exception) e;
         return ResponseEntity
                 .status(oAuth2Exception.getHttpErrorCode())
-                .body(new CustomOauthException(oAuth2Exception.getMessage()));
+                .body(new ColorsOauthException(oAuth2Exception.getMessage()));
     }
 }

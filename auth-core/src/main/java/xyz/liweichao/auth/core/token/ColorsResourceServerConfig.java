@@ -14,8 +14,8 @@ import xyz.liweichao.auth.core.authentication.form.FormAuthenticationSecurityCon
 import xyz.liweichao.auth.core.authentication.openid.OpenIdAuthenticationSecurityConfig;
 import xyz.liweichao.auth.core.authentication.sms.SmsCodeAuthenticationSecurityConfig;
 import xyz.liweichao.auth.core.authorize.AuthorizeConfigManager;
-import xyz.liweichao.auth.core.custom.AuthExceptionEntryPoint;
-import xyz.liweichao.auth.core.custom.CustomAccessDeniedHandler;
+import xyz.liweichao.auth.core.custom.ColorsAccessDeniedHandler;
+import xyz.liweichao.auth.core.custom.ColorsExceptionEntryPoint;
 
 /**
  * 资源服务器配置
@@ -53,7 +53,7 @@ public class ColorsResourceServerConfig extends ResourceServerConfigurerAdapter 
     private FormAuthenticationSecurityConfig formAuthenticationSecurityConfig;
 
     @Autowired
-    private CustomAccessDeniedHandler customAccessDeniedHandler;
+    private ColorsAccessDeniedHandler colorsAccessDeniedHandler;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -75,8 +75,8 @@ public class ColorsResourceServerConfig extends ResourceServerConfigurerAdapter 
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.authenticationEntryPoint(new AuthExceptionEntryPoint())
-                .accessDeniedHandler(customAccessDeniedHandler);
+        resources.authenticationEntryPoint(new ColorsExceptionEntryPoint())
+                .accessDeniedHandler(colorsAccessDeniedHandler);
     }
 
 }

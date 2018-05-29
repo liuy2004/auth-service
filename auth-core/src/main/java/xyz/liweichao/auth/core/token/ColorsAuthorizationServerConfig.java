@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import xyz.liweichao.auth.core.custom.CustomWebResponseExceptionTranslator;
+import xyz.liweichao.auth.core.custom.ColorsWebResponseExceptionTranslator;
 import xyz.liweichao.auth.core.properties.SecurityProperties;
 import xyz.liweichao.auth.core.properties.oauth.OAuth2ClientProperties;
 
@@ -55,7 +55,7 @@ public class ColorsAuthorizationServerConfig extends AuthorizationServerConfigur
     private TokenEnhancer jwtTokenEnhancer;
 
     @Autowired
-    private CustomWebResponseExceptionTranslator customWebResponseExceptionTranslator;
+    private ColorsWebResponseExceptionTranslator colorsWebResponseExceptionTranslator;
 
     /**
      * 认证及token配置
@@ -76,7 +76,7 @@ public class ColorsAuthorizationServerConfig extends AuthorizationServerConfigur
             endpoints.tokenEnhancer(enhancerChain).accessTokenConverter(jwtAccessTokenConverter);
         }
 
-        endpoints.exceptionTranslator(customWebResponseExceptionTranslator);
+        endpoints.exceptionTranslator(colorsWebResponseExceptionTranslator);
 
     }
 

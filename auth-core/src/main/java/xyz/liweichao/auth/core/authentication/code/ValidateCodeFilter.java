@@ -50,7 +50,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Autowired
     private ValidateCodeProcessorHolder validateCodeProcessorHolder;
     /**
-     * 存放所有需要校验验证码的url
+     * 存放所有需要校验验证码的 url
      */
     private Map<String, ValidateCodeType> urlMap = new HashMap<>();
     /**
@@ -89,7 +89,6 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
         ValidateCodeType type = getValidateCodeType(request);
         if (type != null) {
-            LOGGER.info("校验请求 [{}] 中的验证码,验证码类型 : [{}]", request.getRequestURI(), type);
             try {
                 validateCodeProcessorHolder.findValidateCodeProcessor(type).validate(new ServletWebRequest(request, response));
             } catch (RestfulException exception) {
