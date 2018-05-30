@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.hicolors.service</groupId>
-    <artifactId>auth-parent</artifactId>
+    <artifactId>auth</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>auth-parent</name>
+    <name>auth</name>
     <description>auth-parent</description>
 
     <parent>

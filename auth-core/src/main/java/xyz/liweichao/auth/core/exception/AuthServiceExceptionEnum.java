@@ -7,7 +7,7 @@ package xyz.liweichao.auth.core.exception;
  * @date 2018/5/30
  */
 
-public enum AuthServerExceptionEnum {
+public enum AuthServiceExceptionEnum {
     /**
      * 异常列举出来
      */
@@ -17,7 +17,7 @@ public enum AuthServerExceptionEnum {
 
     private final String message;
 
-    AuthServerExceptionEnum(int value, String message) {
+    AuthServiceExceptionEnum(int value, String message) {
         this.value = value;
         this.message = message;
     }

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.stereotype.Component;
-import xyz.liweichao.auth.core.exception.AuthServerException;
+import xyz.liweichao.auth.core.exception.AuthServiceException;
 import xyz.liweichao.auth.core.properties.SecurityProperties;
 
 import java.text.MessageFormat;
@@ -36,7 +36,7 @@ public class ColorsAuthorizeConfigManager implements AuthorizeConfigManager {
             boolean currentIsAnyRequestConfig = authorizeConfigProvider.config(config);
 
             if (existAnyRequestConfig && currentIsAnyRequestConfig) {
-                throw new AuthServerException(
+                throw new AuthServiceException(
                         MessageFormat.format("重复的 anyRequest 配置: {0},{1}",
                         existAnyRequestConfigName,
                         authorizeConfigProvider.getClass().getSimpleName()));

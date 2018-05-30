@@ -14,8 +14,7 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestBindingException;
-import xyz.liweichao.auth.core.exception.AuthServerException;
-import xyz.liweichao.auth.core.exception.AuthServerException;
+import xyz.liweichao.auth.core.exception.AuthServiceException;
 import xyz.liweichao.auth.core.utils.ResponseUtils;
 
 import javax.annotation.Resource;
@@ -53,7 +52,7 @@ public class ColorsAuthenticationSuccessHandler extends SavedRequestAwareAuthent
     private OAuth2AccessToken createToken(HttpServletRequest request, Authentication authentication) throws IOException {
         String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Basic ")) {
-            throw new AuthServerException("请求头中无 client 信息!");
+            throw new AuthServiceException("请求头中无 client 信息!");
         }
 
         String[] tokens = extractAndDecodeHeader(header);
@@ -63,9 +62,9 @@ public class ColorsAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
 
         if (clientDetails == null) {
-            throw new AuthServerException("client-id 对应的配置信息不存在:" + clientId);
+            throw new AuthServiceException("client-id 对应的配置信息不存在:" + clientId);
         } else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
-            throw new AuthServerException("client-secret不匹配:" + clientId);
+            throw new AuthServiceException("client-secret不匹配:" + clientId);
         }
         TokenRequest tokenRequest = new TokenRequest(Maps.newHashMap(), clientId, clientDetails.getScope(), "custom");
         OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
@@ -80,12 +79,12 @@ public class ColorsAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         try {
             decoded = Base64.decode(base64Token);
         } catch (IllegalArgumentException e) {
-            throw new AuthServerException("无法解码基本身份验证令牌");
+            throw new AuthServiceException("无法解码基本身份验证令牌");
         }
         String token = new String(decoded, "UTF-8");
         int delim = token.indexOf(":");
         if (delim == -1) {
-            throw new AuthServerException("无效的基本身份验证令牌");
+            throw new AuthServiceException("无效的基本身份验证令牌");
         }
         return new String[]{token.substring(0, delim), token.substring(delim + 1)};
     }

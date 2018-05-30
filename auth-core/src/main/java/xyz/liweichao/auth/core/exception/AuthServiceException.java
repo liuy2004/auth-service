@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
  * @author weichao.li (liweichao0102@gmail.com)
  * @date 2018/5/30
  */
-public class AuthServerException extends RestfulException {
+public class AuthServiceException extends RestfulException {
 
 
     protected static final int APP_ID = 2;
@@ -19,25 +19,25 @@ public class AuthServerException extends RestfulException {
     private static final int MODULE_ID = 0;
 
 
-    public AuthServerException(String message) {
+    public AuthServiceException(String message) {
         this(0, message, null);
     }
 
-    public AuthServerException(AuthServerExceptionEnum exceptionEnum, Object... objects) {
+    public AuthServiceException(AuthServiceExceptionEnum exceptionEnum, Object... objects) {
         this(exceptionEnum.getValue(), StringUtils.format(exceptionEnum.getMessage(), objects), null);
     }
 
-    public AuthServerException(Object data, AuthServerExceptionEnum exceptionEnum, Object... objects) {
+    public AuthServiceException(Object data, AuthServiceExceptionEnum exceptionEnum, Object... objects) {
         this(exceptionEnum.getValue(), StringUtils.format(exceptionEnum.getMessage(), objects), data);
     }
 
-    private AuthServerException(int specific, String message, Object data) {
+    private AuthServiceException(int specific, String message, Object data) {
         super(HttpStatus.BAD_REQUEST,
                 ErrorCodeUtils.generator(APP_ID, MODULE_ID, specific),
                 message, data);
     }
 
-    public AuthServerException(HttpStatus statusCode, Long code, String message, Object data) {
+    public AuthServiceException(HttpStatus statusCode, Long code, String message, Object data) {
         super(statusCode, code, message, data);
     }
 

@@ -4,7 +4,7 @@ package xyz.liweichao.auth.core.code.exception;
 import com.github.hicolors.colors.framework.common.utils.ErrorCodeUtils;
 import com.github.hicolors.colors.framework.common.utils.StringUtils;
 import org.springframework.http.HttpStatus;
-import xyz.liweichao.auth.core.exception.AuthServerException;
+import xyz.liweichao.auth.core.exception.AuthServiceException;
 
 /**
  * 验证码 异常
@@ -13,7 +13,7 @@ import xyz.liweichao.auth.core.exception.AuthServerException;
  * @email liweichao0102@gmail.com
  * @date 2018/3/1
  */
-public class ValidateCodeException extends AuthServerException {
+public class ValidateCodeException extends AuthServiceException {
 
     private static final int MODULE_ID = 1;
 

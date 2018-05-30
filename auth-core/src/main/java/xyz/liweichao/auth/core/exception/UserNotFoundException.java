@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
  * @date 2018/5/28
  */
 
-public class UserNotFoundException extends AuthServerException {
+public class UserNotFoundException extends AuthServiceException {
 
     private static final int MODULE_ID = 3;
 

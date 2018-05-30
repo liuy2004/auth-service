@@ -3,7 +3,7 @@ package xyz.liweichao.auth.core.social.support.exception;
 
 import com.github.hicolors.colors.framework.common.utils.ErrorCodeUtils;
 import org.springframework.http.HttpStatus;
-import xyz.liweichao.auth.core.exception.AuthServerException;
+import xyz.liweichao.auth.core.exception.AuthServiceException;
 
 /**
  * SocialUserNotFoundException
@@ -11,7 +11,7 @@ import xyz.liweichao.auth.core.exception.AuthServerException;
  * @author weichao.li (liweichao0102@gmail.com)
  * @date 2018/5/30
  */
-public class SocialUserNotFoundException extends AuthServerException {
+public class SocialUserNotFoundException extends AuthServiceException {
 
     private static final int MODULE_ID = 2;
 
