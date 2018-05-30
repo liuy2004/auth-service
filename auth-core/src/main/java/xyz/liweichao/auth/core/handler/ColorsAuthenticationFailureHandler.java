@@ -8,7 +8,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
-import xyz.liweichao.auth.core.exception.AuthException;
+import xyz.liweichao.auth.core.exception.AuthServerException;
 import xyz.liweichao.auth.core.utils.ResponseUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +40,7 @@ public class ColorsAuthenticationFailureHandler extends SimpleUrlAuthenticationF
             LOGGER.debug("出错信息日志为 [{}] ", JsonUtils.serializeExcludes(request.getParameterMap()));
         }
 
-        ResponseUtils.json(request, response, new AuthException(exception.getMessage()));
+        ResponseUtils.json(request, response, new AuthServerException(exception.getMessage()));
     }
 
 }

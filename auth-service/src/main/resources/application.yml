@@ -41,9 +41,9 @@ security:
 # 认证登录
 colors:
   security:
-    enable: true
+    enable: false
     oauth2:
-      tokenStore : redis
+      token-store: redis
       clients[0]:
         client-id: colors
         client-secret: colors
@@ -55,6 +55,13 @@ colors:
       qq:
         app-id: wxd99431bbff8305a0
         app-secret: 60f78681d063590a469f1b297feff3c4
+    code:
+      sms:
+        expire-in: 180
+        length: 9
+
+
+
 
 redisson:
   config: classpath:single-server.yml

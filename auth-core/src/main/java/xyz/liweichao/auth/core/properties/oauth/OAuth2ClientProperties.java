@@ -25,4 +25,6 @@ public class OAuth2ClientProperties {
      */
     private Integer accessTokenValidateSeconds = 7200;
 
+    private Integer refreshTokenValiditySeconds = 30 * 24 * 60 * 60;
+
 }

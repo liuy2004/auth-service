@@ -43,7 +43,6 @@ public class ColorsAuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
     @Autowired
     @Qualifier(value = "tokenStore")
     private TokenStore tokenStore;
@@ -77,7 +76,6 @@ public class ColorsAuthorizationServerConfig extends AuthorizationServerConfigur
         }
 
         endpoints.exceptionTranslator(colorsWebResponseExceptionTranslator);
-
     }
 
     /**
@@ -102,8 +100,8 @@ public class ColorsAuthorizationServerConfig extends AuthorizationServerConfigur
                         .secret(client.getClientSecret())
                         .authorizedGrantTypes("password", "refresh_token", "authorization_code")
                         .accessTokenValiditySeconds(client.getAccessTokenValidateSeconds())
-                        .refreshTokenValiditySeconds(30 * 24 * 60 * 60)
-                        .scopes("all");
+                        .refreshTokenValiditySeconds(client.getRefreshTokenValiditySeconds())
+                        .scopes("all", "read", "write");
             }
         }
     }

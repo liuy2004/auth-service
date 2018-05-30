@@ -3,7 +3,7 @@ package xyz.liweichao.auth.service.impl;
 import com.github.hicolors.colors.framework.core.common.abs.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xyz.liweichao.auth.core.exception.AcountNotFoundException;
+import xyz.liweichao.auth.core.exception.UserNotFoundException;
 import xyz.liweichao.auth.dao.UserDao;
 import xyz.liweichao.auth.model.persistence.User;
 import xyz.liweichao.auth.model.persistence.UserDetail;
@@ -46,17 +46,17 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
         User user = queryUserByUniqueKey(uniqueKey);
         if (Objects.nonNull(user)) {
             if (Objects.isNull(userDetailService.queryOne(user.getId()))) {
-               throw new AcountNotFoundException("当前账户的详细信息不存在！");
+               throw new UserNotFoundException("当前账户的详细信息不存在！");
             }
         } else {
             UserDetail userDetail = userDetailService.queryByUniqueKey(uniqueKey);
             if (Objects.nonNull(userDetail)) {
                 user = queryOne(userDetail.getId());
                 if (Objects.isNull(user)) {
-                    throw new AcountNotFoundException("当前账户的认证信息不存在！");
+                    throw new UserNotFoundException("当前账户的认证信息不存在！");
                 }
             }else{
-                throw new AcountNotFoundException("当前账户的信息不存在！");
+                throw new UserNotFoundException("当前账户的信息不存在！");
             }
         }
         return user;

@@ -53,10 +53,6 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
      * 存放所有需要校验验证码的 url
      */
     private Map<String, ValidateCodeType> urlMap = new HashMap<>();
-    /**
-     * 验证请求url与配置的url是否匹配的工具类
-     */
-    private AntPathMatcher pathMatcher = new AntPathMatcher();
 
     /**
      * 初始化要拦截的url配置信息

@@ -7,7 +7,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.security.SocialUserDetailsService;
-import xyz.liweichao.auth.core.exception.AcountNotFoundException;
+import xyz.liweichao.auth.core.exception.UserNotFoundException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -39,12 +39,12 @@ public class OpenIdAuthenticationProvider implements AuthenticationProvider {
         providerUserIds.add((String) authenticationToken.getPrincipal());
         Set<String> userIds = usersConnectionRepository.findUserIdsConnectedTo(authenticationToken.getProviderId(), providerUserIds);
         if (CollectionUtils.isEmpty(userIds) || userIds.size() != 1) {
-            throw new AcountNotFoundException("无法获取用户信息！");
+            throw new UserNotFoundException("无法获取用户信息！");
         }
         String userId = userIds.iterator().next();
         UserDetails user = userDetailsService.loadUserByUserId(userId);
         if (user == null) {
-            throw new AcountNotFoundException("无法获取用户信息！");
+            throw new UserNotFoundException("无法获取用户信息！");
         }
         OpenIdAuthenticationToken authenticationResult = new OpenIdAuthenticationToken(user, user.getAuthorities());
 

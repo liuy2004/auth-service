@@ -4,10 +4,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import xyz.liweichao.auth.core.SecurityCoreConfig;
 import xyz.liweichao.auth.core.code.exception.ValidateCodeException;
 import xyz.liweichao.auth.core.code.base.ValidateCode;
 import xyz.liweichao.auth.core.code.base.ValidateCodeType;
-import xyz.liweichao.auth.core.code.exception.ValidateMessageEnum;
+import xyz.liweichao.auth.core.code.exception.ValidateCodeExceptionEnum;
+import xyz.liweichao.auth.core.properties.SecurityProperties;
 
 import java.text.MessageFormat;
 import java.util.concurrent.TimeUnit;
@@ -26,8 +28,8 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
     private RedisTemplate<Object, Object> redisTemplate;
 
     @Override
-    public void save(String key, ValidateCode code, ValidateCodeType type) {
-        redisTemplate.opsForValue().set(buildKey(key, type), code, 60, TimeUnit.SECONDS);
+    public void save(String key, ValidateCode code, ValidateCodeType type,long expireIn) {
+        redisTemplate.opsForValue().set(buildKey(key, type), code, expireIn, TimeUnit.SECONDS);
     }
 
 
@@ -62,8 +64,8 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
      */
     private String buildKey(String key, ValidateCodeType type) {
         if (StringUtils.isBlank(key)) {
-            throw new ValidateCodeException(ValidateMessageEnum.valueOf(7), type.name());
+            throw new ValidateCodeException(ValidateCodeExceptionEnum.KEY_IS_NULL, type.name());
         }
-        return "code:" + type.name() + ":" + key;
+        return "validate:code:" + type.name() + ":" + key;
     }
 }
