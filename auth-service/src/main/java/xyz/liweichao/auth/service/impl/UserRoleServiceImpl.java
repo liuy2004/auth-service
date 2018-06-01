@@ -14,7 +14,7 @@ public class UserRoleServiceImpl extends AbstractService<UserRole, Long> impleme
     @Autowired
     private UserRoleDao dao;
 
-    public UserRoleServiceImpl(UserDao dao) {
+    public UserRoleServiceImpl(UserRoleDao dao) {
         super(dao);
     }
 }

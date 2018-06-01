@@ -1,6 +1,7 @@
 package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
+import lombok.Data;
 
 import javax.persistence.*;
 
@@ -10,8 +11,10 @@ import javax.persistence.*;
  * @author liweichao
  * @date 2018-5-24 16:43:57
  */
+
 @Entity
 @Table(name = "auth_role")
+@Data
 public class Role extends AbstractBean {
     /**
      * comment: 	主键
@@ -62,51 +65,7 @@ public class Role extends AbstractBean {
      * <p>
      * length: 	20
      */
-    @Column(name = "group_id")
-    private Long groupId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public Role setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Role setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public Role setCode(String code) {
-        this.code = code;
-        return this;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public Role setSort(Integer sort) {
-        this.sort = sort;
-        return this;
-    }
-
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    public Role setGroupId(Long groupId) {
-        this.groupId = groupId;
-        return this;
-    }
+    @OneToOne
+    @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    private RoleGroup roleGroup;
 }

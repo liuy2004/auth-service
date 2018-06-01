@@ -1,6 +1,8 @@
 package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -12,6 +14,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "auth_user_role")
+@Data
 public class UserRole extends AbstractBean {
     /**
      * comment: 	主键
@@ -32,8 +35,9 @@ public class UserRole extends AbstractBean {
      * <p>
      * length: 	20
      */
-    @Column(name = "role_id")
-    private Long roleId;
+    @OneToOne
+    @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    private Role role;
 
     /**
      * comment: 	用户 id
@@ -42,34 +46,7 @@ public class UserRole extends AbstractBean {
      * <p>
      * length: 	20
      */
-    @Column(name = "user_id")
-    private Long userId;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public UserRole setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public UserRole setRoleId(Long roleId) {
-        this.roleId = roleId;
-        return this;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public UserRole setUserId(Long userId) {
-        this.userId = userId;
-        return this;
-    }
+    @OneToOne
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    private User user;
 }

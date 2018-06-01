@@ -10,9 +10,6 @@ import xyz.liweichao.auth.service.IOrganizationService;
 @Service
 public class OrganizationServiceImpl extends AbstractService<Organization, Long> implements IOrganizationService {
 
-    @Autowired
-    private OrganizationDao dao;
-
     public OrganizationServiceImpl(OrganizationDao dao) {
         super(dao);
     }

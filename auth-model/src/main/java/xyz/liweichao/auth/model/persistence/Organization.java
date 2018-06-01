@@ -1,6 +1,7 @@
 package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
+import lombok.Data;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
  * @author liweichao
  * @date 2018-5-24 15:24:53
  */
+@Data
 @Entity
 @Table(name = "auth_organization")
 public class Organization extends AbstractBean {
@@ -84,67 +86,4 @@ public class Organization extends AbstractBean {
      */
     @Column(name = "parent_codes")
     private String parentCodes;
-
-    public Long getId() {
-        return id;
-    }
-
-    public Organization setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Organization setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public Organization setCode(String code) {
-        this.code = code;
-        return this;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public Organization setLevel(Integer level) {
-        this.level = level;
-        return this;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public Organization setSort(Integer sort) {
-        this.sort = sort;
-        return this;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public Organization setParentId(Long parentId) {
-        this.parentId = parentId;
-        return this;
-    }
-
-    public String getParentCodes() {
-        return parentCodes;
-    }
-
-    public Organization setParentCodes(String parentCodes) {
-        this.parentCodes = parentCodes;
-        return this;
-    }
 }

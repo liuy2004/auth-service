@@ -18,10 +18,7 @@ import xyz.liweichao.auth.service.IRoleGroupService;
 @Service
 public class RoleGroupServiceImpl extends AbstractService<RoleGroup, Long> implements IRoleGroupService {
 
-    @Autowired
-    private RoleGroupDao dao;
-
-    public RoleGroupServiceImpl(UserDao dao) {
+    public RoleGroupServiceImpl(RoleGroupDao dao) {
         super(dao);
     }
 }

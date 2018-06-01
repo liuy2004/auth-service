@@ -13,7 +13,7 @@
 
     <parent>
         <groupId>com.github.hicolors.colors.framework</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>framework</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
