@@ -23,9 +23,6 @@ import java.util.Objects;
 public class UserServiceImpl extends AbstractService<User, Long> implements IUserService {
 
     @Autowired
-    private UserDao dao;
-
-    @Autowired
     private IUserDetailService userDetailService;
 
     public UserServiceImpl(UserDao dao) {

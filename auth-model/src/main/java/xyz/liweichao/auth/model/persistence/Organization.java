@@ -2,6 +2,7 @@ package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
  * @author liweichao
  * @date 2018-5-24 15:24:53
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "auth_organization")
@@ -74,8 +76,9 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	20
      */
-    @Column(name = "parent_id")
-    private Long parentId;
+    @OneToOne
+    @JoinColumn(name = "parent_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    private Organization parent;
 
     /**
      * comment: 	父级所有代码简称拼接[分割符;]

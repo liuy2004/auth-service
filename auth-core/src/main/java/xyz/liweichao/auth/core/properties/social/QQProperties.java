@@ -1,6 +1,7 @@
 package xyz.liweichao.auth.core.properties.social;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.boot.autoconfigure.social.SocialProperties;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.social.SocialProperties;
  * @date 2018/3/1
  */
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class QQProperties extends SocialProperties {
 

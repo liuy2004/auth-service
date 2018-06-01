@@ -2,6 +2,7 @@ package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -15,6 +16,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "auth_role")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class Role extends AbstractBean {
     /**
      * comment: 	主键

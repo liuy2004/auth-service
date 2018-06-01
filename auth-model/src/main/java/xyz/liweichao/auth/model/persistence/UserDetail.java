@@ -2,6 +2,7 @@ package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.Date;
  */
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "auth_user_detail")
 public class UserDetail extends AbstractBean {
@@ -32,6 +34,10 @@ public class UserDetail extends AbstractBean {
     @GeneratedValue(generator = "assigned")
     @GenericGenerator(name = "assigned", strategy = "assigned")
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "organization_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    private Organization organization;
 
     /**
      * comment: 	邮箱

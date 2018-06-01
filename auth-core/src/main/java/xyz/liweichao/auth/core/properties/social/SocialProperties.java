@@ -1,6 +1,7 @@
 package xyz.liweichao.auth.core.properties.social;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 社交登录配置项

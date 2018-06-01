@@ -9,6 +9,13 @@ import xyz.liweichao.auth.service.IUserDetailService;
 
 import javax.persistence.criteria.Predicate;
 
+
+/**
+ * UserDetailServiceImpl
+ *
+ * @author weichao.li (liweichao0102@gmail.com)
+ * @date 2018/6/1
+ */
 @Service
 public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> implements IUserDetailService {
 

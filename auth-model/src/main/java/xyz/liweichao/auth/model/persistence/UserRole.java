@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "auth_user_role")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class UserRole extends AbstractBean {
     /**
      * comment: 	主键

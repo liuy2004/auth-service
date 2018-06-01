@@ -18,6 +18,13 @@ import xyz.liweichao.auth.service.IUserService;
 
 import java.util.Calendar;
 
+
+/**
+ * AuthUserDetailsService
+ *
+ * @author weichao.li (liweichao0102@gmail.com)
+ * @date 2018/6/1
+ */
 @Service
 public class AuthUserDetailsService implements UserDetailsService, SocialUserDetailsService,IColorsUserService {
 

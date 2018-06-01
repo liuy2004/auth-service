@@ -8,11 +8,14 @@ import xyz.liweichao.auth.dao.UserDao;
 import xyz.liweichao.auth.model.persistence.Role;
 import xyz.liweichao.auth.service.IRoleService;
 
+/**
+ * RoleServiceImpl
+ *
+ * @author weichao.li (liweichao0102@gmail.com)
+ * @date 2018/6/1
+ */
 @Service
 public class RoleServiceImpl extends AbstractService<Role, Long> implements IRoleService {
-
-    @Autowired
-    private RoleDao dao;
 
     public RoleServiceImpl(UserDao dao) {
         super(dao);

@@ -2,6 +2,7 @@ package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -13,6 +14,7 @@ import javax.persistence.*;
  */
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "auth_user_role_group")
 public class UserRoleGroup extends AbstractBean {

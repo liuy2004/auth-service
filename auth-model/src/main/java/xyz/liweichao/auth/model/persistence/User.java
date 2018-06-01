@@ -2,6 +2,7 @@ package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Date;
  * @date 2018-5-24 15:21:55
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "auth_user")
 public class User extends AbstractBean {
