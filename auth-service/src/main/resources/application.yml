@@ -1,8 +1,8 @@
 server:
-  context-path: /authserver
+  context-path: /authservice
 spring:
   application:
-    name: auth
+    name: authservice
   datasource:
       sql-script-encoding: UTF-8
       druid:
@@ -41,7 +41,11 @@ security:
 # 认证登录
 colors:
   security:
-    enable: false
+    enable: true
+    code:
+      sms:
+        expire-in: 180
+        length: 6
     oauth2:
       token-store: redis
       clients[0]:
@@ -55,13 +59,11 @@ colors:
       qq:
         app-id: wxd99431bbff8305a0
         app-secret: 60f78681d063590a469f1b297feff3c4
-    code:
-      sms:
-        expire-in: 180
-        length: 9
-
-
-
 
 redisson:
   config: classpath:single-server.yml
+
+management:
+  security:
+    enabled: true
+    roles: ACTUATOR

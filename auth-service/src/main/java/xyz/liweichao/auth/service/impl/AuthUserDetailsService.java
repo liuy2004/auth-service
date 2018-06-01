@@ -50,9 +50,10 @@ public class AuthUserDetailsService implements UserDetailsService, SocialUserDet
     private User loadUser(String uniqueIdentifier) {
         xyz.liweichao.auth.model.persistence.User user = userService.loadUserAuthInfo(uniqueIdentifier);
         return new User(user.getUsername(), user.getPassword(),
-                user.getEnabled(), (org.apache.commons.lang3.time.DateUtils.truncatedCompareTo(user.getExpiredDate(), DateUtils.now(), Calendar.DATE)) > 0,
-                (org.apache.commons.lang3.time.DateUtils.truncatedCompareTo(user.getCredentialsExpiredDate(), DateUtils.now(), Calendar.DATE) > 0),
+                user.getEnabled(),
+                DateUtils.compare(user.getExpiredDate(),DateUtils.now())> 0,
+                DateUtils.compare(user.getCredentialsExpiredDate(),DateUtils.now())> 0,
                 !user.getLockStatus(),
-                AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_COLORS"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ACTUATOR"));
     }
 }

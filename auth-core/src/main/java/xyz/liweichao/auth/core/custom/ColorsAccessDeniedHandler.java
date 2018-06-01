@@ -29,7 +29,7 @@ public class ColorsAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) {
         RestfulException restfulException = new RestfulException(
-                HttpStatus.UNAUTHORIZED, 1L,
+                HttpStatus.UNAUTHORIZED, 1001001L,
                 accessDeniedException.getMessage(),
                 accessDeniedException);
         ResponseUtils.json(request, response, restfulException);

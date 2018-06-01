@@ -4,7 +4,7 @@
 
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <property name="LOG_PATH" value="/data/log/authserver"/>
+    <property name="LOG_PATH" value="/data/log/authservice"/>
 
     <!-- 不同级别的文件记录在不同的日志文件中 -->
     <appender name="fileInfo"
@@ -152,7 +152,7 @@
     <logger name="java.sql.PreparedStatement" level="DEBUG"/>
 
     <!-- spring security -->
-    <logger name="org.springframework.security" level="DEBUG"/>
+    <!--<logger name="org.springframework.security" level="DEBUG"/>-->
 
     <!--自定义-->
     <logger name="xyz.liweichao.auth" level="DEBUG"/>
