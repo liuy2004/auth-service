@@ -50,14 +50,14 @@ public class Organization extends AbstractBean {
     private String code;
 
     /**
-     * comment: 	级别
+     * comment: 	层级
      * <p>
      * isNullable: 	false
      * <p>
      * length: 	10
      */
-    @Column(name = "level")
-    private Integer level;
+    @Column(name = "layer")
+    private Integer layer;
 
     /**
      * comment: 	默认排序字段
@@ -81,12 +81,23 @@ public class Organization extends AbstractBean {
     private Organization parent;
 
     /**
-     * comment: 	父级所有代码简称拼接[分割符;]
+     * comment: 	路径（父节点 id 从高到低）
      * <p>
      * isNullable: 	false
      * <p>
      * length: 	300
      */
-    @Column(name = "parent_codes")
-    private String parentCodes;
+    @Column(name = "path")
+    private String path;
+
+
+    /**
+     * comment: 	描述
+     * <p>
+     * isNullable: 	false
+     * <p>
+     * length: 	300
+     */
+    @Column(name = "description")
+    private String description;
 }

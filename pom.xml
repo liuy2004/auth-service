@@ -35,19 +35,19 @@
             <dependency>
                 <groupId>com.github.hicolors.colors.framework</groupId>
                 <artifactId>core</artifactId>
-                <version>${framework.version}</version>
+                <version>${project.parent.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.github.hicolors.colors.framework</groupId>
                 <artifactId>lock</artifactId>
-                <version>${framework.version}</version>
+                <version>${project.parent.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.github.hicolors.colors.framework</groupId>
                 <artifactId>common</artifactId>
-                <version>${framework.version}</version>
+                <version>${project.parent.version}</version>
             </dependency>
 
         </dependencies>
