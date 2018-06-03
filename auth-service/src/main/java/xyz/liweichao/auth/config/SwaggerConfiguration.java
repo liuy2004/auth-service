@@ -26,7 +26,7 @@ public class SwaggerConfiguration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("auth-server api文档")
+                .title("auth-service api文档")
                 .description("restful 接口规范说明")
                 .version("1.0")
                 .build();

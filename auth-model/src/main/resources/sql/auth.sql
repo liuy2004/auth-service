@@ -44,12 +44,15 @@ CREATE TABLE `auth_user_detail` (
 	KEY `idx_create_time` ( `create_time` ) USING BTREE
 ) ENGINE = INNODB CHARACTER
 SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Compact COMMENT = '用户详细信息';
+
+
 DROP TABLE
 IF
 	EXISTS `auth_organization`;
 CREATE TABLE `auth_organization` (
 	`id` BIGINT ( 20 ) UNSIGNED NOT NULL auto_increment COMMENT '主键',
 	`name` VARCHAR ( 20 ) NOT NULL DEFAULT '' COMMENT '名称',
+	`display_name` varchar(500) NOT NULL COMMENT '全称',
 	`code` VARCHAR ( 20 ) NOT NULL COMMENT '组织机构代码（确保唯一）',
 	`layer` int(3) UNSIGNED NOT NULL COMMENT '层级',
 	`sort` INT ( 11 ) NOT NULL DEFAULT 1 COMMENT '默认排序字段',

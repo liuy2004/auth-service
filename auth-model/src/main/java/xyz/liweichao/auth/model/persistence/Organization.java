@@ -53,6 +53,16 @@ public class Organization extends AbstractBean {
     private String name;
 
     /**
+     * comment: 	名称
+     * <p>
+     * isNullable: 	false
+     * <p>
+     * length: 	20
+     */
+    @Column(name = "display_name")
+    private String displayName;
+
+    /**
      * comment: 	组织机构代码（确保唯一）
      * <p>
      * isNullable: 	false
