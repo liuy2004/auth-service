@@ -1,10 +1,21 @@
 package xyz.liweichao.auth.model.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.Filter;
+import xyz.liweichao.auth.model.persistence.databinds.OrganizationDeserializer;
+import xyz.liweichao.auth.model.persistence.databinds.OrganizationSerializer;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * comment: 组织机构信息
@@ -14,6 +25,8 @@ import javax.persistence.*;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@NoArgsConstructor
+@ToString(of={"id","name","code","layer"})
 @Entity
 @Table(name = "auth_organization")
 public class Organization extends AbstractBean {
@@ -76,8 +89,12 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	20
      */
-    @OneToOne
-    @JoinColumn(name = "parent_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+
+    @JsonProperty("parent_id")
+    @JsonSerialize(using = OrganizationSerializer.class)
+    @JsonDeserialize(using = OrganizationDeserializer.class)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
+    @JoinColumn(name = "parent_id",foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     private Organization parent;
 
     /**
@@ -100,4 +117,14 @@ public class Organization extends AbstractBean {
      */
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "parent",fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
+    @OrderBy("sort desc")
+    @JsonIgnoreProperties("children")
+    private List<Organization> children;
+
+
+    public Organization(Long id){
+        this.id = id;
+    }
 }

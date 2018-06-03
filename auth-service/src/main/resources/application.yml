@@ -41,7 +41,7 @@ security:
 # 认证登录
 colors:
   security:
-    enable: true
+    enable: false
     code:
       sms:
         expire-in: 180
