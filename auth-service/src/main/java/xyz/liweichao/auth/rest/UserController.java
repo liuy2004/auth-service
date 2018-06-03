@@ -1,11 +1,8 @@
 package xyz.liweichao.auth.rest;
 
-import com.github.hicolors.colors.framework.common.exception.RestfulException;
 import com.github.hicolors.colors.framework.core.common.abs.AbstractController;
 import com.github.hicolors.colors.framework.lock.core.DistributeLock;
 import com.github.hicolors.colors.framework.lock.core.DistributeLockHolder;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +11,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.liweichao.auth.api.IUserApi;
-import xyz.liweichao.auth.core.exception.AuthServiceException;
 import xyz.liweichao.auth.model.persistence.User;
 import xyz.liweichao.auth.service.IUserService;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * UserController
+ *
+ * @author weichao.li (liweichao0102@gmail.com)
+ * @date 2018/6/3
+ */
 @RestController
 public class UserController extends AbstractController<User, Long> implements IUserApi {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
-    @Autowired
-    private IUserService service;
 
     /**
      * 注入 锁
@@ -65,7 +63,6 @@ public class UserController extends AbstractController<User, Long> implements IU
         }
 
     }
-
 
 
 }

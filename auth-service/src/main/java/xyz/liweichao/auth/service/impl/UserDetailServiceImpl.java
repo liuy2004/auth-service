@@ -19,9 +19,6 @@ import javax.persistence.criteria.Predicate;
 @Service
 public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> implements IUserDetailService {
 
-    @Autowired
-    private UserDetailDao dao;
-
     public UserDetailServiceImpl(UserDetailDao dao) {
         super(dao);
     }

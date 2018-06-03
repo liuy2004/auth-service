@@ -17,9 +17,6 @@ import xyz.liweichao.auth.service.IUserRoleService;
 @Service
 public class UserRoleServiceImpl extends AbstractService<UserRole, Long> implements IUserRoleService {
 
-    @Autowired
-    private UserRoleDao dao;
-
     public UserRoleServiceImpl(UserRoleDao dao) {
         super(dao);
     }

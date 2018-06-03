@@ -43,7 +43,7 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
         User user = queryUserByUniqueKey(uniqueKey);
         if (Objects.nonNull(user)) {
             if (Objects.isNull(userDetailService.queryOne(user.getId()))) {
-               throw new UserNotFoundException("当前账户的详细信息不存在！");
+                throw new UserNotFoundException("当前账户的详细信息不存在！");
             }
         } else {
             UserDetail userDetail = userDetailService.queryByUniqueKey(uniqueKey);
@@ -52,7 +52,7 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
                 if (Objects.isNull(user)) {
                     throw new UserNotFoundException("当前账户的认证信息不存在！");
                 }
-            }else{
+            } else {
                 throw new UserNotFoundException("当前账户的信息不存在！");
             }
         }
