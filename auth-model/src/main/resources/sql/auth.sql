@@ -19,6 +19,8 @@ CREATE TABLE `auth_user` (
 	KEY `idx_create_time` ( `create_time` ) USING BTREE
 ) ENGINE = INNODB CHARACTER
 SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Compact AUTO_INCREMENT = 10001 COMMENT = '用户认证信息';
+
+
 DROP TABLE
 IF
 	EXISTS `auth_user_detail`;
@@ -64,6 +66,8 @@ CREATE TABLE `auth_organization` (
 	KEY `idx_create_time` ( `create_time` ) USING BTREE
 ) ENGINE = INNODB CHARACTER
 SET = utf8mb4 COLLATE = utf8mb4_bin row_format = compact auto_increment = 10001 COMMENT = '组织机构';
+
+
 DROP TABLE
 IF
 	EXISTS `auth_role_group`;
@@ -81,6 +85,8 @@ CREATE TABLE `auth_role_group` (
 	KEY `idx_create_time` ( `create_time` ) USING BTREE
 ) ENGINE = INNODB CHARACTER
 SET = utf8mb4 COLLATE = utf8mb4_bin row_format = compact auto_increment = 10001 COMMENT = '角色组信息';
+
+
 DROP TABLE
 IF
 	EXISTS `auth_role`;
@@ -100,6 +106,8 @@ CREATE TABLE `auth_role` (
 	KEY `idx_create_time` ( `create_time` ) USING BTREE
 ) ENGINE = INNODB CHARACTER
 SET = utf8mb4 COLLATE = utf8mb4_bin row_format = compact auto_increment = 10001 COMMENT = '角色信息';
+
+
 DROP TABLE
 IF
 	EXISTS `auth_user_role_group`;
@@ -116,6 +124,8 @@ CREATE TABLE `auth_user_role_group` (
 	KEY `idx_create_time` ( `create_time` ) USING BTREE
 ) ENGINE = INNODB CHARACTER
 SET = utf8mb4 COLLATE = utf8mb4_bin row_format = compact auto_increment = 10001 COMMENT = '用户角色组关联信息';
+
+
 DROP TABLE
 IF
 	EXISTS `auth_user_role`;

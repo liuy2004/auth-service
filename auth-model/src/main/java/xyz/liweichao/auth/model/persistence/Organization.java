@@ -38,7 +38,7 @@ public class Organization extends AbstractBean {
      * length: 	20
      */
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
