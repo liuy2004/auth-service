@@ -55,16 +55,19 @@
     </dependencyManagement>
 
     <distributionManagement>
+
         <snapshotRepository>
             <id>snapshot</id>
             <name>OSS Snapshots Repository</name>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
+
         <repository>
             <id>release</id>
             <name>OSS Staging Repository</name>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
+
     </distributionManagement>
 
 </project>

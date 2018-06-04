@@ -98,6 +98,7 @@ CREATE TABLE `auth_role` (
 	`name` VARCHAR ( 20 ) NOT NULL DEFAULT '' COMMENT '名称',
 	`code` VARCHAR ( 20 ) NOT NULL COMMENT '角色代码',
 	`sort` INT ( 11 ) NOT NULL DEFAULT 1 COMMENT '默认排序字段',
+	`description` varchar(2000) NOT NULL DEFAULT '' COMMENT '描述',
 	`group_id` BIGINT ( 20 ) UNSIGNED NOT NULL DEFAULT 1 COMMENT '角色组 id',
 	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
 	`creator` BIGINT ( 20 ) UNSIGNED NOT NULL DEFAULT 1 COMMENT '创建人',

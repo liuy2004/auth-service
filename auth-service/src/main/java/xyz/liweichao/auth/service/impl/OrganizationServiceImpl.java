@@ -1,14 +1,19 @@
 package xyz.liweichao.auth.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.hicolors.colors.framework.core.common.abs.AbstractService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import xyz.liweichao.auth.dao.OrganizationDao;
+import xyz.liweichao.auth.dao.UserDetailDao;
 import xyz.liweichao.auth.exception.OrganizationException;
 import xyz.liweichao.auth.exception.OrganizationExceptionEnum;
 import xyz.liweichao.auth.model.persistence.Organization;
 import xyz.liweichao.auth.service.IOrganizationService;
+
+import javax.persistence.Transient;
 
 /**
  * OrganizationServiceImpl
@@ -19,12 +24,17 @@ import xyz.liweichao.auth.service.IOrganizationService;
 @Service
 public class OrganizationServiceImpl extends AbstractService<Organization, Long> implements IOrganizationService {
 
+    protected final String separator = ";";
+
+    @Autowired
+    private UserDetailDao userDetailDao;
+
     public OrganizationServiceImpl(OrganizationDao dao) {
         super(dao);
     }
 
     private Organization get(Long id) {
-        return dao.getOne(id);
+        return dao.findOne(id);
     }
 
     private Organization buildParam(Organization bean) {
@@ -37,7 +47,7 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
         }
         bean.setDisplayName(parent.getDisplayName() + bean.getName());
         bean.setLayer(parent.getLayer() + 1);
-        bean.setPath(parent.getPath() + bean.getSeparator() + parent.getId());
+        bean.setPath(parent.getPath() + separator + parent.getId());
         return bean;
     }
 
@@ -51,5 +61,19 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
     @Transactional(rollbackFor = {Exception.class})
     public Organization update(Organization bean) {
         return dao.save(buildParam(bean));
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public void delete(Organization bean) {
+        if (dao.count((root, query, cb) -> query.where(cb.equal(root.get("parent").get("id"), bean.getId())).getRestriction()) < 0) {
+            if (userDetailDao.count((root, query, cb) -> query.where(cb.equal(root.get("organization").get("id"), bean.getId())).getRestriction()) < 0) {
+                this.dao.delete(bean);
+            } else {
+                throw new OrganizationException(OrganizationExceptionEnum.HAS_USER);
+            }
+        } else {
+            throw new OrganizationException(OrganizationExceptionEnum.HAS_CHILDREN);
+        }
     }
 }

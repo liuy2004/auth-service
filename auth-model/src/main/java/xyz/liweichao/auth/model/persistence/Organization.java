@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import xyz.liweichao.auth.model.persistence.databinds.OrganizationDeserializer;
 import xyz.liweichao.auth.model.persistence.databinds.OrganizationSerializer;
 
@@ -55,7 +57,7 @@ public class Organization extends AbstractBean {
      * length: 	20
      */
     @NotNull(
-            message = "名称不能为空",
+            message = "name[名称]不能为空",
             groups = {ValidatorGroup.Post.class}
     )
     @Column(name = "name")
@@ -69,7 +71,7 @@ public class Organization extends AbstractBean {
      * length: 	20
      */
     @Null(
-            message = "id 必须为空",
+            message = "display_name 必须为空",
             groups = {ValidatorGroup.Post.class, ValidatorGroup.Put.class, ValidatorGroup.Patch.class}
     )
     @Column(name = "display_name")
@@ -83,7 +85,7 @@ public class Organization extends AbstractBean {
      * length: 	20
      */
     @NotNull(
-            message = "代码不能为空",
+            message = "code[代码]不能为空",
             groups = {ValidatorGroup.Post.class}
     )
     @Column(name = "code")
@@ -97,7 +99,7 @@ public class Organization extends AbstractBean {
      * length: 	10
      */
     @Null(
-            message = "层级 必须为空",
+            message = "layer[层级]必须为空",
             groups = {ValidatorGroup.Post.class, ValidatorGroup.Put.class, ValidatorGroup.Patch.class}
     )
     @Column(name = "layer")
@@ -111,7 +113,7 @@ public class Organization extends AbstractBean {
      * length: 	10
      */
     @NotNull(
-            message = "排序号不能为空",
+            message = "sort[排序号]不能为空",
             groups = {ValidatorGroup.Post.class}
     )
     @Column(name = "sort")
@@ -128,11 +130,11 @@ public class Organization extends AbstractBean {
             message = "父级 ID 不能为空",
             groups = {ValidatorGroup.Post.class}
     )
-    @JsonProperty("parent_id")
     @JsonSerialize(using = OrganizationSerializer.class)
     @JsonDeserialize(using = OrganizationDeserializer.class)
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinColumn(name = "parent_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    @NotFound(action = NotFoundAction.IGNORE)
     private Organization parent;
 
     /**
@@ -143,7 +145,7 @@ public class Organization extends AbstractBean {
      * length: 	300
      */
     @Null(
-            message = "路径 必须为空",
+            message = "path[路径]必须为空",
             groups = {ValidatorGroup.Post.class, ValidatorGroup.Put.class, ValidatorGroup.Patch.class}
     )
     @Column(name = "path")
@@ -158,11 +160,12 @@ public class Organization extends AbstractBean {
      * length: 	300
      */
     @NotNull(
-            message = "描述不能为空",
+            message = "description[描述]不能为空",
             groups = {ValidatorGroup.Post.class}
     )
     @Column(name = "description")
     private String description;
+
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
     @OrderBy("sort desc")

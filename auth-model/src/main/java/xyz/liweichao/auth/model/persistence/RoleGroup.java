@@ -3,6 +3,7 @@ package xyz.liweichao.auth.model.persistence;
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -14,6 +15,7 @@ import javax.persistence.*;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @Entity
 @Table(name = "auth_role_group")
 public class RoleGroup extends AbstractBean {
@@ -58,4 +60,8 @@ public class RoleGroup extends AbstractBean {
      */
     @Column(name = "sort")
     private Integer sort;
+
+    public RoleGroup(Long id) {
+        this.id = id;
+    }
 }
