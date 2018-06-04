@@ -31,7 +31,7 @@ public class AuthServiceException extends RestfulException {
         this(exceptionEnum.getValue(), StringUtils.format(exceptionEnum.getMessage(), objects), data);
     }
 
-    private AuthServiceException(int specific, String message, Object data) {
+    public AuthServiceException(int specific, String message, Object data) {
         super(HttpStatus.BAD_REQUEST,
                 ErrorCodeUtils.generator(APP_ID, MODULE_ID, specific),
                 message, data);

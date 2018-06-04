@@ -23,7 +23,6 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
         super(dao);
     }
 
-
     private Organization get(Long id) {
         return dao.getOne(id);
     }

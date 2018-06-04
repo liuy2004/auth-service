@@ -1,20 +1,21 @@
 package xyz.liweichao.auth.model.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
+import com.github.hicolors.colors.framework.common.valid.ValidatorGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.Filter;
 import xyz.liweichao.auth.model.persistence.databinds.OrganizationDeserializer;
 import xyz.liweichao.auth.model.persistence.databinds.OrganizationSerializer;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@ToString(of={"id","name","code","layer"})
+@ToString(of = {"id", "name", "code", "layer"})
 @Entity
 @Table(name = "auth_organization")
 public class Organization extends AbstractBean {
@@ -37,6 +38,10 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	20
      */
+    @Null(
+            message = "id 必须为空",
+            groups = {ValidatorGroup.Post.class, ValidatorGroup.Put.class, ValidatorGroup.Patch.class}
+    )
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -49,16 +54,24 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	20
      */
+    @NotNull(
+            message = "名称不能为空",
+            groups = {ValidatorGroup.Post.class}
+    )
     @Column(name = "name")
     private String name;
 
     /**
-     * comment: 	名称
+     * comment: 	全称
      * <p>
      * isNullable: 	false
      * <p>
      * length: 	20
      */
+    @Null(
+            message = "id 必须为空",
+            groups = {ValidatorGroup.Post.class, ValidatorGroup.Put.class, ValidatorGroup.Patch.class}
+    )
     @Column(name = "display_name")
     private String displayName;
 
@@ -69,6 +82,10 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	20
      */
+    @NotNull(
+            message = "代码不能为空",
+            groups = {ValidatorGroup.Post.class}
+    )
     @Column(name = "code")
     private String code;
 
@@ -79,6 +96,10 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	10
      */
+    @Null(
+            message = "层级 必须为空",
+            groups = {ValidatorGroup.Post.class, ValidatorGroup.Put.class, ValidatorGroup.Patch.class}
+    )
     @Column(name = "layer")
     private Integer layer;
 
@@ -89,6 +110,10 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	10
      */
+    @NotNull(
+            message = "排序号不能为空",
+            groups = {ValidatorGroup.Post.class}
+    )
     @Column(name = "sort")
     private Integer sort;
 
@@ -99,12 +124,15 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	20
      */
-
+    @NotNull(
+            message = "父级 ID 不能为空",
+            groups = {ValidatorGroup.Post.class}
+    )
     @JsonProperty("parent_id")
     @JsonSerialize(using = OrganizationSerializer.class)
     @JsonDeserialize(using = OrganizationDeserializer.class)
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
-    @JoinColumn(name = "parent_id",foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "parent_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     private Organization parent;
 
     /**
@@ -114,6 +142,10 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	300
      */
+    @Null(
+            message = "路径 必须为空",
+            groups = {ValidatorGroup.Post.class, ValidatorGroup.Put.class, ValidatorGroup.Patch.class}
+    )
     @Column(name = "path")
     private String path;
 
@@ -125,16 +157,20 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	300
      */
+    @NotNull(
+            message = "描述不能为空",
+            groups = {ValidatorGroup.Post.class}
+    )
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "parent",fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
     @OrderBy("sort desc")
     @JsonIgnoreProperties("children")
     private List<Organization> children;
 
 
-    public Organization(Long id){
+    public Organization(Long id) {
         this.id = id;
     }
 }
