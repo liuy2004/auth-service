@@ -6,11 +6,11 @@
     <groupId>com.github.hicolors.service</groupId>
     <artifactId>auth</artifactId>
 
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>auth</name>
-    <description>auth-parent</description>
+    <description>auth</description>
 
     <parent>
         <groupId>com.github.hicolors.colors.framework</groupId>
@@ -36,19 +36,19 @@
             <dependency>
                 <groupId>com.github.hicolors.colors.framework</groupId>
                 <artifactId>core</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.github.hicolors.colors.framework</groupId>
                 <artifactId>lock</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.github.hicolors.colors.framework</groupId>
                 <artifactId>common</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${framework.version}</version>
             </dependency>
 
         </dependencies>
