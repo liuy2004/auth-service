@@ -6,7 +6,7 @@
     <artifactId>auth-model</artifactId>
 
     <parent>
-        <artifactId>auth-parent</artifactId>
+        <artifactId>auth</artifactId>
         <groupId>com.github.hicolors.service</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
