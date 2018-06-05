@@ -1,8 +1,23 @@
 package xyz.liweichao.auth.model.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
+import com.github.hicolors.colors.framework.common.valid.ValidatorGroup;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+import xyz.liweichao.auth.model.persistence.databinds.OrganizationDeserializer;
+import xyz.liweichao.auth.model.persistence.databinds.OrganizationSerializer;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import java.util.List;
 
 /**
  * comment: 组织机构信息
@@ -10,6 +25,10 @@ import javax.persistence.*;
  * @author liweichao
  * @date 2018-5-24 15:24:53
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@ToString(of = {"id", "name", "code", "layer"})
 @Entity
 @Table(name = "auth_organization")
 public class Organization extends AbstractBean {
@@ -20,8 +39,12 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	20
      */
+    @Null(
+            message = "id 必须为空",
+            groups = {ValidatorGroup.Post.class, ValidatorGroup.Put.class, ValidatorGroup.Patch.class}
+    )
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -32,8 +55,26 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	20
      */
+    @NotNull(
+            message = "name[名称]不能为空",
+            groups = {ValidatorGroup.Post.class}
+    )
     @Column(name = "name")
     private String name;
+
+    /**
+     * comment: 	全称
+     * <p>
+     * isNullable: 	false
+     * <p>
+     * length: 	20
+     */
+    @Null(
+            message = "display_name 必须为空",
+            groups = {ValidatorGroup.Post.class, ValidatorGroup.Put.class, ValidatorGroup.Patch.class}
+    )
+    @Column(name = "display_name")
+    private String displayName;
 
     /**
      * comment: 	组织机构代码（确保唯一）
@@ -42,18 +83,26 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	20
      */
+    @NotNull(
+            message = "code[代码]不能为空",
+            groups = {ValidatorGroup.Post.class}
+    )
     @Column(name = "code")
     private String code;
 
     /**
-     * comment: 	级别
+     * comment: 	层级
      * <p>
      * isNullable: 	false
      * <p>
      * length: 	10
      */
-    @Column(name = "level")
-    private Integer level;
+    @Null(
+            message = "layer[层级]必须为空",
+            groups = {ValidatorGroup.Post.class, ValidatorGroup.Put.class, ValidatorGroup.Patch.class}
+    )
+    @Column(name = "layer")
+    private Integer layer;
 
     /**
      * comment: 	默认排序字段
@@ -62,6 +111,10 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	10
      */
+    @NotNull(
+            message = "sort[排序号]不能为空",
+            groups = {ValidatorGroup.Post.class}
+    )
     @Column(name = "sort")
     private Integer sort;
 
@@ -72,79 +125,54 @@ public class Organization extends AbstractBean {
      * <p>
      * length: 	20
      */
-    @Column(name = "parent_id")
-    private Long parentId;
+    @NotNull(
+            message = "父级 ID 不能为空",
+            groups = {ValidatorGroup.Post.class}
+    )
+    @JsonSerialize(using = OrganizationSerializer.class)
+    @JsonDeserialize(using = OrganizationDeserializer.class)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
+    @JoinColumn(name = "parent_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Organization parent;
 
     /**
-     * comment: 	父级所有代码简称拼接[分割符;]
+     * comment: 	路径（父节点 id 从高到低）
      * <p>
      * isNullable: 	false
      * <p>
      * length: 	300
      */
-    @Column(name = "parent_codes")
-    private String parentCodes;
+    @Null(
+            message = "path[路径]必须为空",
+            groups = {ValidatorGroup.Post.class, ValidatorGroup.Put.class, ValidatorGroup.Patch.class}
+    )
+    @Column(name = "path")
+    private String path;
 
-    public Long getId() {
-        return id;
-    }
 
-    public Organization setId(Long id) {
+    /**
+     * comment: 	描述
+     * <p>
+     * isNullable: 	false
+     * <p>
+     * length: 	300
+     */
+    @NotNull(
+            message = "description[描述]不能为空",
+            groups = {ValidatorGroup.Post.class}
+    )
+    @Column(name = "description")
+    private String description;
+
+
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
+    @OrderBy("sort desc")
+    @JsonIgnoreProperties("children")
+    private List<Organization> children;
+
+
+    public Organization(Long id) {
         this.id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Organization setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public Organization setCode(String code) {
-        this.code = code;
-        return this;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public Organization setLevel(Integer level) {
-        this.level = level;
-        return this;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public Organization setSort(Integer sort) {
-        this.sort = sort;
-        return this;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public Organization setParentId(Long parentId) {
-        this.parentId = parentId;
-        return this;
-    }
-
-    public String getParentCodes() {
-        return parentCodes;
-    }
-
-    public Organization setParentCodes(String parentCodes) {
-        this.parentCodes = parentCodes;
-        return this;
     }
 }

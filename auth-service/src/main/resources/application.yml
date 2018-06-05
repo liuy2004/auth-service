@@ -1,8 +1,8 @@
 server:
-  context-path: /authserver
+  context-path: /authservice
 spring:
   application:
-    name: auth
+    name: authservice
   datasource:
       sql-script-encoding: UTF-8
       druid:
@@ -22,13 +22,16 @@ spring:
         maxOpenPreparedStatements: 20
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
       use-new-id-generator-mappings: true
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
       hibernate.cache.use_second_level_cache: false
       hibernate.show_sql: true
       hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+      hibernate.enable_lazy_load_no_trans: true
+      hibernate.ejb.interceptor: com.github.hicolors.colors.framework.core.others.jpa.interceptor.BizInterceptor
+    open-in-view: true
 
 logging:
   config: classpath:logback.xml
@@ -40,8 +43,12 @@ security:
 colors:
   security:
     enable: false
+    code:
+      sms:
+        expire-in: 180
+        length: 6
     oauth2:
-      tokenStore : redis
+      token-store: redis
       clients[0]:
         client-id: colors
         client-secret: colors
@@ -56,3 +63,8 @@ colors:
 
 redisson:
   config: classpath:single-server.yml
+
+management:
+  security:
+    enabled: true
+    roles: ACTUATOR

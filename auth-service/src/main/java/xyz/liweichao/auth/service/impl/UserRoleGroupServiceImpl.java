@@ -8,6 +8,13 @@ import xyz.liweichao.auth.dao.UserRoleGroupDao;
 import xyz.liweichao.auth.model.persistence.UserRoleGroup;
 import xyz.liweichao.auth.service.IUserRoleGroupService;
 
+
+/**
+ * UserRoleGroupServiceImpl
+ *
+ * @author weichao.li (liweichao0102@gmail.com)
+ * @date 2018/6/1
+ */
 @Service
 public class UserRoleGroupServiceImpl extends AbstractService<UserRoleGroup, Long> implements IUserRoleGroupService {
 

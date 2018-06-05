@@ -1,6 +1,9 @@
 package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +14,9 @@ import java.util.Date;
  * @author liweichao
  * @date 2018-5-24 15:26:05
  */
+
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "auth_user_detail")
 public class UserDetail extends AbstractBean {
@@ -20,11 +26,18 @@ public class UserDetail extends AbstractBean {
      * isNullable: 	false
      * <p>
      * length: 	20
+     *
+     * 说明：此种方式 id 需要手动设置
      */
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(generator = "assigned")
+    @GenericGenerator(name = "assigned", strategy = "assigned")
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "organization_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    private Organization organization;
 
     /**
      * comment: 	邮箱
@@ -95,76 +108,4 @@ public class UserDetail extends AbstractBean {
      */
     @Column(name = "favicon")
     private String favicon;
-
-    public Long getId() {
-        return id;
-    }
-
-    public UserDetail setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public UserDetail setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public UserDetail setMobile(String mobile) {
-        this.mobile = mobile;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public UserDetail setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public UserDetail setBirthday(Date birthday) {
-        this.birthday = birthday;
-        return this;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public UserDetail setDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public UserDetail setWebsite(String website) {
-        this.website = website;
-        return this;
-    }
-
-    public String getFavicon() {
-        return favicon;
-    }
-
-    public UserDetail setFavicon(String favicon) {
-        this.favicon = favicon;
-        return this;
-    }
 }

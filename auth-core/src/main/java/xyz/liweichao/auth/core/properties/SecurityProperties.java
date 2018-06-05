@@ -1,5 +1,6 @@
 package xyz.liweichao.auth.core.properties;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import xyz.liweichao.auth.core.properties.code.ValidateCodeProperties;
 import xyz.liweichao.auth.core.properties.oauth.OAuth2Properties;
@@ -12,6 +13,7 @@ import xyz.liweichao.auth.core.properties.social.SocialProperties;
  * @email liweichao0102@gmail.com
  * @date 2018/3/1
  */
+@Data
 @ConfigurationProperties(prefix = "colors.security")
 public class SecurityProperties {
 
@@ -33,38 +35,5 @@ public class SecurityProperties {
      */
     private OAuth2Properties oauth2 = new OAuth2Properties();
 
-
-    public ValidateCodeProperties getCode() {
-        return code;
-    }
-
-    public void setCode(ValidateCodeProperties code) {
-        this.code = code;
-    }
-
-    public SocialProperties getSocial() {
-        return social;
-    }
-
-    public void setSocial(SocialProperties social) {
-        this.social = social;
-    }
-
-    public OAuth2Properties getOauth2() {
-        return oauth2;
-    }
-
-    public void setOauth2(OAuth2Properties oauth2) {
-        this.oauth2 = oauth2;
-    }
-
-    public Boolean getEnable() {
-        return enable;
-    }
-
-    public SecurityProperties setEnable(Boolean enable) {
-        this.enable = enable;
-        return this;
-    }
 }
 

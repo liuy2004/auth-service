@@ -1,9 +1,9 @@
-package xyz.liweichao.auth.core.code;
+package xyz.liweichao.auth.core.code.base;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import xyz.liweichao.auth.core.code.base.ValidateCodeProcessor;
-import xyz.liweichao.auth.core.code.base.ValidateCodeType;
+import xyz.liweichao.auth.core.code.exception.ValidateCodeException;
+import xyz.liweichao.auth.core.code.exception.ValidateCodeExceptionEnum;
 
 import java.util.Map;
 
@@ -36,7 +36,7 @@ public class ValidateCodeProcessorHolder {
         String name = type.toLowerCase() + ValidateCodeProcessor.class.getSimpleName();
         ValidateCodeProcessor processor = validateCodeProcessors.get(name);
         if (processor == null) {
-            throw new ValidateCodeException("验证码处理器" + name + "不存在");
+            throw new ValidateCodeException(ValidateCodeExceptionEnum.PROCESSOR_NOT_FOUND, name);
         }
         return processor;
     }

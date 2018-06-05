@@ -1,7 +1,6 @@
 package xyz.liweichao.auth.core.authentication.sms;
 
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,10 +24,6 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
         SmsCodeAuthenticationToken authenticationToken = (SmsCodeAuthenticationToken) authentication;
 
         UserDetails user = userDetailsService.loadUserByUsername((String) authenticationToken.getPrincipal());
-
-        if (user == null) {
-            throw new InternalAuthenticationServiceException("无法获取用户信息");
-        }
 
         SmsCodeAuthenticationToken authenticationResult = new SmsCodeAuthenticationToken(user, user.getAuthorities());
 

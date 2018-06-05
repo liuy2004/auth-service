@@ -51,27 +51,4 @@ public class SecurityCoreConfig {
         tokenRepository.setCreateTableOnStartup(false);
         return tokenRepository;
     }
-
-//    /**
-//     * 默认认证器
-//     *
-//     * @return
-//     */
-//    @Bean
-//    @ConditionalOnMissingBean(UserDetailsService.class)
-//    public UserDetailsService userDetailsService() {
-//        return new DefaultUserDetailsService();
-//    }
-//
-//    /**
-//     * 默认认证器
-//     *
-//     * @return
-//     */
-//    @Bean
-//    @ConditionalOnMissingBean(SocialUserDetailsService.class)
-//    public SocialUserDetailsService socialUserDetailsService() {
-//        return new DefaultSocialUserDetailsService();
-//    }
-
 }

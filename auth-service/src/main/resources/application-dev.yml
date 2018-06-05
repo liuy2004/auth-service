@@ -4,6 +4,8 @@ spring:
       url: jdbc:mysql://127.0.0.1:3306/colors_auth?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
       username: root
       password: liweichao
-management:
-  security:
-    enabled: false
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 5
+

@@ -1,4 +1,4 @@
-package xyz.liweichao.auth.core.code.config;
+package xyz.liweichao.auth.core.authentication.code;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -26,5 +26,4 @@ public class ValidateCodeSecurityConfig extends SecurityConfigurerAdapter<Defaul
     public void configure(HttpSecurity http) {
         http.addFilterBefore(validateCodeFilter, AbstractPreAuthenticatedProcessingFilter.class);
     }
-
 }

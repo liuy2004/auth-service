@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
-import xyz.liweichao.auth.core.code.ValidateCodeProcessorHolder;
+import xyz.liweichao.auth.core.code.base.ValidateCodeProcessorHolder;
 import xyz.liweichao.auth.core.properties.SecurityConstants;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +33,7 @@ public class ValidateCodeController {
      * @throws Exception
      */
     @GetMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}")
-    public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type)
-            throws Exception {
+    public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type){
         validateCodeProcessorHolder.findValidateCodeProcessor(type).create(new ServletWebRequest(request, response));
     }
 

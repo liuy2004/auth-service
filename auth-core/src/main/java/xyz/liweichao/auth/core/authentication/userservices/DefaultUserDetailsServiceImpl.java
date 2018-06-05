@@ -14,9 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @email liweichao0102@gmail.com
  * @date 2018/3/1
  */
-public class DefaultUserDetailsService implements UserDetailsService {
+public class DefaultUserDetailsServiceImpl implements UserDetailsService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultUserDetailsService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultUserDetailsServiceImpl.class);
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

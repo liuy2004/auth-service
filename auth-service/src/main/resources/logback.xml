@@ -4,7 +4,7 @@
 
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <property name="LOG_PATH" value="/data/log/authserver"/>
+    <property name="LOG_PATH" value="/data/log/authservice"/>
 
     <!-- 不同级别的文件记录在不同的日志文件中 -->
     <appender name="fileInfo"
@@ -134,6 +134,30 @@
             level="info" additivity="false">
         <appender-ref ref="asyncRequestInfo"/>
     </logger>
+
+    <!-- hibernate log configure -->
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
+    <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="DEBUG"/>
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <logger name="org.hibernate.engine.QueryParameters" level="DEBUG"/>
+    <logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG"/>
+
+    <!--jpa log configure-->
+    <logger name="org.springframework.orm.jpa" level="DEBUG"/>
+
+    <!--myibatis log configure-->
+    <logger name="com.apache.ibatis" level="TRACE"/>
+    <logger name="java.sql.Connection" level="DEBUG"/>
+    <logger name="java.sql.Statement" level="DEBUG"/>
+    <logger name="java.sql.PreparedStatement" level="DEBUG"/>
+
+    <!-- spring security -->
+    <!--<logger name="org.springframework.security" level="DEBUG"/>-->
+
+    <!--自定义-->
+    <logger name="xyz.liweichao.auth" level="DEBUG"/>
+
+
 
     <root>
         <level value="info"/>

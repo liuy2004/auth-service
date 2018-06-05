@@ -20,7 +20,7 @@ public interface ValidateCodeRepository {
      * @param code
      * @param validateCodeType
      */
-    void save(String key, ValidateCode code, ValidateCodeType validateCodeType);
+    void save(String key, ValidateCode code, ValidateCodeType validateCodeType,long expireIn);
 
     /**
      * 获取验证码

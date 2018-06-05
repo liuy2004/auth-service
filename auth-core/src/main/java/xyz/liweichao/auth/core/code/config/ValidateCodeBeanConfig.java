@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import xyz.liweichao.auth.core.code.base.ValidateCodeGenerator;
-import xyz.liweichao.auth.core.code.image.ImageCodeGenerator;
 import xyz.liweichao.auth.core.code.sms.DefaultSmsCodeSender;
 import xyz.liweichao.auth.core.code.sms.SmsCodeGenerator;
 import xyz.liweichao.auth.core.code.sms.SmsCodeSender;
@@ -34,23 +33,9 @@ public class ValidateCodeBeanConfig {
     @Bean
     @ConditionalOnMissingBean(name = "smsValidateCodeGenerator")
     public ValidateCodeGenerator smsValidateCodeGenerator() {
-        SmsCodeGenerator codeGenerator = new SmsCodeGenerator();
-        codeGenerator.setSecurityProperties(securityProperties);
-        return codeGenerator;
+        return  new SmsCodeGenerator(securityProperties);
     }
 
-    /**
-     * 图片验证码图片生成器
-     *
-     * @return
-     */
-    @Bean
-    @ConditionalOnMissingBean(name = "imageValidateCodeGenerator")
-    public ValidateCodeGenerator imageValidateCodeGenerator() {
-        ImageCodeGenerator codeGenerator = new ImageCodeGenerator();
-        codeGenerator.setSecurityProperties(securityProperties);
-        return codeGenerator;
-    }
 
     /**
      * 短信验证码发送器

@@ -1,6 +1,9 @@
 package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,6 +13,9 @@ import javax.persistence.*;
  * @author liweichao
  * @date 2018-5-24 15:25:18
  */
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @Entity
 @Table(name = "auth_role_group")
 public class RoleGroup extends AbstractBean {
@@ -21,7 +27,7 @@ public class RoleGroup extends AbstractBean {
      * length: 	20
      */
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -55,40 +61,7 @@ public class RoleGroup extends AbstractBean {
     @Column(name = "sort")
     private Integer sort;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public RoleGroup setId(Long id) {
+    public RoleGroup(Long id) {
         this.id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public RoleGroup setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public RoleGroup setCode(String code) {
-        this.code = code;
-        return this;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public RoleGroup setSort(Integer sort) {
-        this.sort = sort;
-        return this;
     }
 }

@@ -1,12 +1,15 @@
 package xyz.liweichao.auth.core.code.repository;
 
+import com.github.hicolors.colors.framework.core.common.utils.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
-import xyz.liweichao.auth.core.exception.AuthException;
 import xyz.liweichao.auth.core.code.base.ValidateCode;
 import xyz.liweichao.auth.core.code.base.ValidateCodeType;
+import xyz.liweichao.auth.core.code.exception.ValidateCodeException;
+import xyz.liweichao.auth.core.code.exception.ValidateCodeExceptionEnum;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,12 +23,24 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisValidateCodeRepository implements ValidateCodeRepository {
 
-    @Autowired
-    private RedisTemplate<Object, Object> redisTemplate;
+    private final RedisTemplate<Object, Object> redisTemplate;
+
+    public RedisValidateCodeRepository(RedisTemplate<Object, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
+        jackson2JsonRedisSerializer.setObjectMapper(JsonUtils.getObjectMapper());
+        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashKeySerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setDefaultSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setEnableDefaultSerializer(true);
+        redisTemplate.afterPropertiesSet();
+    }
 
     @Override
-    public void save(String key, ValidateCode code, ValidateCodeType type) {
-        redisTemplate.opsForValue().set(buildKey(key, type), code, 60, TimeUnit.SECONDS);
+    public void save(String key, ValidateCode code, ValidateCodeType type, long expireIn) {
+        redisTemplate.opsForValue().set(buildKey(key, type), code, expireIn, TimeUnit.SECONDS);
     }
 
 
@@ -60,8 +75,8 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
      */
     private String buildKey(String key, ValidateCodeType type) {
         if (StringUtils.isBlank(key)) {
-            throw new AuthException("生成验证码存储时出错，key 为 null");
+            throw new ValidateCodeException(ValidateCodeExceptionEnum.KEY_IS_NULL, type.name());
         }
-        return "code:" + type + ":" + key;
+        return "validate:code:" + type.name() + ":" + key;
     }
 }

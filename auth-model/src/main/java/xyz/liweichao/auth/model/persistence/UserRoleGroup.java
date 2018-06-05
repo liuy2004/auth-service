@@ -1,6 +1,8 @@
 package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -10,6 +12,9 @@ import javax.persistence.*;
  * @author liweichao
  * @date 2018-5-24 15:26:41
  */
+
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "auth_user_role_group")
 public class UserRoleGroup extends AbstractBean {
@@ -21,7 +26,7 @@ public class UserRoleGroup extends AbstractBean {
      * length: 	20
      */
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -32,8 +37,10 @@ public class UserRoleGroup extends AbstractBean {
      * <p>
      * length: 	20
      */
-    @Column(name = "group_id")
-    private Long groupId;
+
+    @OneToOne
+    @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    private RoleGroup roleGroup;
 
     /**
      * comment: 	用户 id
@@ -42,33 +49,8 @@ public class UserRoleGroup extends AbstractBean {
      * <p>
      * length: 	20
      */
-    @Column(name = "user_id")
-    private Long userId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public UserRoleGroup setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    public UserRoleGroup setGroupId(Long groupId) {
-        this.groupId = groupId;
-        return this;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public UserRoleGroup setUserId(Long userId) {
-        this.userId = userId;
-        return this;
-    }
+    @OneToOne
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    private User user;
 }

@@ -7,9 +7,21 @@
       "description": "Description for colors.security.enable."
     },
     {
-      "name": "colors.security.oauth2.tokenStore ",
+      "name": "colors.security.oauth2.tokenStore",
       "type": "java.lang.String",
       "defaultValue": "redis",
+      "description": "Description for colors.security.oauth2.tokenStore ."
+    },
+    {
+      "name": "colors.security.code.sms.expire-in",
+      "type": "java.lang.Integer",
+      "defaultValue": "60",
+      "description": "Description for colors.security.oauth2.tokenStore ."
+    },
+    {
+      "name": "colors.security.code.sms.length",
+      "type": "java.lang.Integer",
+      "defaultValue": "6",
       "description": "Description for colors.security.oauth2.tokenStore ."
     },
     {
@@ -24,8 +36,13 @@
     },
     {
       "name": "colors.security.oauth2.clients[0].access-token-validate-seconds",
-      "type": "java.lang.String",
+      "type": "java.lang.Integer",
       "description": "Description for colors.security.oauth2.clients[0].access-token-validate-seconds."
+    },
+    {
+      "name": "colors.security.oauth2.clients[0].refresh-token-validity-seconds",
+      "type": "java.lang.Integer",
+      "description": "Description for colors.security.oauth2.clients[0].refresh-token-validity-seconds."
     },
     {
       "name": "colors.security.social.weixin.app-id",

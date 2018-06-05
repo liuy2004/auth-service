@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import xyz.liweichao.auth.core.custom.ColorsWebResponseExceptionTranslator;
 import xyz.liweichao.auth.core.properties.SecurityProperties;
 import xyz.liweichao.auth.core.properties.oauth.OAuth2ClientProperties;
 
@@ -42,7 +43,6 @@ public class ColorsAuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
     @Autowired
     @Qualifier(value = "tokenStore")
     private TokenStore tokenStore;
@@ -53,6 +53,8 @@ public class ColorsAuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired(required = false)
     private TokenEnhancer jwtTokenEnhancer;
 
+    @Autowired
+    private ColorsWebResponseExceptionTranslator colorsWebResponseExceptionTranslator;
 
     /**
      * 认证及token配置
@@ -73,10 +75,11 @@ public class ColorsAuthorizationServerConfig extends AuthorizationServerConfigur
             endpoints.tokenEnhancer(enhancerChain).accessTokenConverter(jwtAccessTokenConverter);
         }
 
+        endpoints.exceptionTranslator(colorsWebResponseExceptionTranslator);
     }
 
     /**
-     * tokenKey的访问权限表达式配置
+     * token Key的访问权限表达式配置
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
@@ -97,8 +100,8 @@ public class ColorsAuthorizationServerConfig extends AuthorizationServerConfigur
                         .secret(client.getClientSecret())
                         .authorizedGrantTypes("password", "refresh_token", "authorization_code")
                         .accessTokenValiditySeconds(client.getAccessTokenValidateSeconds())
-                        .refreshTokenValiditySeconds(30 * 24 * 60 * 60)
-                        .scopes("all");
+                        .refreshTokenValiditySeconds(client.getRefreshTokenValiditySeconds())
+                        .scopes("all", "read", "write");
             }
         }
     }

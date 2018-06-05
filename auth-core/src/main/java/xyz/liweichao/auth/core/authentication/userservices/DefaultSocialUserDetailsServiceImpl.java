@@ -14,9 +14,9 @@ import org.springframework.social.security.SocialUserDetailsService;
  * @email liweichao0102@gmail.com
  * @date 2018/3/1
  */
-public class DefaultSocialUserDetailsService implements SocialUserDetailsService {
+public class DefaultSocialUserDetailsServiceImpl implements SocialUserDetailsService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSocialUserDetailsService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSocialUserDetailsServiceImpl.class);
 
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {

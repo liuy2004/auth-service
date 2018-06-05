@@ -1,12 +1,9 @@
 package xyz.liweichao.auth;
 
-import com.github.hicolors.colors.framework.core.others.redisson.EnableRedisson;
-import com.github.hicolors.colors.framework.core.others.springmvc.aop.ExceptionHandlerAdvice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 /**
  * Auth Server Application
@@ -16,7 +13,7 @@ import org.springframework.context.annotation.Bean;
  */
 
 @SpringBootApplication
-@EnableRedisson
+//@EnableRedisson
 public class AuthServiceApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthServiceApplication.class);
@@ -25,8 +22,4 @@ public class AuthServiceApplication {
         SpringApplication.run(AuthServiceApplication.class, args);
     }
 
-    @Bean
-    public ExceptionHandlerAdvice exceptionHandlerAdvice(){
-        return new ExceptionHandlerAdvice();
-    }
 }

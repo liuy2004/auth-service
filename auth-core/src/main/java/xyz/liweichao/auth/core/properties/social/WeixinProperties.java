@@ -1,5 +1,7 @@
 package xyz.liweichao.auth.core.properties.social;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.boot.autoconfigure.social.SocialProperties;
 
 /**
@@ -9,6 +11,9 @@ import org.springframework.boot.autoconfigure.social.SocialProperties;
  * @email liweichao0102@gmail.com
  * @date 2018/3/1
  */
+
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class WeixinProperties extends SocialProperties {
 
     /**
@@ -16,19 +21,6 @@ public class WeixinProperties extends SocialProperties {
      */
     private String providerId = "weixin";
 
-    /**
-     * @return the providerId
-     */
-    public String getProviderId() {
-        return providerId;
-    }
-
-    /**
-     * @param providerId the providerId to set
-     */
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
-    }
 
 
 }

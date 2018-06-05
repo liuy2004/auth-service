@@ -10,6 +10,13 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+/**
+ * Swagger Configuration
+ *
+ * @author weichao.li (liweichao0102@gmail.com)
+ * @date 2018/6/3
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
@@ -26,7 +33,7 @@ public class SwaggerConfiguration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("auth-server api文档")
+                .title("auth-service api文档")
                 .description("restful 接口规范说明")
                 .version("1.0")
                 .build();
