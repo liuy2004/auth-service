@@ -24,7 +24,7 @@ import xyz.liweichao.auth.service.IUserService;
  * @date 2018/6/1
  */
 @Service
-public class AuthUserDetailsService implements UserDetailsService, SocialUserDetailsService,IColorsUserService {
+public class AuthUserDetailsServiceImpl implements UserDetailsService, SocialUserDetailsService,IColorsUserService {
 
     @Autowired
     private IUserService userService;

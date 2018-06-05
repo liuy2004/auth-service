@@ -63,7 +63,7 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public Organization update(Organization bean) {
-        if(bean.getLayer().equals(0)){
+        if (bean.getLayer().equals(0)) {
             throw new OrganizationException(OrganizationExceptionEnum.ROOT_MODIFY_REFUSED);
         }
         if (StringUtils.isNotBlank(bean.getCode())) {
@@ -77,9 +77,16 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public void delete(Organization bean) {
-        if (dao.count((root, query, cb) -> query.where(cb.equal(root.get("parent").get("id"), bean.getId())).getRestriction()) < 0) {
-            if (userDetailDao.count((root, query, cb) -> query.where(cb.equal(root.get("organization").get("id"), bean.getId())).getRestriction()) < 0) {
+    public void delete(Long id) {
+        Organization bean = queryOne(id);
+        if (Objects.isNull(bean)) {
+            return;
+        }
+        String parent = "parent";
+        String organization = "organization";
+        String primaryKey = "id";
+        if (dao.count((root, query, cb) -> query.where(cb.equal(root.get(parent).get(primaryKey), bean.getId())).getRestriction()) < 0) {
+            if (userDetailDao.count((root, query, cb) -> query.where(cb.equal(root.get(organization).get(primaryKey), bean.getId())).getRestriction()) < 0) {
                 this.dao.delete(bean);
             } else {
                 throw new OrganizationException(OrganizationExceptionEnum.HAS_USER);

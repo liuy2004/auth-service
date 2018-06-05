@@ -14,9 +14,9 @@ import xyz.liweichao.auth.core.service.IColorsUserService;
  * @email liweichao0102@gmail.com
  * @date 2018/3/1
  */
-public class DefaultColorsUserDetailsService implements IColorsUserService {
+public class DefaultColorsUserDetailsServiceImpl implements IColorsUserService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultColorsUserDetailsService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultColorsUserDetailsServiceImpl.class);
 
     @Override
     public ColorsUser loadUserByUniqueKey(String uniqueKey) {
