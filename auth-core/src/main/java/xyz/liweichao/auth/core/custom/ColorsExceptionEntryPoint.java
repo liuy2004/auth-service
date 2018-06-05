@@ -1,6 +1,5 @@
 package xyz.liweichao.auth.core.custom;
 
-import com.github.hicolors.colors.framework.common.exception.RestfulException;
 import com.github.hicolors.colors.framework.common.utils.ErrorCodeUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;

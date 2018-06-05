@@ -2,8 +2,14 @@ package xyz.liweichao.auth.api;
 
 import com.github.hicolors.colors.framework.common.controller.IController;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import xyz.liweichao.auth.model.persistence.Role;
+
+import java.util.ArrayList;
 
 /**
  * 对角色信息操作接口
@@ -16,4 +22,9 @@ import xyz.liweichao.auth.model.persistence.Role;
 @Api(tags = "role", description = "对角色信息操作接口")
 @RequestMapping("role")
 public interface IRoleApi extends IController<Role, Long> {
+
+    @PostMapping("/{id}/users-details")
+    @ApiOperation("绑定用户（绑定用户具有该角色权限）")
+    Role users(@PathVariable("id") Long id, @RequestBody ArrayList<Long> users);
+
 }

@@ -16,8 +16,6 @@ import xyz.liweichao.auth.model.persistence.UserDetail;
 import xyz.liweichao.auth.service.IUserDetailService;
 import xyz.liweichao.auth.service.IUserService;
 
-import java.util.Calendar;
-
 
 /**
  * AuthUserDetailsService

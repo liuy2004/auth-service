@@ -18,4 +18,5 @@ public class UserRoleController extends AbstractController<UserRole, Long> imple
     public UserRoleController(IUserRoleService service) {
         super(service);
     }
+
 }

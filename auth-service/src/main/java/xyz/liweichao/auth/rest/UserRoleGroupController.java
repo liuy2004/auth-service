@@ -19,4 +19,5 @@ public class UserRoleGroupController extends AbstractController<UserRoleGroup, L
     public UserRoleGroupController(IUserRoleGroupService service) {
         super(service);
     }
+
 }

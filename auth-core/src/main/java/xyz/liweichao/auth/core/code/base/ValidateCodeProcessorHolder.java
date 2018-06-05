@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import xyz.liweichao.auth.core.code.exception.ValidateCodeException;
 import xyz.liweichao.auth.core.code.exception.ValidateCodeExceptionEnum;
 
-import java.text.MessageFormat;
 import java.util.Map;
 
 /**

@@ -1,7 +1,6 @@
 package xyz.liweichao.auth.service.impl;
 
 import com.github.hicolors.colors.framework.core.common.abs.AbstractService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.liweichao.auth.dao.UserDetailDao;
 import xyz.liweichao.auth.model.persistence.UserDetail;

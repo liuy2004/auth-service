@@ -10,7 +10,6 @@ import xyz.liweichao.auth.core.utils.ResponseUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * ColorsOauthExceptionSerializer

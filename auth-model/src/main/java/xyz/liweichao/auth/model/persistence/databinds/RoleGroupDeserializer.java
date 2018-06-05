@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.springframework.util.ObjectUtils;
-import xyz.liweichao.auth.model.persistence.Organization;
 import xyz.liweichao.auth.model.persistence.RoleGroup;
 
 import java.io.IOException;

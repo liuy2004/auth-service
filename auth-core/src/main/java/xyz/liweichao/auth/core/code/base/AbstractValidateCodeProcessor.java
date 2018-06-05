@@ -9,7 +9,6 @@ import xyz.liweichao.auth.core.code.exception.ValidateCodeException;
 import xyz.liweichao.auth.core.code.exception.ValidateCodeExceptionEnum;
 import xyz.liweichao.auth.core.code.repository.ValidateCodeRepository;
 
-import java.text.MessageFormat;
 import java.util.Map;
 
 
