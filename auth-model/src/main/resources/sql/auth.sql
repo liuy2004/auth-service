@@ -146,3 +146,9 @@ CREATE TABLE `auth_user_role` (
 	KEY `idx_create_time` ( `create_time` ) USING BTREE
 ) ENGINE = INNODB CHARACTER
 SET = utf8mb4 COLLATE = utf8mb4_bin row_format = compact auto_increment = 10001 COMMENT = '用户角色关联信息';
+
+-- 插入 root 组织机构
+INSERT INTO `colors_auth`.`auth_organization`(`id`, `name`, `display_name`, `code`, `layer`, `sort`, `parent_id`, `path`, `description`, `create_time`, `creator`, `modify_time`, `modifier`) VALUES (1, '', '', 'root', 0, 1, 0, '', '根节点', '2018-06-05 13:55:53', 1, '2018-06-05 13:56:22', 1);
+
+-- 插入 未分组 信息
+INSERT INTO `colors_auth`.`auth_role_group`(`id`, `name`, `code`, `sort`, `create_time`, `creator`, `modify_time`, `modifier`) VALUES (1, '未分组', 'nogroup', 1, '2018-06-05 13:59:34', 1, '2018-06-05 13:59:34', 1);
