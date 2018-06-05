@@ -29,4 +29,6 @@ public interface IUserDetailApi extends IController<UserDetail, Long> {
     @PostMapping("/{id}/role-groups")
     @ApiOperation("对用户赋权（赋予角色组信息，则自动具有该角色组下所有角色权限）")
     UserDetail groups(@PathVariable("id") Long id, @RequestBody ArrayList<Long> groups);
+
+
 }
