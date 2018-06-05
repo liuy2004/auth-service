@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.liweichao.auth.dao.RoleDao;
-import xyz.liweichao.auth.dao.RoleGroupDao;
+import xyz.liweichao.auth.exception.OrganizationException;
+import xyz.liweichao.auth.exception.OrganizationExceptionEnum;
 import xyz.liweichao.auth.exception.RoleException;
 import xyz.liweichao.auth.exception.RoleExceptionEnum;
 import xyz.liweichao.auth.model.persistence.Role;
@@ -27,8 +28,11 @@ public class RoleServiceImpl extends AbstractService<Role, Long> implements IRol
     @Autowired
     private IRoleGroupService roleGroupService;
 
+    private RoleDao dao;
+
     public RoleServiceImpl(RoleDao dao) {
         super(dao);
+        this.dao = dao;
     }
 
     private Role buildParam(Role bean) {
@@ -46,12 +50,19 @@ public class RoleServiceImpl extends AbstractService<Role, Long> implements IRol
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public Role save(Role bean) {
+        if (Objects.nonNull(dao.findByCode(bean.getCode()))) {
+            throw new RoleException(RoleExceptionEnum.CODE_EXISTING, bean.getCode());
+        }
         return super.save(buildParam(bean));
     }
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public Role update(Role bean) {
+        Role old = dao.findByCode(bean.getCode());
+        if (Objects.nonNull(old) && !old.getId().equals(bean.getId())) {
+            throw new OrganizationException(OrganizationExceptionEnum.CODE_EXISTING, bean.getCode());
+        }
         return super.save(buildParam(bean));
     }
 

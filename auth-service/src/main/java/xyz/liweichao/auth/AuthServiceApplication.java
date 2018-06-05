@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
-@EnableRedisson
+//@EnableRedisson
 public class AuthServiceApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthServiceApplication.class);

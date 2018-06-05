@@ -2,7 +2,6 @@ package xyz.liweichao.auth.dao;
 
 import com.github.hicolors.colors.framework.core.common.abs.intf.IDao;
 import org.springframework.stereotype.Repository;
-import xyz.liweichao.auth.model.persistence.Organization;
 import xyz.liweichao.auth.model.persistence.Role;
 
 /**
@@ -15,9 +14,10 @@ import xyz.liweichao.auth.model.persistence.Role;
 public interface RoleDao extends IDao<Role, Long> {
 
     /**
-     * 通过组织机构代码查询
+     * 通过角色代码查询
+     *
      * @param code
      * @return
      */
-    Role findByCodeEquals(String code);
+    Role findByCode(String code);
 }

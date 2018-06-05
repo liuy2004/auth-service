@@ -1,8 +1,8 @@
 package xyz.liweichao.auth.service.impl;
 
 import com.github.hicolors.colors.framework.core.common.abs.AbstractService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -13,10 +13,6 @@ import xyz.liweichao.auth.exception.OrganizationExceptionEnum;
 import xyz.liweichao.auth.model.persistence.Organization;
 import xyz.liweichao.auth.service.IOrganizationService;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.Objects;
 
 /**
@@ -43,7 +39,7 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
 
     private Organization buildParam(Organization bean) {
         if (ObjectUtils.isEmpty(bean.getParent())) {
-            throw new OrganizationException(OrganizationExceptionEnum.PARENT_ID_NOT_FOUND, bean.getParent().getId());
+            throw new OrganizationException(OrganizationExceptionEnum.PARENT_ID_NOT_FOUND);
         }
         Organization parent = queryOne(bean.getParent().getId());
         if (ObjectUtils.isEmpty(parent)) {
@@ -58,7 +54,7 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public Organization save(Organization bean) {
-        if (Objects.nonNull(dao.queryByCode(bean.getCode()))) {
+        if (Objects.nonNull(dao.findByCode(bean.getCode()))) {
             throw new OrganizationException(OrganizationExceptionEnum.CODE_EXISTING, bean.getCode());
         }
         return dao.save(buildParam(bean));
@@ -67,9 +63,14 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public Organization update(Organization bean) {
-        Organization old = dao.queryByCode(bean.getCode());
-        if (Objects.nonNull(old)&&!old.getId().equals(bean.getId())) {
-            throw new OrganizationException(OrganizationExceptionEnum.CODE_EXISTING, bean.getCode());
+        if(bean.getLayer().equals(0)){
+            throw new OrganizationException(OrganizationExceptionEnum.ROOT_MODIFY_REFUSED);
+        }
+        if (StringUtils.isNotBlank(bean.getCode())) {
+            Organization old = dao.findByCode(bean.getCode());
+            if (Objects.nonNull(old) && !old.getId().equals(bean.getId())) {
+                throw new OrganizationException(OrganizationExceptionEnum.CODE_EXISTING, bean.getCode());
+            }
         }
         return dao.save(buildParam(bean));
     }

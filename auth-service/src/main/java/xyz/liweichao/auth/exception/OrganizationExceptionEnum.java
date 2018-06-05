@@ -17,6 +17,7 @@ public enum OrganizationExceptionEnum {
     HAS_CHILDREN(2, "当前组织机构节点还有子节点。"),
     HAS_USER(3, "当前组织机构节点还有人员。"),
     CODE_EXISTING(4,"当前组织机构代码[{}]已被占用！"),
+    ROOT_MODIFY_REFUSED(5,"root 节点不允许被修改！"),
     ;
 
     private final int value;
