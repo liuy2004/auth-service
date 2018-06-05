@@ -10,6 +10,7 @@ import xyz.liweichao.auth.exception.RoleException;
 import xyz.liweichao.auth.exception.RoleExceptionEnum;
 import xyz.liweichao.auth.model.persistence.Role;
 import xyz.liweichao.auth.model.persistence.RoleGroup;
+import xyz.liweichao.auth.service.IRoleGroupService;
 import xyz.liweichao.auth.service.IRoleService;
 
 import java.util.Objects;
@@ -24,7 +25,7 @@ import java.util.Objects;
 public class RoleServiceImpl extends AbstractService<Role, Long> implements IRoleService {
 
     @Autowired
-    private RoleGroupDao roleGroupDao;
+    private IRoleGroupService roleGroupService;
 
     public RoleServiceImpl(RoleDao dao) {
         super(dao);
@@ -33,7 +34,7 @@ public class RoleServiceImpl extends AbstractService<Role, Long> implements IRol
     private Role buildParam(Role bean) {
         if (Objects.nonNull(bean.getRoleGroup()) && Objects.nonNull(bean.getRoleGroup().getId())) {
             Long id = bean.getRoleGroup().getId();
-            if (Objects.isNull(roleGroupDao.findOne(id))) {
+            if (Objects.isNull(roleGroupService.queryOne(id))) {
                 throw new RoleException(RoleExceptionEnum.GOURP_NOT_FOUNT, id);
             }
         } else {

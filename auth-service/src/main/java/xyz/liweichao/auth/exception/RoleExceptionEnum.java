@@ -14,6 +14,7 @@ public enum RoleExceptionEnum {
      * 异常列举出来
      */
     GOURP_NOT_FOUNT(1, "当前角色组信息[{}]未找到。"),
+    CODE_EXISTING(4,"当前角色代码已被占用！"),
     ;
 
     private final int value;

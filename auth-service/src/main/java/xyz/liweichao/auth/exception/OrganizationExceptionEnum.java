@@ -15,7 +15,9 @@ public enum OrganizationExceptionEnum {
      */
     PARENT_ID_NOT_FOUND(1, "当前组织机构父级节点[{}]未找到。"),
     HAS_CHILDREN(2, "当前组织机构节点还有子节点。"),
-    HAS_USER(3, "当前组织机构节点还有人员。"),;;
+    HAS_USER(3, "当前组织机构节点还有人员。"),
+    CODE_EXISTING(4,"当前组织机构代码[{}]已被占用！"),
+    ;
 
     private final int value;
 
