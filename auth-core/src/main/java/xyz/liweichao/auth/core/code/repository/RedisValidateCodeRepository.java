@@ -27,15 +27,6 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
 
     public RedisValidateCodeRepository(RedisTemplate<Object, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
-        jackson2JsonRedisSerializer.setObjectMapper(JsonUtils.getObjectMapper());
-        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashKeySerializer(jackson2JsonRedisSerializer);
-        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
-        redisTemplate.setDefaultSerializer(jackson2JsonRedisSerializer);
-        redisTemplate.setEnableDefaultSerializer(true);
-        redisTemplate.afterPropertiesSet();
     }
 
     @Override
@@ -77,6 +68,6 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
         if (StringUtils.isBlank(key)) {
             throw new ValidateCodeException(ValidateCodeExceptionEnum.KEY_IS_NULL, type.name());
         }
-        return "validate:code:" + type.name() + ":" + key;
+        return "auth:validate:code:" + type.name() + ":" + key;
     }
 }
