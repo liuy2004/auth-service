@@ -1,10 +1,7 @@
 package xyz.liweichao.auth.core.code.repository;
 
-import com.github.hicolors.colors.framework.core.common.utils.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 import xyz.liweichao.auth.core.code.base.ValidateCode;
 import xyz.liweichao.auth.core.code.base.ValidateCodeType;
@@ -38,6 +35,7 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
     @Override
     public ValidateCode get(String key, ValidateCodeType type) {
         Object value = redisTemplate.opsForValue().get(buildKey(key, type));
+
         if (value == null) {
             return null;
         }
