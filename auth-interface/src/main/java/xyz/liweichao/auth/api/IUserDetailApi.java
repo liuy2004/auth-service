@@ -33,7 +33,7 @@ public interface IUserDetailApi extends IController<UserDetail, Long> {
     UserDetail register(@RequestBody RegisterModel model);
 
     @PatchMapping("/password")
-    @ApiOperation("修改密码")
+    @ApiOperation(value = "修改密码", notes = "用户自己修改密码")
     UserDetail password(@AuthenticationPrincipal UserDetails user, @RequestBody PasswordModel model);
 
     @PatchMapping("/{id}/password")
