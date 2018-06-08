@@ -1,11 +1,13 @@
 package xyz.liweichao.auth.model.persistence;
 
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
+import com.github.hicolors.colors.framework.common.valid.ValidatorGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * comment:角色组信息
@@ -64,4 +66,19 @@ public class RoleGroup extends AbstractBean {
     public RoleGroup(Long id) {
         this.id = id;
     }
+
+    /**
+     * comment: 	描述
+     * <p>
+     * isNullable: 	false
+     * <p>
+     * length: 	300
+     */
+    @NotNull(
+            message = "description[描述]不能为空",
+            groups = {ValidatorGroup.Post.class}
+    )
+    @Column(name = "description")
+    private String description;
+
 }

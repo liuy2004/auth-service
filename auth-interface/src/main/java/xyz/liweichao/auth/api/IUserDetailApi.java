@@ -3,6 +3,8 @@ package xyz.liweichao.auth.api;
 import com.github.hicolors.colors.framework.common.controller.IController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import xyz.liweichao.auth.model.persistence.UserDetail;
 import xyz.liweichao.auth.model.request.PasswordModel;
@@ -24,15 +26,19 @@ public interface IUserDetailApi extends IController<UserDetail, Long> {
 
     @GetMapping("code/{type}")
     @ApiOperation("获取验证码")
-    Map<String, Object> code(@PathVariable("type") String type, @RequestParam("unique-key") String uniqueKey);
+    Map<String, Object> code(@PathVariable("type") String type, @RequestParam("unique") String unique);
 
     @PostMapping("/simple")
     @ApiOperation("注册用户")
     UserDetail register(@RequestBody RegisterModel model);
 
+    @PatchMapping("/password")
+    @ApiOperation("修改密码")
+    UserDetail password(@AuthenticationPrincipal UserDetails user, @RequestBody PasswordModel model);
+
     @PatchMapping("/{id}/password")
     @ApiOperation("修改密码")
-    UserDetail password(@PathVariable("id") Long id, @RequestBody PasswordModel model);
+    UserDetail restPassword(@PathVariable("id") Long id);
 
     @PostMapping("/{id}/roles")
     @ApiOperation("对用户赋权（赋予角色信息）")
@@ -42,4 +48,11 @@ public interface IUserDetailApi extends IController<UserDetail, Long> {
     @ApiOperation("对用户赋权（赋予角色组信息，则自动具有该角色组下所有角色权限）")
     UserDetail groups(@PathVariable("id") Long id, @RequestBody ArrayList<Long> groups);
 
+    @DeleteMapping("/{id}/role-group/{gid}")
+    @ApiOperation("删除用户角色组权限")
+    UserDetail deleteRoleGroup(@PathVariable("id") Long id, @PathVariable("gid") Long gid);
+
+    @DeleteMapping("/{id}/role/{rid}")
+    @ApiOperation("删除用户角色权限")
+    UserDetail deleteRole(@PathVariable("id") Long id, @PathVariable("rid") Long rid);
 }

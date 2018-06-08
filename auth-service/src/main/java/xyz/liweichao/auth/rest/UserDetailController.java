@@ -1,6 +1,8 @@
 package xyz.liweichao.auth.rest;
 
 import com.github.hicolors.colors.framework.core.common.abs.AbstractController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +30,7 @@ public class UserDetailController extends AbstractController<UserDetail, Long> i
     }
 
     @Override
-    public Map<String, Object> code(@PathVariable("type")String type, @RequestParam String uniqueKey) {
+    public Map<String, Object> code(@PathVariable("type") String type, @RequestParam String uniqueKey) {
         return null;
     }
 
@@ -38,7 +40,12 @@ public class UserDetailController extends AbstractController<UserDetail, Long> i
     }
 
     @Override
-    public UserDetail password(@PathVariable("id") Long id, @RequestBody PasswordModel model) {
+    public UserDetail password(@AuthenticationPrincipal UserDetails user, @RequestBody PasswordModel model) {
+        return null;
+    }
+
+    @Override
+    public UserDetail restPassword(@PathVariable("id") Long id) {
         return null;
     }
 
@@ -49,6 +56,16 @@ public class UserDetailController extends AbstractController<UserDetail, Long> i
 
     @Override
     public UserDetail groups(@PathVariable("id") Long id, @RequestBody ArrayList<Long> groups) {
+        return null;
+    }
+
+    @Override
+    public UserDetail deleteRoleGroup(@PathVariable("id") Long id, @PathVariable("gid") Long gid) {
+        return null;
+    }
+
+    @Override
+    public UserDetail deleteRole(@PathVariable("id") Long id, @PathVariable("rid") Long rid) {
         return null;
     }
 

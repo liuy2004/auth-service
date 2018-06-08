@@ -9,3 +9,6 @@ spring:
     port: 6379
     database: 1
 
+# redis client 的一种，性能据说强于 jedis .
+#redisson:
+#  config: classpath:single-server.yml
