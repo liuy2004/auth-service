@@ -4,10 +4,13 @@ import com.github.hicolors.colors.framework.common.utils.ReflectionUtils;
 import com.github.hicolors.colors.framework.common.utils.StringUtils;
 import com.github.hicolors.colors.framework.core.abs.AbstractService;
 import org.apache.commons.lang.math.RandomUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import xyz.liweichao.auth.core.model.ColorsUser;
 import xyz.liweichao.auth.dao.UserDetailRepository;
 import xyz.liweichao.auth.dao.UserRepository;
 import xyz.liweichao.auth.exception.UserDetailException;
@@ -18,10 +21,10 @@ import xyz.liweichao.auth.model.persistence.UserDetail;
 import xyz.liweichao.auth.model.request.PasswordModel;
 import xyz.liweichao.auth.model.request.RegisterModel;
 import xyz.liweichao.auth.service.IUserDetailService;
+import xyz.liweichao.auth.service.IUserService;
 
 import javax.persistence.criteria.Predicate;
 import java.util.Date;
-import java.util.Objects;
 
 
 /**
@@ -33,6 +36,8 @@ import java.util.Objects;
 @Service
 public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> implements IUserDetailService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDetailServiceImpl.class);
+
     private final UserDetailRepository repository;
 
     @Autowired
@@ -40,6 +45,10 @@ public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> imp
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private IUserService userService;
+
 
     private static Date DEFAULT_EXPIRED = ReflectionUtils.convert("9999-12-31 23:59:59", Date.class);
 
@@ -73,7 +82,7 @@ public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> imp
         //todo 验证码校验
 
         //进行重复校验
-        if (Objects.nonNull(queryByUniqueKey(model.getUnique()))) {
+        if (org.apache.commons.lang3.ObjectUtils.anyNotNull(userService.queryUserByUniqueKey(model.getUnique()),queryByUniqueKey(model.getUnique()))) {
             throw new UserDetailException(UserDetailExceptionEnum.UNIQUE_CONFLICT, model.getUnique());
         }
         User user = new User();
@@ -99,19 +108,20 @@ public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> imp
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserDetail modifyPasswordOnValid(String username, PasswordModel model) {
-        UserDetail userDetail = queryByUniqueKey(username);
-        if(passwordEncoder.matches(model.getOldPassword(),userDetail.getUser().getPassword())){
-            User user = userRepository.findOne(userDetail.getId());
-            user.setPassword(model.getPassword());
+        User user = userService.loadUserAuthInfo(username);
+        if (passwordEncoder.matches(model.getOldPassword(), user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(model.getPassword()));
             userRepository.saveAndFlush(user);
-        }else{
+        } else {
             throw new UserDetailException(UserDetailExceptionEnum.PASSWORD_INCORRECT);
         }
-        return userDetail;
+        return repository.getOne(user.getId());
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserDetail resetPassword(UserDetail userDetail) {
         User user = userRepository.findOne(userDetail.getId());
         user.setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));

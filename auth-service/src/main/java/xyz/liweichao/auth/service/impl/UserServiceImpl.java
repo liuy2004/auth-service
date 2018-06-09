@@ -2,6 +2,7 @@ package xyz.liweichao.auth.service.impl;
 
 import com.github.hicolors.colors.framework.core.abs.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
 import org.springframework.stereotype.Service;
 import xyz.liweichao.auth.core.exception.UserNotFoundException;
 import xyz.liweichao.auth.dao.UserRepository;
@@ -22,11 +23,14 @@ import java.util.Objects;
 @Service
 public class UserServiceImpl extends AbstractService<User, Long> implements IUserService {
 
+    private UserRepository repository;
+
     @Autowired
     private IUserDetailService userDetailService;
 
     public UserServiceImpl(UserRepository repository) {
         super(repository);
+        this.repository = repository;
     }
 
     @Override

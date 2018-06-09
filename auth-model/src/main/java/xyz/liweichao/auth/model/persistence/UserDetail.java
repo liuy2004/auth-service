@@ -112,8 +112,4 @@ public class UserDetail extends AbstractBean {
     @Column(name = "favicon")
     private String favicon;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
-    @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
-    @JsonIgnoreProperties("password")
-    private User user;
 }
