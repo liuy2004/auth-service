@@ -1,5 +1,6 @@
 package xyz.liweichao.auth.model.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
 import com.github.hicolors.colors.framework.common.valid.ValidatorGroup;
 import lombok.Data;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * comment:角色组信息
@@ -81,4 +83,8 @@ public class RoleGroup extends AbstractBean {
     @Column(name = "description")
     private String description;
 
+    @OneToMany(mappedBy = "roleGroup", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
+    @OrderBy("sort desc")
+    @JsonIgnoreProperties("roleGroup")
+    private List<Role> roles;
 }

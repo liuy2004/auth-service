@@ -8,13 +8,18 @@ import xyz.liweichao.auth.core.exception.UserNotFoundException;
 import xyz.liweichao.auth.core.model.ColorsUser;
 import xyz.liweichao.auth.core.service.IColorsUserService;
 import xyz.liweichao.auth.dao.UserRepository;
+import xyz.liweichao.auth.dao.UserRoleGroupRepository;
+import xyz.liweichao.auth.dao.UserRoleRepository;
 import xyz.liweichao.auth.model.persistence.User;
 import xyz.liweichao.auth.model.persistence.UserDetail;
+import xyz.liweichao.auth.model.persistence.UserRole;
+import xyz.liweichao.auth.model.persistence.UserRoleGroup;
 import xyz.liweichao.auth.service.IUserDetailService;
 import xyz.liweichao.auth.service.IUserService;
 
 import javax.persistence.criteria.Predicate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -31,6 +36,12 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
 
     @Autowired
     private IUserDetailService userDetailService;
+
+    @Autowired
+    private UserRoleGroupRepository userRoleGroupRepository;
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
 
     public UserServiceImpl(UserRepository repository) {
         super(repository);
@@ -80,7 +91,10 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
 
     private Set<String> findAllRoles(Long userId) {
         Set<String> roles = new HashSet<>();
-        roles.add(String.valueOf(userId));
+        List<UserRoleGroup> userRoleGroups = userRoleGroupRepository.findAllByUserId(userId);
+        List<UserRole> userRoles = userRoleRepository.findAllByUserId(userId);
+        userRoleGroups.forEach(e -> e.getRoleGroup().getRoles().forEach(e2 -> roles.add(e2.getCode())));
+        userRoles.forEach(e -> roles.add(e.getRole().getCode()));
         return roles;
     }
 
