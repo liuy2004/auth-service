@@ -25,8 +25,11 @@ import java.util.Map;
 @RestController
 public class UserDetailController extends AbstractController<UserDetail, Long> implements IUserDetailApi {
 
+    private final IUserDetailService service;
+
     public UserDetailController(IUserDetailService service) {
         super(service);
+        this.service = service;
     }
 
     @Override
@@ -36,17 +39,17 @@ public class UserDetailController extends AbstractController<UserDetail, Long> i
 
     @Override
     public UserDetail register(@RequestBody RegisterModel model) {
-        return null;
+        return service.register(model);
     }
 
     @Override
     public UserDetail password(@AuthenticationPrincipal UserDetails user, @RequestBody PasswordModel model) {
-        return null;
+        return service.modifyPasswordOnValid(user.getUsername(),model);
     }
 
     @Override
     public UserDetail restPassword(@PathVariable("id") Long id) {
-        return null;
+        return service.resetPassword(query(id));
     }
 
     @Override

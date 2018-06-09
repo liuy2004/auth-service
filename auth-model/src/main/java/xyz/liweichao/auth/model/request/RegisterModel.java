@@ -14,7 +14,7 @@ public class RegisterModel {
     /**
      * 唯一约束（手机号 或者 邮箱）
      */
-    private String uniqueKey;
+    private String unique;
 
     /**
      * 验证码

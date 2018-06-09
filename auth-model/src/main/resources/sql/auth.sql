@@ -15,7 +15,7 @@ CREATE TABLE `auth_user` (
 	`modify_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
 	`modifier` BIGINT ( 20 ) UNSIGNED NOT NULL DEFAULT 1 COMMENT '修改人',
 	PRIMARY KEY ( `id` ) USING BTREE,
-	UNIQUE KEY `uniq_username_password` ( `username`, `password` ),
+	UNIQUE KEY `uniq_username` ( `username` ),
 	KEY `idx_create_time` ( `create_time` ) USING BTREE
 ) ENGINE = INNODB CHARACTER
 SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Compact AUTO_INCREMENT = 10001 COMMENT = '用户认证信息';

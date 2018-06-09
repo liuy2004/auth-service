@@ -125,15 +125,18 @@
         <appender-ref ref="requestInfo"/>
     </appender>
 
-    <logger name="com.github.hicolors.colors.framework.core.others.springmvc.log.RequestLogAdvice"
+    <logger name="com.github.hicolors.colors.framework.core.springmvc.log.RequestLogAdvice"
             level="info" additivity="false">
         <appender-ref ref="asyncRequestInfo"/>
     </logger>
 
-    <logger name="com.github.hicolors.colors.framework.core.others.springmvc.log.ResponseLogAdvice"
+    <logger name="com.github.hicolors.colors.framework.core.springmvc.log.ResponseLogAdvice"
             level="info" additivity="false">
         <appender-ref ref="asyncRequestInfo"/>
     </logger>
+
+    <!--jpa log configure-->
+    <logger name="org.springframework.orm.jpa" level="DEBUG"/>
 
     <!-- hibernate log configure -->
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
@@ -141,9 +144,6 @@
     <logger name="org.hibernate.SQL" level="DEBUG"/>
     <logger name="org.hibernate.engine.QueryParameters" level="DEBUG"/>
     <logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG"/>
-
-    <!--jpa log configure-->
-    <logger name="org.springframework.orm.jpa" level="DEBUG"/>
 
     <!--myibatis log configure-->
     <logger name="com.apache.ibatis" level="TRACE"/>
@@ -156,8 +156,6 @@
 
     <!--自定义-->
     <logger name="xyz.liweichao.auth" level="DEBUG"/>
-
-
 
     <root>
         <level value="info"/>
