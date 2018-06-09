@@ -48,7 +48,7 @@ colors:
         expire-in: 180
         length: 6
     oauth2:
-      token-store: redis
+      token-store: jwt
       clients[0]:
         client-id: colors
         client-secret: colors

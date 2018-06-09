@@ -1,27 +1,29 @@
 package xyz.liweichao.auth.core.authentication.userservices;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.stereotype.Component;
+import xyz.liweichao.auth.core.model.ColorsUser;
+import xyz.liweichao.auth.core.service.IColorsUserService;
 
 /**
- * 默认的SocialUserDetailsService实现
- * 不做任何处理，只在控制台打印一句日志，然后抛出异常，提醒业务系统自己配置SocialUserDetailsService。
+ * DefaultSocialUserDetailsServiceImpl
  *
- * @author 李伟超
- * @email liweichao0102@gmail.com
- * @date 2018/3/1
+ * @author weichao.li (liweichao0102@gmail.com)
+ * @date 2018/3/9
  */
+
+@Component
 public class DefaultSocialUserDetailsServiceImpl implements SocialUserDetailsService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSocialUserDetailsServiceImpl.class);
+
+    @Autowired
+    private IColorsUserService colorsUserService;
 
     @Override
-    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-        LOGGER.warn("请配置 SocialUserDetailsService 接口的实现.");
-        throw new UsernameNotFoundException(userId);
+    public ColorsUser loadUserByUserId(String userId) throws UsernameNotFoundException {
+        return colorsUserService.loadUserByUniqueKey(userId);
     }
 
 }

@@ -1,11 +1,8 @@
 package xyz.liweichao.auth.rest;
 
 import com.github.hicolors.colors.framework.core.abs.AbstractController;
-import com.github.hicolors.colors.framework.core.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,9 +45,8 @@ public class UserDetailController extends AbstractController<UserDetail, Long> i
     }
 
     @Override
-    public UserDetail password(@AuthenticationPrincipal UserDetails user, @RequestBody PasswordModel model) {
-        if(LOGGER.isDebugEnabled()){LOGGER.debug(JsonUtils.serializeExcludes(user));}
-        return service.modifyPasswordOnValid(user.getUsername(),model);
+    public UserDetail password(@RequestBody PasswordModel model) {
+        return service.modifyPasswordOnValid(model);
     }
 
     @Override

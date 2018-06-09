@@ -12,7 +12,7 @@ public interface IUserDetailService extends IService<UserDetail, Long> {
 
     UserDetail register(RegisterModel model);
 
-    UserDetail modifyPasswordOnValid(String username, PasswordModel model);
+    UserDetail modifyPasswordOnValid(PasswordModel model);
 
     UserDetail resetPassword(UserDetail userDetail);
 }

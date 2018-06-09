@@ -7,10 +7,10 @@ import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xyz.liweichao.auth.core.model.ColorsUser;
 import xyz.liweichao.auth.dao.UserDetailRepository;
 import xyz.liweichao.auth.dao.UserRepository;
 import xyz.liweichao.auth.exception.UserDetailException;
@@ -82,7 +82,7 @@ public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> imp
         //todo 验证码校验
 
         //进行重复校验
-        if (org.apache.commons.lang3.ObjectUtils.anyNotNull(userService.queryUserByUniqueKey(model.getUnique()),queryByUniqueKey(model.getUnique()))) {
+        if (org.apache.commons.lang3.ObjectUtils.anyNotNull(userService.queryUserByUniqueKey(model.getUnique()), queryByUniqueKey(model.getUnique()))) {
             throw new UserDetailException(UserDetailExceptionEnum.UNIQUE_CONFLICT, model.getUnique());
         }
         User user = new User();
@@ -109,7 +109,8 @@ public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> imp
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserDetail modifyPasswordOnValid(String username, PasswordModel model) {
+    public UserDetail modifyPasswordOnValid(PasswordModel model) {
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.loadUserAuthInfo(username);
         if (passwordEncoder.matches(model.getOldPassword(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(model.getPassword()));

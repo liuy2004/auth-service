@@ -1,10 +1,19 @@
 package xyz.liweichao.auth.core.model;
 
+import com.github.hicolors.colors.framework.common.utils.DateUtils;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.social.security.SocialUserDetails;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
  * ColorsUser
@@ -14,8 +23,11 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-public class ColorsUser {
+public class ColorsUser implements UserDetails, SocialUserDetails {
 
+    /**
+     * 系统中的 id
+     */
     private Long id;
 
     /**
@@ -28,6 +40,12 @@ public class ColorsUser {
      */
     private String username;
 
+
+    /**
+     * comment: 	密码
+     */
+    private String password;
+
     /**
      * comment: 	状态[0:未启用;1:启用]
      */
@@ -37,6 +55,7 @@ public class ColorsUser {
      * comment: 	锁定状态[0:未锁定;1:锁定]
      */
     private Boolean lockStatus;
+
 
     /**
      * comment: 	过期时间
@@ -86,6 +105,81 @@ public class ColorsUser {
     /**
      * 角色
      */
-    private List<String> roles;
+    private Set<String> roles;
 
+    @Override
+    public String getUserId() {
+        return username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (CollectionUtils.isNotEmpty(roles)) {
+            return AuthorityUtils.commaSeparatedStringToAuthorityList(Arrays.toString(roles.stream().map(e -> e = "ROLE_" + e).toArray()));
+        }
+        return AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return DateUtils.compare(DateUtils.now(), expiredDate) < 0;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !lockStatus;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return DateUtils.compare(DateUtils.now(), credentialsExpiredDate) < 0;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public SimpleColorsUser buildSimpleColorsUser() {
+        return SimpleColorsUser.builder()
+                .id(this.id)
+                .nickName(this.nickName)
+                .email(email)
+                .mobile(mobile)
+                .name(name)
+                .birthday(birthday)
+                .description(description)
+                .website(website)
+                .favicon(favicon)
+                .build();
+    }
+
+
+    @Builder
+    @Data
+    private static class SimpleColorsUser {
+
+        private Long id;
+
+        private String nickName;
+
+        private String email;
+
+        private String mobile;
+
+        private String name;
+
+        private Date birthday;
+
+        private String description;
+
+        private String website;
+
+        private String favicon;
+    }
 }

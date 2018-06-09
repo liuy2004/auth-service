@@ -3,8 +3,6 @@ package xyz.liweichao.auth.api;
 import com.github.hicolors.colors.framework.common.controller.IController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import xyz.liweichao.auth.model.persistence.UserDetail;
 import xyz.liweichao.auth.model.request.PasswordModel;
@@ -34,7 +32,7 @@ public interface IUserDetailApi extends IController<UserDetail, Long> {
 
     @PatchMapping("/password")
     @ApiOperation(value = "修改密码", notes = "用户自己修改密码")
-    UserDetail password(@AuthenticationPrincipal UserDetails user, @RequestBody PasswordModel model);
+    UserDetail password(@RequestBody PasswordModel model);
 
     @PatchMapping("/{id}/password")
     @ApiOperation("修改密码")

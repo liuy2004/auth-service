@@ -1,10 +1,12 @@
 package xyz.liweichao.auth.service.impl;
 
 import com.github.hicolors.colors.framework.core.abs.AbstractService;
+import com.github.hicolors.colors.framework.core.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
 import org.springframework.stereotype.Service;
 import xyz.liweichao.auth.core.exception.UserNotFoundException;
+import xyz.liweichao.auth.core.model.ColorsUser;
+import xyz.liweichao.auth.core.service.IColorsUserService;
 import xyz.liweichao.auth.dao.UserRepository;
 import xyz.liweichao.auth.model.persistence.User;
 import xyz.liweichao.auth.model.persistence.UserDetail;
@@ -12,7 +14,9 @@ import xyz.liweichao.auth.service.IUserDetailService;
 import xyz.liweichao.auth.service.IUserService;
 
 import javax.persistence.criteria.Predicate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * UserServiceImpl
@@ -21,7 +25,7 @@ import java.util.Objects;
  * @date 2018/5/28
  */
 @Service
-public class UserServiceImpl extends AbstractService<User, Long> implements IUserService {
+public class UserServiceImpl extends AbstractService<User, Long> implements IUserService, IColorsUserService {
 
     private UserRepository repository;
 
@@ -62,4 +66,22 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
         }
         return user;
     }
+
+    @Override
+    public ColorsUser loadUserByUniqueKey(String uniqueKey) {
+        ColorsUser colorsUser = new ColorsUser();
+        User user = loadUserAuthInfo(uniqueKey);
+        UserDetail userDetail = userDetailService.queryOne(user.getId());
+        BeanUtils.copyProperties(user, colorsUser);
+        BeanUtils.copyProperties(userDetail, colorsUser);
+        colorsUser.setRoles(findAllRoles(user.getId()));
+        return colorsUser;
+    }
+
+    private Set<String> findAllRoles(Long userId) {
+        Set<String> roles = new HashSet<>();
+        roles.add(String.valueOf(userId));
+        return roles;
+    }
+
 }
