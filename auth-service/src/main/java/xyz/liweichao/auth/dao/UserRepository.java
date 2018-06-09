@@ -1,9 +1,9 @@
 package xyz.liweichao.auth.dao;
 
-import com.github.hicolors.colors.framework.core.common.abs.intf.IDao;
+import com.github.hicolors.colors.framework.core.abs.intf.IRepository;
 import org.springframework.stereotype.Repository;
 import xyz.liweichao.auth.model.persistence.User;
 
 @Repository
-public interface UserDao extends IDao<User, Long> {
+public interface UserRepository extends IRepository<User, Long> {
 }

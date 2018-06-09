@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.core.handler;
 
-import com.github.hicolors.colors.framework.core.common.utils.JsonUtils;
+import com.github.hicolors.colors.framework.core.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;

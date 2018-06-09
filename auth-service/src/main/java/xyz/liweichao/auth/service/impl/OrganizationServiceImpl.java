@@ -1,13 +1,13 @@
 package xyz.liweichao.auth.service.impl;
 
-import com.github.hicolors.colors.framework.core.common.abs.AbstractService;
+import com.github.hicolors.colors.framework.core.abs.AbstractService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import xyz.liweichao.auth.dao.OrganizationDao;
-import xyz.liweichao.auth.dao.UserDetailDao;
+import xyz.liweichao.auth.dao.OrganizationRepository;
+import xyz.liweichao.auth.dao.UserDetailRepository;
 import xyz.liweichao.auth.exception.OrganizationException;
 import xyz.liweichao.auth.exception.OrganizationExceptionEnum;
 import xyz.liweichao.auth.model.persistence.Organization;
@@ -26,14 +26,14 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
 
     protected final String separator = ";";
 
-    private OrganizationDao dao;
+    private OrganizationRepository repository;
 
     @Autowired
-    private UserDetailDao userDetailDao;
+    private UserDetailRepository userDetailRepository;
 
-    public OrganizationServiceImpl(OrganizationDao dao) {
-        super(dao);
-        this.dao = dao;
+    public OrganizationServiceImpl(OrganizationRepository repository) {
+        super(repository);
+        this.repository = repository;
 
     }
 
@@ -54,10 +54,10 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public Organization save(Organization bean) {
-        if (Objects.nonNull(dao.findByCode(bean.getCode()))) {
+        if (Objects.nonNull(repository.findByCode(bean.getCode()))) {
             throw new OrganizationException(OrganizationExceptionEnum.CODE_EXISTING, bean.getCode());
         }
-        return dao.save(buildParam(bean));
+        return repository.save(buildParam(bean));
     }
 
     @Override
@@ -67,12 +67,12 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
             throw new OrganizationException(OrganizationExceptionEnum.ROOT_MODIFY_REFUSED);
         }
         if (StringUtils.isNotBlank(bean.getCode())) {
-            Organization old = dao.findByCode(bean.getCode());
+            Organization old = repository.findByCode(bean.getCode());
             if (Objects.nonNull(old) && !old.getId().equals(bean.getId())) {
                 throw new OrganizationException(OrganizationExceptionEnum.CODE_EXISTING, bean.getCode());
             }
         }
-        return dao.save(buildParam(bean));
+        return repository.save(buildParam(bean));
     }
 
     @Override
@@ -85,9 +85,9 @@ public class OrganizationServiceImpl extends AbstractService<Organization, Long>
         String parent = "parent";
         String organization = "organization";
         String primaryKey = "id";
-        if (dao.count((root, query, cb) -> query.where(cb.equal(root.get(parent).get(primaryKey), bean.getId())).getRestriction()) < 0) {
-            if (userDetailDao.count((root, query, cb) -> query.where(cb.equal(root.get(organization).get(primaryKey), bean.getId())).getRestriction()) < 0) {
-                this.dao.delete(bean);
+        if (repository.count((root, query, cb) -> query.where(cb.equal(root.get(parent).get(primaryKey), bean.getId())).getRestriction()) < 0) {
+            if (userDetailRepository.count((root, query, cb) -> query.where(cb.equal(root.get(organization).get(primaryKey), bean.getId())).getRestriction()) < 0) {
+                this.repository.delete(bean);
             } else {
                 throw new OrganizationException(OrganizationExceptionEnum.HAS_USER);
             }

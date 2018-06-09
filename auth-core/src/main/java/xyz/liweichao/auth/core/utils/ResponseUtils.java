@@ -1,10 +1,10 @@
 package xyz.liweichao.auth.core.utils;
 
 import com.github.hicolors.colors.framework.common.exception.RestfulException;
-import com.github.hicolors.colors.framework.core.common.utils.JsonUtils;
-import com.github.hicolors.colors.framework.core.common.utils.SpringContextUtils;
-import com.github.hicolors.colors.framework.core.others.springmvc.error.ErrorEvent;
-import com.github.hicolors.colors.framework.core.others.springmvc.error.ErrorResponse;
+import com.github.hicolors.colors.framework.core.springmvc.error.ErrorEvent;
+import com.github.hicolors.colors.framework.core.springmvc.error.ErrorResponse;
+import com.github.hicolors.colors.framework.core.utils.JsonUtils;
+import com.github.hicolors.colors.framework.core.utils.SpringContextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

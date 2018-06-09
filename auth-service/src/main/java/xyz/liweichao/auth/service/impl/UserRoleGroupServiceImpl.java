@@ -1,10 +1,9 @@
 package xyz.liweichao.auth.service.impl;
 
-import com.github.hicolors.colors.framework.core.common.abs.AbstractService;
+import com.github.hicolors.colors.framework.core.abs.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xyz.liweichao.auth.dao.UserDao;
-import xyz.liweichao.auth.dao.UserRoleGroupDao;
+import xyz.liweichao.auth.dao.UserRoleGroupRepository;
 import xyz.liweichao.auth.model.persistence.UserRoleGroup;
 import xyz.liweichao.auth.service.IUserRoleGroupService;
 
@@ -19,9 +18,10 @@ import xyz.liweichao.auth.service.IUserRoleGroupService;
 public class UserRoleGroupServiceImpl extends AbstractService<UserRoleGroup, Long> implements IUserRoleGroupService {
 
     @Autowired
-    private UserRoleGroupDao dao;
+    private UserRoleGroupRepository repository;
 
-    public UserRoleGroupServiceImpl(UserDao dao) {
-        super(dao);
+    public UserRoleGroupServiceImpl(UserRoleGroupRepository repository) {
+        super(repository);
+        this.repository = repository;
     }
 }

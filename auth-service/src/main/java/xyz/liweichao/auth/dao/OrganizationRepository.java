@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.dao;
 
-import com.github.hicolors.colors.framework.core.common.abs.intf.IDao;
+import com.github.hicolors.colors.framework.core.abs.intf.IRepository;
 import org.springframework.stereotype.Repository;
 import xyz.liweichao.auth.model.persistence.Organization;
 
@@ -11,7 +11,7 @@ import xyz.liweichao.auth.model.persistence.Organization;
  * @date 2018/1/4
  */
 @Repository
-public interface OrganizationDao extends IDao<Organization, Long> {
+public interface OrganizationRepository extends IRepository<Organization, Long> {
 
     /**
      * 通过组织机构代码查询

@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.core.social.ways.weixin.api;
 
-import com.github.hicolors.colors.framework.core.common.utils.JsonUtils;
+import com.github.hicolors.colors.framework.core.utils.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;

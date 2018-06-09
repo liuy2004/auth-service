@@ -1,10 +1,10 @@
 package xyz.liweichao.auth.service.impl;
 
-import com.github.hicolors.colors.framework.core.common.abs.AbstractService;
+import com.github.hicolors.colors.framework.core.abs.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.liweichao.auth.core.exception.UserNotFoundException;
-import xyz.liweichao.auth.dao.UserDao;
+import xyz.liweichao.auth.dao.UserRepository;
 import xyz.liweichao.auth.model.persistence.User;
 import xyz.liweichao.auth.model.persistence.UserDetail;
 import xyz.liweichao.auth.service.IUserDetailService;
@@ -25,13 +25,13 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
     @Autowired
     private IUserDetailService userDetailService;
 
-    public UserServiceImpl(UserDao dao) {
-        super(dao);
+    public UserServiceImpl(UserRepository repository) {
+        super(repository);
     }
 
     @Override
     public User queryUserByUniqueKey(String uniqueKey) {
-        return dao.findOne((root, query, cb) -> {
+        return repository.findOne((root, query, cb) -> {
             Predicate username = cb.equal(root.get("username").as(String.class), uniqueKey);
             query.where(username);
             return query.getRestriction();

@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.core.social.view;
 
-import com.github.hicolors.colors.framework.core.common.utils.JsonUtils;
+import com.github.hicolors.colors.framework.core.utils.JsonUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.social.connect.Connection;
 import org.springframework.stereotype.Component;

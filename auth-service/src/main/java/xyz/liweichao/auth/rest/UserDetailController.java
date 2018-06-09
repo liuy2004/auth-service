@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.rest;
 
-import com.github.hicolors.colors.framework.core.common.abs.AbstractController;
+import com.github.hicolors.colors.framework.core.abs.AbstractController;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PathVariable;

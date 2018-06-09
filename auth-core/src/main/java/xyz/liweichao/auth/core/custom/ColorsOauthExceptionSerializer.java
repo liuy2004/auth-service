@@ -3,7 +3,7 @@ package xyz.liweichao.auth.core.custom;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.github.hicolors.colors.framework.core.others.springmvc.error.ErrorResponse;
+import com.github.hicolors.colors.framework.core.springmvc.error.ErrorResponse;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import xyz.liweichao.auth.core.utils.ResponseUtils;

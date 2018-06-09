@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.rest;
 
-import com.github.hicolors.colors.framework.core.common.abs.AbstractController;
+import com.github.hicolors.colors.framework.core.abs.AbstractController;
 import com.github.hicolors.colors.framework.lock.core.DistributeLock;
 import com.github.hicolors.colors.framework.lock.core.DistributeLockHolder;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.dao;
 
-import com.github.hicolors.colors.framework.core.common.abs.intf.IDao;
+import com.github.hicolors.colors.framework.core.abs.intf.IRepository;
 import org.springframework.stereotype.Repository;
 import xyz.liweichao.auth.model.persistence.Role;
 
@@ -11,7 +11,7 @@ import xyz.liweichao.auth.model.persistence.Role;
  * @date 2018/6/4
  */
 @Repository
-public interface RoleDao extends IDao<Role, Long> {
+public interface RoleRepository extends IRepository<Role, Long> {
 
     /**
      * 通过角色代码查询

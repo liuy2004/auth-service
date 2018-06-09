@@ -1,8 +1,8 @@
 package xyz.liweichao.auth.service.impl;
 
-import com.github.hicolors.colors.framework.core.common.abs.AbstractService;
+import com.github.hicolors.colors.framework.core.abs.AbstractService;
 import org.springframework.stereotype.Service;
-import xyz.liweichao.auth.dao.RoleGroupDao;
+import xyz.liweichao.auth.dao.RoleGroupRepository;
 import xyz.liweichao.auth.model.persistence.RoleGroup;
 import xyz.liweichao.auth.service.IRoleGroupService;
 
@@ -16,7 +16,7 @@ import xyz.liweichao.auth.service.IRoleGroupService;
 @Service
 public class RoleGroupServiceImpl extends AbstractService<RoleGroup, Long> implements IRoleGroupService {
 
-    public RoleGroupServiceImpl(RoleGroupDao dao) {
-        super(dao);
+    public RoleGroupServiceImpl(RoleGroupRepository repository) {
+        super(repository);
     }
 }

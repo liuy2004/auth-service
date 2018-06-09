@@ -1,7 +1,7 @@
 package xyz.liweichao.auth.service.impl;
 
 import com.github.hicolors.colors.framework.common.utils.DateUtils;
-import com.github.hicolors.colors.framework.core.common.utils.BeanUtils;
+import com.github.hicolors.colors.framework.core.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -24,7 +24,7 @@ import xyz.liweichao.auth.service.IUserService;
  * @date 2018/6/1
  */
 @Service
-public class AuthUserDetailsServiceImpl implements UserDetailsService, SocialUserDetailsService,IColorsUserService {
+public class AuthUserDetailsServiceImpl implements UserDetailsService, SocialUserDetailsService, IColorsUserService {
 
     @Autowired
     private IUserService userService;
@@ -47,8 +47,8 @@ public class AuthUserDetailsServiceImpl implements UserDetailsService, SocialUse
         ColorsUser colorsUser = new ColorsUser();
         xyz.liweichao.auth.model.persistence.User user = userService.loadUserAuthInfo(uniqueKey);
         UserDetail userDetail = userDetailService.queryOne(user.getId());
-        BeanUtils.copyProperties(user,colorsUser);
-        BeanUtils.copyProperties(userDetail,colorsUser);
+        BeanUtils.copyProperties(user, colorsUser);
+        BeanUtils.copyProperties(userDetail, colorsUser);
         return colorsUser;
     }
 
@@ -56,8 +56,8 @@ public class AuthUserDetailsServiceImpl implements UserDetailsService, SocialUse
         xyz.liweichao.auth.model.persistence.User user = userService.loadUserAuthInfo(uniqueIdentifier);
         return new User(user.getUsername(), user.getPassword(),
                 user.getEnabled(),
-                DateUtils.compare(user.getExpiredDate(),DateUtils.now())> 0,
-                DateUtils.compare(user.getCredentialsExpiredDate(),DateUtils.now())> 0,
+                DateUtils.compare(user.getExpiredDate(), DateUtils.now()) > 0,
+                DateUtils.compare(user.getCredentialsExpiredDate(), DateUtils.now()) > 0,
                 !user.getLockStatus(),
                 AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ACTUATOR"));
     }
