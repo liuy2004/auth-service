@@ -26,7 +26,6 @@
         <module>auth-model</module>
         <module>auth-interface</module>
         <module>auth-service</module>
-        <module>auth-core</module>
         <module>auth-sdk</module>
     </modules>
 

@@ -1,6 +1,6 @@
 package xyz.liweichao.auth;
 
-import com.github.hicolors.colors.framework.core.others.redisson.EnableRedisson;
+import com.github.hicolors.colors.framework.core.redisson.EnableRedisson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

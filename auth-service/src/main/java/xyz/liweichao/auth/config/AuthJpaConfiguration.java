@@ -21,7 +21,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
                         value = {JpaRepository.class}
                 )
         },
-        basePackages = "xyz.liweichao.**.dao",
+        basePackages = "xyz.liweichao.auth.**.dao",
         repositoryBaseClass = ColorsComplexRepository.class
 )
 public class AuthJpaConfiguration {
