@@ -1,6 +1,10 @@
 package xyz.liweichao.auth.core.service;
 
 import xyz.liweichao.auth.core.model.ColorsUser;
+import xyz.liweichao.auth.model.persistence.User;
+import xyz.liweichao.auth.model.persistence.UserDetail;
+
+import java.util.ArrayList;
 
 /**
  * IColorsUserService
@@ -12,4 +16,5 @@ import xyz.liweichao.auth.core.model.ColorsUser;
 public interface IColorsUserService {
 
     ColorsUser loadUserByUniqueKey(String uniqueKey);
+
 }

@@ -1,11 +1,15 @@
 package xyz.liweichao.auth.model.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * comment: 用户认证信息
@@ -15,6 +19,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @Entity
 @Table(name = "auth_user")
 public class User extends AbstractBean {
@@ -99,4 +104,25 @@ public class User extends AbstractBean {
      */
     @Column(name = "credentials_expired_date")
     private Date credentialsExpiredDate;
+
+    /**
+     * 角色
+     */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
+    @OrderBy("createTime desc")
+    @JsonIgnoreProperties({"user",  "role.roleGroup.roles"})
+    private List<UserRole> userRoles;
+
+
+    /**
+     * 角色组
+     */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
+    @OrderBy("createTime desc")
+    @JsonIgnoreProperties({"user", "roles"})
+    private List<UserRoleGroup> userRoleGroups;
+
+    public User(Long id) {
+        this.id = id;
+    }
 }

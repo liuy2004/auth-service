@@ -4,12 +4,11 @@ import com.github.hicolors.colors.framework.core.abs.AbstractService;
 import com.github.hicolors.colors.framework.core.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.liweichao.auth.core.exception.UserNotFoundException;
 import xyz.liweichao.auth.core.model.ColorsUser;
 import xyz.liweichao.auth.core.service.IColorsUserService;
-import xyz.liweichao.auth.dao.UserRepository;
-import xyz.liweichao.auth.dao.UserRoleGroupRepository;
-import xyz.liweichao.auth.dao.UserRoleRepository;
+import xyz.liweichao.auth.dao.*;
 import xyz.liweichao.auth.model.persistence.User;
 import xyz.liweichao.auth.model.persistence.UserDetail;
 import xyz.liweichao.auth.model.persistence.UserRole;
@@ -17,11 +16,7 @@ import xyz.liweichao.auth.model.persistence.UserRoleGroup;
 import xyz.liweichao.auth.service.IUserDetailService;
 import xyz.liweichao.auth.service.IUserService;
 
-import javax.persistence.criteria.Predicate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * UserServiceImpl
@@ -43,6 +38,13 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
+
+    @Autowired
+    private RoleGroupRepository roleGroupRepository;
+
     public UserServiceImpl(UserRepository repository) {
         super(repository);
         this.repository = repository;
@@ -50,11 +52,7 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
 
     @Override
     public User queryUserByUniqueKey(String uniqueKey) {
-        return repository.findOne((root, query, cb) -> {
-            Predicate username = cb.equal(root.get("username").as(String.class), uniqueKey);
-            query.where(username);
-            return query.getRestriction();
-        });
+        return repository.findByUsername(uniqueKey);
     }
 
     @Override
@@ -98,4 +96,30 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
         return roles;
     }
 
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public User roles(User user, ArrayList<Long> roles) {
+        roleRepository.findByIdIsIn(roles).forEach(e -> {
+                    UserRole userRole = new UserRole();
+                    userRole.setUser(user);
+                    userRole.setRole(e);
+                    userRoleRepository.save(userRole);
+                }
+        );
+        return user;
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public User groups(User user, ArrayList<Long> groups) {
+        roleGroupRepository.findByIdIsIn(groups).forEach(e -> {
+                    UserRoleGroup userRoleGroup = new UserRoleGroup();
+                    userRoleGroup.setUser(user);
+                    userRoleGroup.setRoleGroup(e);
+                    userRoleGroupRepository.save(userRoleGroup);
+                }
+        );
+        return user;
+    }
 }

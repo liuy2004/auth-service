@@ -6,4 +6,6 @@ import xyz.liweichao.auth.model.persistence.User;
 
 @Repository
 public interface UserRepository extends IRepository<User, Long> {
+
+    User findByUsername(String username);
 }

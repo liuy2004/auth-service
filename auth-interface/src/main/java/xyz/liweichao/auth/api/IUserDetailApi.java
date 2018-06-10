@@ -38,19 +38,4 @@ public interface IUserDetailApi extends IController<UserDetail, Long> {
     @ApiOperation("修改密码")
     UserDetail restPassword(@PathVariable("id") Long id);
 
-    @PostMapping("/{id}/roles")
-    @ApiOperation("对用户赋权（赋予角色信息）")
-    UserDetail roles(@PathVariable("id") Long id, @RequestBody ArrayList<Long> roles);
-
-    @PostMapping("/{id}/role-groups")
-    @ApiOperation("对用户赋权（赋予角色组信息，则自动具有该角色组下所有角色权限）")
-    UserDetail groups(@PathVariable("id") Long id, @RequestBody ArrayList<Long> groups);
-
-    @DeleteMapping("/{id}/role-group/{gid}")
-    @ApiOperation("删除用户角色组权限")
-    UserDetail deleteRoleGroup(@PathVariable("id") Long id, @PathVariable("gid") Long gid);
-
-    @DeleteMapping("/{id}/role/{rid}")
-    @ApiOperation("删除用户角色权限")
-    UserDetail deleteRole(@PathVariable("id") Long id, @PathVariable("rid") Long rid);
 }

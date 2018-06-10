@@ -6,6 +6,8 @@ import xyz.liweichao.auth.model.persistence.UserDetail;
 import xyz.liweichao.auth.model.request.PasswordModel;
 import xyz.liweichao.auth.model.request.RegisterModel;
 
+import java.util.ArrayList;
+
 public interface IUserDetailService extends IService<UserDetail, Long> {
 
     UserDetail queryByUniqueKey(String uniqueKey);
@@ -15,4 +17,5 @@ public interface IUserDetailService extends IService<UserDetail, Long> {
     UserDetail modifyPasswordOnValid(PasswordModel model);
 
     UserDetail resetPassword(UserDetail userDetail);
+
 }

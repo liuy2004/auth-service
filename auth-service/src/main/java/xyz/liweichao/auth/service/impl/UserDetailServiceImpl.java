@@ -11,19 +11,22 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import xyz.liweichao.auth.dao.RoleRepository;
 import xyz.liweichao.auth.dao.UserDetailRepository;
 import xyz.liweichao.auth.dao.UserRepository;
+import xyz.liweichao.auth.dao.UserRoleRepository;
 import xyz.liweichao.auth.exception.UserDetailException;
 import xyz.liweichao.auth.exception.UserDetailExceptionEnum;
 import xyz.liweichao.auth.model.persistence.Organization;
 import xyz.liweichao.auth.model.persistence.User;
 import xyz.liweichao.auth.model.persistence.UserDetail;
+import xyz.liweichao.auth.model.persistence.UserRole;
 import xyz.liweichao.auth.model.request.PasswordModel;
 import xyz.liweichao.auth.model.request.RegisterModel;
 import xyz.liweichao.auth.service.IUserDetailService;
 import xyz.liweichao.auth.service.IUserService;
 
-import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -41,7 +44,13 @@ public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> imp
     private final UserDetailRepository repository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -68,12 +77,7 @@ public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> imp
 
     @Override
     public UserDetail queryByUniqueKey(String uniqueKey) {
-        return repository.findOne((root, query, cb) -> {
-            Predicate mobile = cb.equal(root.get("mobile").as(String.class), uniqueKey);
-            Predicate email = cb.equal(root.get("email").as(String.class), uniqueKey);
-            query.where(cb.or(mobile, email));
-            return query.getRestriction();
-        });
+        return repository.findByMobileOrEmail(uniqueKey);
     }
 
     @Override
@@ -129,4 +133,5 @@ public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> imp
         userRepository.saveAndFlush(user);
         return userDetail;
     }
+
 }

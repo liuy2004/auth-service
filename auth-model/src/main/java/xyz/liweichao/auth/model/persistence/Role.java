@@ -6,6 +6,7 @@ import com.github.hicolors.colors.framework.common.valid.ValidatorGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import xyz.liweichao.auth.model.persistence.databinds.RoleGroupDeserializer;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ import javax.validation.constraints.Null;
 @Table(name = "auth_role")
 @Data
 @EqualsAndHashCode(callSuper = true)
+@ToString(exclude = {"roleGroup"})
 @NoArgsConstructor
 public class Role extends AbstractBean {
     /**

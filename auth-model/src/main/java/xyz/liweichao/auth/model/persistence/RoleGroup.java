@@ -6,6 +6,7 @@ import com.github.hicolors.colors.framework.common.valid.ValidatorGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@ToString(exclude = {"roles"})
 @NoArgsConstructor
 @Entity
 @Table(name = "auth_role_group")
@@ -85,6 +87,6 @@ public class RoleGroup extends AbstractBean {
 
     @OneToMany(mappedBy = "roleGroup", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
     @OrderBy("sort desc")
-    @JsonIgnoreProperties("roleGroup")
+    @JsonIgnoreProperties("role_group")
     private List<Role> roles;
 }

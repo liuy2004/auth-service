@@ -54,24 +54,4 @@ public class UserDetailController extends AbstractController<UserDetail, Long> i
         return service.resetPassword(query(id));
     }
 
-    @Override
-    public UserDetail roles(@PathVariable("id") Long id, @RequestBody ArrayList<Long> roles) {
-        return null;
-    }
-
-    @Override
-    public UserDetail groups(@PathVariable("id") Long id, @RequestBody ArrayList<Long> groups) {
-        return null;
-    }
-
-    @Override
-    public UserDetail deleteRoleGroup(@PathVariable("id") Long id, @PathVariable("gid") Long gid) {
-        return null;
-    }
-
-    @Override
-    public UserDetail deleteRole(@PathVariable("id") Long id, @PathVariable("rid") Long rid) {
-        return null;
-    }
-
 }
