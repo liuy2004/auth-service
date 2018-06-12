@@ -11,9 +11,14 @@ import xyz.liweichao.auth.exception.RoleException;
 import xyz.liweichao.auth.exception.RoleExceptionEnum;
 import xyz.liweichao.auth.model.persistence.Role;
 import xyz.liweichao.auth.model.persistence.RoleGroup;
+import xyz.liweichao.auth.model.persistence.UserRole;
 import xyz.liweichao.auth.service.IRoleGroupService;
 import xyz.liweichao.auth.service.IRoleService;
+import xyz.liweichao.auth.service.IUserRoleService;
+import xyz.liweichao.auth.service.IUserService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -27,6 +32,12 @@ public class RoleServiceImpl extends AbstractService<Role, Long> implements IRol
 
     @Autowired
     private IRoleGroupService roleGroupService;
+
+    @Autowired
+    private IUserRoleService userRoleService;
+
+    @Autowired
+    private IUserService userService;
 
     private RoleRepository repository;
 
@@ -64,6 +75,19 @@ public class RoleServiceImpl extends AbstractService<Role, Long> implements IRol
             throw new OrganizationException(OrganizationExceptionEnum.CODE_EXISTING, bean.getCode());
         }
         return super.save(buildParam(bean));
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public Role users(Long id, ArrayList<Long> users) {
+        Role role = repository.findOne(id);
+        users.forEach(e -> {
+                    UserRole userRole = new UserRole();
+                    userRole.setUser(userService.queryOne(e));
+                    userRole.setRole(role);
+                    userRoleService.save(userRole);
+                });
+        return  role;
     }
 
 }

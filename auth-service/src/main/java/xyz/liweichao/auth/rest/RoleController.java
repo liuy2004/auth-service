@@ -1,6 +1,8 @@
 package xyz.liweichao.auth.rest;
 
 import com.github.hicolors.colors.framework.core.abs.AbstractController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,12 +21,17 @@ import java.util.ArrayList;
 @RestController
 public class RoleController extends AbstractController<Role, Long> implements IRoleApi {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
+
+    private IRoleService service;
+
     public RoleController(IRoleService service) {
         super(service);
+        this.service = service;
     }
 
     @Override
     public Role users(@PathVariable("id") Long id, @RequestBody ArrayList<Long> users) {
-        return null;
+        return service.users(id,users);
     }
 }
