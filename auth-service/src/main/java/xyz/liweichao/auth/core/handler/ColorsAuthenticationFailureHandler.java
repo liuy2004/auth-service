@@ -31,10 +31,8 @@ public class ColorsAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws ServletRequestBindingException {
         LOGGER.error("[{}] 登录失败",
-                ServletRequestUtils.getStringParameter(request,
-                        "mobile",
-                        ServletRequestUtils.getStringParameter(request,
-                                "username")));
+                ServletRequestUtils.getStringParameter(request, "mobile",
+                        ServletRequestUtils.getStringParameter(request, "username")));
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("出错信息日志为 [{}] ", JsonUtils.serializeExcludes(request.getParameterMap()));
