@@ -23,7 +23,7 @@ public class RoleGroupController extends AbstractController<RoleGroup, Long> imp
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleGroupController.class);
 
-    private IRoleGroupService service;
+    private final IRoleGroupService service;
 
     public RoleGroupController(IRoleGroupService service) {
         super(service);
@@ -32,6 +32,6 @@ public class RoleGroupController extends AbstractController<RoleGroup, Long> imp
 
     @Override
     public RoleGroup users(@PathVariable("id") Long id, @RequestBody ArrayList<Long> users) {
-        return null;
+        return service.users(query(id), users);
     }
 }

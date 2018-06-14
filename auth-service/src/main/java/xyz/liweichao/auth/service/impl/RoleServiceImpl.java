@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.liweichao.auth.dao.RoleRepository;
+import xyz.liweichao.auth.dao.UserRepository;
 import xyz.liweichao.auth.exception.OrganizationException;
 import xyz.liweichao.auth.exception.OrganizationExceptionEnum;
 import xyz.liweichao.auth.exception.RoleException;
@@ -15,10 +16,8 @@ import xyz.liweichao.auth.model.persistence.UserRole;
 import xyz.liweichao.auth.service.IRoleGroupService;
 import xyz.liweichao.auth.service.IRoleService;
 import xyz.liweichao.auth.service.IUserRoleService;
-import xyz.liweichao.auth.service.IUserService;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -30,16 +29,13 @@ import java.util.Objects;
 @Service
 public class RoleServiceImpl extends AbstractService<Role, Long> implements IRoleService {
 
+    private final RoleRepository repository;
     @Autowired
     private IRoleGroupService roleGroupService;
-
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private IUserRoleService userRoleService;
-
-    @Autowired
-    private IUserService userService;
-
-    private RoleRepository repository;
 
     public RoleServiceImpl(RoleRepository repository) {
         super(repository);
@@ -79,15 +75,15 @@ public class RoleServiceImpl extends AbstractService<Role, Long> implements IRol
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public Role users(Long id, ArrayList<Long> users) {
-        Role role = repository.findOne(id);
-        users.forEach(e -> {
+    public Role users(Role role, ArrayList<Long> users) {
+        userRepository.findByIdIsIn(users).forEach(e -> {
                     UserRole userRole = new UserRole();
-                    userRole.setUser(userService.queryOne(e));
                     userRole.setRole(role);
+                    userRole.setUser(e);
                     userRoleService.save(userRole);
-                });
-        return  role;
+                }
+        );
+        return role;
     }
 
 }

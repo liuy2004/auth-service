@@ -20,13 +20,11 @@ import xyz.liweichao.auth.exception.UserDetailExceptionEnum;
 import xyz.liweichao.auth.model.persistence.Organization;
 import xyz.liweichao.auth.model.persistence.User;
 import xyz.liweichao.auth.model.persistence.UserDetail;
-import xyz.liweichao.auth.model.persistence.UserRole;
 import xyz.liweichao.auth.model.request.PasswordModel;
 import xyz.liweichao.auth.model.request.RegisterModel;
 import xyz.liweichao.auth.service.IUserDetailService;
 import xyz.liweichao.auth.service.IUserService;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -40,34 +38,22 @@ import java.util.Date;
 public class UserDetailServiceImpl extends AbstractService<UserDetail, Long> implements IUserDetailService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDetailServiceImpl.class);
-
+    private static Date DEFAULT_EXPIRED = ReflectionUtils.convert("9999-12-31 23:59:59", Date.class);
+    private static Date DEFAULT_BIRTHDAY = ReflectionUtils.convert("2000-01-01", Date.class);
+    private static Long DEFAULT_ORGANIZATION_ID = 1L;
+    private static String DEFAULT_STRING = "";
+    private static String DEFAULT_PASSWORD = "000000";
     private final UserDetailRepository repository;
-
     @Autowired
     private RoleRepository roleRepository;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private UserRoleRepository userRoleRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private IUserService userService;
-
-
-    private static Date DEFAULT_EXPIRED = ReflectionUtils.convert("9999-12-31 23:59:59", Date.class);
-
-    private static Date DEFAULT_BIRTHDAY = ReflectionUtils.convert("2000-01-01", Date.class);
-
-    private static Long DEFAULT_ORGANIZATION_ID = 1L;
-
-    private static String DEFAULT_STRING = "";
-
-    private static String DEFAULT_PASSWORD = "000000";
 
 
     public UserDetailServiceImpl(UserDetailRepository repository) {

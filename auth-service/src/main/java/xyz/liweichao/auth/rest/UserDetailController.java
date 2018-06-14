@@ -13,7 +13,6 @@ import xyz.liweichao.auth.model.request.PasswordModel;
 import xyz.liweichao.auth.model.request.RegisterModel;
 import xyz.liweichao.auth.service.IUserDetailService;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 /**

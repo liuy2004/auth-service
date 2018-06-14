@@ -49,7 +49,7 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
     private SecurityProperties properties;
 
     @Override
-    protected void send(ServletWebRequest request, ValidateCode validateCode){
+    protected void send(ServletWebRequest request, ValidateCode validateCode) {
         String paramName = SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
         String mobile;
         try {
@@ -62,7 +62,7 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
         response.setStatus(HttpStatus.OK.value());
         Map<String, Object> result = Maps.newHashMap();
         result.put("message", "已发送成功，请注意查收！");
-        result.put("timestamp",DateUtils.now());
+        result.put("timestamp", DateUtils.now());
         ResponseUtils.json(response, result);
     }
 
@@ -79,7 +79,7 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
         //校验
         if (redisValidateCodeRepository.hasKey(getUniqueKey(request), getValidateCodeType())) {
             long s = redisValidateCodeRepository.getExpire(getUniqueKey(request), getValidateCodeType());
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.OPERATION_VALIDATE_CODE_TOO_MUCH,s);
+            throw new ValidateCodeException(ValidateCodeExceptionEnum.OPERATION_VALIDATE_CODE_TOO_MUCH, s);
         }
         return smsValidateCodeGenerator.generate(request);
     }
@@ -87,7 +87,7 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
     @Override
     protected void save(ServletWebRequest request, ValidateCode validateCode) {
         ValidateCode code = new ValidateCode(validateCode.getCode(), validateCode.getExpireTime());
-        redisValidateCodeRepository.save(getUniqueKey(request), code, getValidateCodeType(),properties.getCode().getSms().getExpireIn());
+        redisValidateCodeRepository.save(getUniqueKey(request), code, getValidateCodeType(), properties.getCode().getSms().getExpireIn());
     }
 
     /**

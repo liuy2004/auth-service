@@ -17,7 +17,7 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
 
     private SecurityProperties securityProperties;
 
-    public SmsCodeGenerator(SecurityProperties securityProperties){
+    public SmsCodeGenerator(SecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
 

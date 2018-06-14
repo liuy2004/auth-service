@@ -22,5 +22,4 @@ public class WeixinProperties extends SocialProperties {
     private String providerId = "weixin";
 
 
-
 }

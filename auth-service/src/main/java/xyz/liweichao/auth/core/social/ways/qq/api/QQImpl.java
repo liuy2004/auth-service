@@ -26,28 +26,17 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 
     public QQImpl(String accessToken, String appId) {
         super(accessToken, TokenStrategy.ACCESS_TOKEN_PARAMETER);
-
         this.appId = appId;
-
         String url = String.format(URL_GET_OPENID, accessToken);
         String result = getRestTemplate().getForObject(url, String.class);
-
-        System.out.println(result);
-
         this.openId = StringUtils.substringBetween(result, "\"openid\":\"", "\"}");
     }
 
-    /* (non-Javadoc)
-     * @see com.imooc.security.core.social.qq.api.QQ#getUserInfo()
-     */
+
     @Override
     public QQUserInfo getUserInfo() {
-
         String url = String.format(URL_GET_USERINFO, appId, openId);
         String result = getRestTemplate().getForObject(url, String.class);
-
-        System.out.println(result);
-
         QQUserInfo userInfo = null;
         try {
             userInfo = objectMapper.readValue(result, QQUserInfo.class);

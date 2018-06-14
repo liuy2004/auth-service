@@ -27,7 +27,7 @@ public class ColorsOauthExceptionSerializer extends StdSerializer<ColorsOauthExc
     @Override
     public void serialize(ColorsOauthException value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        ErrorResponse response = ResponseUtils.transfer(value,request);
+        ErrorResponse response = ResponseUtils.transfer(value, request);
         response.setCode(123456789L);
         gen.writeObject(response);
         gen.writeEndObject();

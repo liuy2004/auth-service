@@ -33,7 +33,7 @@ public class ValidateCodeBeanConfig {
     @Bean
     @ConditionalOnMissingBean(name = "smsValidateCodeGenerator")
     public ValidateCodeGenerator smsValidateCodeGenerator() {
-        return  new SmsCodeGenerator(securityProperties);
+        return new SmsCodeGenerator(securityProperties);
     }
 
 

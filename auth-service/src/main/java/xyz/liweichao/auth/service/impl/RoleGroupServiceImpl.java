@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.liweichao.auth.dao.RoleGroupRepository;
+import xyz.liweichao.auth.dao.UserRepository;
 import xyz.liweichao.auth.model.persistence.RoleGroup;
 import xyz.liweichao.auth.model.persistence.UserRoleGroup;
 import xyz.liweichao.auth.service.IRoleGroupService;
 import xyz.liweichao.auth.service.IUserRoleGroupService;
-import xyz.liweichao.auth.service.IUserService;
 
 import java.util.ArrayList;
 
@@ -23,13 +23,13 @@ import java.util.ArrayList;
 @Service
 public class RoleGroupServiceImpl extends AbstractService<RoleGroup, Long> implements IRoleGroupService {
 
-    private RoleGroupRepository repository;
+    private final RoleGroupRepository repository;
 
     @Autowired
     private IUserRoleGroupService userRoleGroupService;
 
     @Autowired
-    private IUserService userService;
+    private UserRepository userRepository;
 
     public RoleGroupServiceImpl(RoleGroupRepository repository) {
         super(repository);
@@ -38,12 +38,11 @@ public class RoleGroupServiceImpl extends AbstractService<RoleGroup, Long> imple
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public RoleGroup users(Long id, ArrayList<Long> users) {
-        RoleGroup roleGroup = repository.findOne(id);
-        users.forEach(e -> {
+    public RoleGroup users(RoleGroup roleGroup, ArrayList<Long> users) {
+        userRepository.findByIdIsIn(users).forEach(e -> {
             UserRoleGroup userRoleGroup = new UserRoleGroup();
-            userRoleGroup.setUser(userService.queryOne(e));
             userRoleGroup.setRoleGroup(roleGroup);
+            userRoleGroup.setUser(e);
             userRoleGroupService.save(userRoleGroup);
         });
         return roleGroup;

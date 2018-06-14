@@ -1,7 +1,6 @@
 package xyz.liweichao.auth.model.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -110,7 +109,7 @@ public class User extends AbstractBean {
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
     @OrderBy("createTime desc")
-    @JsonIgnoreProperties({"user",  "role.roleGroup.roles"})
+    @JsonIgnoreProperties({"user", "role.roleGroup.roles"})
     private List<UserRole> userRoles;
 
 

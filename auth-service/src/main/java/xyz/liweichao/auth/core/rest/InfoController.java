@@ -32,11 +32,11 @@ public class InfoController {
 
     @GetMapping(SecurityConstants.DEFAULT_UNAUTHORIZED_URL)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public Map<String,Object> require(HttpServletRequest request) {
-        Map<String,Object> result = new HashMap<>(2);
-        result.put("message","请重新登录！");
-        result.put("timestamp",DateUtils.now());
-        result.put("path",request.getRequestURI());
+    public Map<String, Object> require(HttpServletRequest request) {
+        Map<String, Object> result = new HashMap<>(2);
+        result.put("message", "请重新登录！");
+        result.put("timestamp", DateUtils.now());
+        result.put("path", request.getRequestURI());
         return result;
     }
 

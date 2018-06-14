@@ -23,7 +23,7 @@ public class RoleController extends AbstractController<Role, Long> implements IR
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
 
-    private IRoleService service;
+    private final IRoleService service;
 
     public RoleController(IRoleService service) {
         super(service);
@@ -32,6 +32,6 @@ public class RoleController extends AbstractController<Role, Long> implements IR
 
     @Override
     public Role users(@PathVariable("id") Long id, @RequestBody ArrayList<Long> users) {
-        return service.users(id,users);
+        return service.users(query(id), users);
     }
 }

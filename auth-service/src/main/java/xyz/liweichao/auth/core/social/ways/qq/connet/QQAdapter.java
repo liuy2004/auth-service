@@ -23,7 +23,6 @@ public class QQAdapter implements ApiAdapter<QQ> {
     @Override
     public void setConnectionValues(QQ api, ConnectionValues values) {
         QQUserInfo userInfo = api.getUserInfo();
-
         values.setDisplayName(userInfo.getNickname());
         values.setImageUrl(userInfo.getFigureurlQq1());
         values.setProfileUrl(null);
@@ -32,13 +31,12 @@ public class QQAdapter implements ApiAdapter<QQ> {
 
     @Override
     public UserProfile fetchUserProfile(QQ api) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void updateStatus(QQ api, String message) {
-        //do noting
+
     }
 
 }

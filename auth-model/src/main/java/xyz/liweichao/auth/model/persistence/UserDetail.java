@@ -1,12 +1,9 @@
 package xyz.liweichao.auth.model.persistence;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.hicolors.colors.framework.common.model.AbstractBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
-import xyz.liweichao.auth.model.persistence.databinds.RoleGroupDeserializer;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -29,7 +26,7 @@ public class UserDetail extends AbstractBean {
      * isNullable: 	false
      * <p>
      * length: 	20
-     *
+     * <p>
      * 说明：此种方式 id 需要手动设置
      */
     @Column(name = "id")

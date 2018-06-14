@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public interface IRoleGroupService extends IService<RoleGroup, Long> {
 
-    RoleGroup users(Long id,ArrayList<Long> users);
+    RoleGroup users(RoleGroup roleGroup, ArrayList<Long> users);
 
 }

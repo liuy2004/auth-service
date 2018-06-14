@@ -28,7 +28,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@ToString(exclude = {"parent","children"})
+@ToString(exclude = {"parent", "children"})
 @Entity
 @Table(name = "auth_organization")
 public class Organization extends AbstractBean {

@@ -14,8 +14,7 @@ public enum UserDetailExceptionEnum {
      * 异常列举出来
      */
     UNIQUE_CONFLICT(1, "当前唯一约束[{}]冲突！"),
-    PASSWORD_INCORRECT(1, "旧密码不正确，不能修改！"),
-    ;
+    PASSWORD_INCORRECT(1, "旧密码不正确，不能修改！"),;
 
     private final int value;
 

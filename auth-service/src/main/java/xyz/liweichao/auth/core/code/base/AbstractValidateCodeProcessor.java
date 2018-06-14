@@ -62,10 +62,12 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * @param request
      * @param validateCode
      */
-    protected void save(ServletWebRequest request, C validateCode){
+    protected void save(ServletWebRequest request, C validateCode) {
         ValidateCode code = new ValidateCode(validateCode.getCode(), validateCode.getExpireTime());
-        validateCodeRepository.save(getUniqueKey(request), code, getValidateCodeType(),60L);
-    };
+        validateCodeRepository.save(getUniqueKey(request), code, getValidateCodeType(), 60L);
+    }
+
+    ;
 
     /**
      * 发送校验码，由子类实现
@@ -97,16 +99,16 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         }
 
         if (c == null) {
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.VALIDATE_CODE_NOT_FOUND, codeType,codeInRequest);
+            throw new ValidateCodeException(ValidateCodeExceptionEnum.VALIDATE_CODE_NOT_FOUND, codeType, codeInRequest);
         }
 
         if (c.isExpried()) {
             validateCodeRepository.remove(getUniqueKey(request), getValidateCodeType());
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.VALIDATE_CODE_OVERDUE, codeType,codeInRequest);
+            throw new ValidateCodeException(ValidateCodeExceptionEnum.VALIDATE_CODE_OVERDUE, codeType, codeInRequest);
         }
 
         if (!StringUtils.equals(c.getCode(), codeInRequest)) {
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.VALIDATE_CODE_INCORRECTNESS, codeType,codeInRequest);
+            throw new ValidateCodeException(ValidateCodeExceptionEnum.VALIDATE_CODE_INCORRECTNESS, codeType, codeInRequest);
         }
 
         validateCodeRepository.remove(getUniqueKey(request), getValidateCodeType());

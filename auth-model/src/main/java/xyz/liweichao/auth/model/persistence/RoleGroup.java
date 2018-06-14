@@ -66,11 +66,6 @@ public class RoleGroup extends AbstractBean {
      */
     @Column(name = "sort")
     private Integer sort;
-
-    public RoleGroup(Long id) {
-        this.id = id;
-    }
-
     /**
      * comment: 	描述
      * <p>
@@ -84,9 +79,12 @@ public class RoleGroup extends AbstractBean {
     )
     @Column(name = "description")
     private String description;
-
     @OneToMany(mappedBy = "roleGroup", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
     @OrderBy("sort desc")
     @JsonIgnoreProperties("role_group")
     private List<Role> roles;
+
+    public RoleGroup(Long id) {
+        this.id = id;
+    }
 }

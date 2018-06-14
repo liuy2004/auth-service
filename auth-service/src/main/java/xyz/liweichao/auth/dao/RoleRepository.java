@@ -4,7 +4,6 @@ import com.github.hicolors.colors.framework.core.abs.intf.IRepository;
 import org.springframework.stereotype.Repository;
 import xyz.liweichao.auth.model.persistence.Role;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

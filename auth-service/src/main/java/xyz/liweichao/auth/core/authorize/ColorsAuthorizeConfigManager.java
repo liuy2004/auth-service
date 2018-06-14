@@ -38,8 +38,8 @@ public class ColorsAuthorizeConfigManager implements AuthorizeConfigManager {
             if (existAnyRequestConfig && currentIsAnyRequestConfig) {
                 throw new AuthServiceException(
                         MessageFormat.format("重复的 anyRequest 配置: {0},{1}",
-                        existAnyRequestConfigName,
-                        authorizeConfigProvider.getClass().getSimpleName()));
+                                existAnyRequestConfigName,
+                                authorizeConfigProvider.getClass().getSimpleName()));
 
             } else if (currentIsAnyRequestConfig) {
                 existAnyRequestConfig = true;

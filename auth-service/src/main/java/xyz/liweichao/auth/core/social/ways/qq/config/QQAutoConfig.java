@@ -10,6 +10,12 @@ import xyz.liweichao.auth.core.properties.social.QQProperties;
 import xyz.liweichao.auth.core.social.ways.qq.connet.QQConnectionFactory;
 
 
+/**
+ * QQ Auto Config
+ *
+ * @author weichao.li (liweichao0102@gmail.com)
+ * @date 2018/3/12
+ */
 @Configuration
 @ConditionalOnProperty(prefix = "colors.security.social.qq", name = "app-id")
 public class QQAutoConfig extends SocialAutoConfigurerAdapter {
