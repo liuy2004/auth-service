@@ -6,7 +6,7 @@ spring:
       password: root
   redis:
     host: 47.105.97.16
-    port: 6379
+    port: 6389
     password: liweichao
     database: 1
 
