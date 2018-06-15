@@ -85,5 +85,4 @@ public class RoleServiceImpl extends AbstractService<Role, Long> implements IRol
         );
         return role;
     }
-
 }

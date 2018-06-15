@@ -26,7 +26,7 @@ import java.util.*;
  */
 @Service
 public class UserServiceImpl extends AbstractService<User, Long> implements IUserService, IColorsUserService {
-
+    @Autowired
     private UserRepository repository;
 
     @Autowired
@@ -120,6 +120,20 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
                     userRoleGroupRepository.save(userRoleGroup);
                 }
         );
+        return user;
+    }
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public User deleteRoleGroup(Long id, Long gid) {
+        User user= repository.findOne(id);
+        userRoleGroupRepository.deleteById(id,gid);
+        return user;
+    }
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public User deleteRole(Long id, Long rid) {
+        User user= repository.findOne(id);
+        userRoleRepository.deleteByIdUserId(id, rid);
         return user;
     }
 }

@@ -42,11 +42,11 @@ public class UserController extends AbstractController<User, Long> implements IU
 
     @Override
     public User deleteRoleGroup(@PathVariable("id") Long id, @PathVariable("gid") Long gid) {
-        return null;
+        return service.deleteRoleGroup(id, gid);
     }
 
     @Override
     public User deleteRole(@PathVariable("id") Long id, @PathVariable("rid") Long rid) {
-        return null;
+        return service.deleteRole(id, rid);
     }
 }
