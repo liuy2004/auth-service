@@ -52,3 +52,15 @@
     002001006 | {0} :验证码不匹配。
     002001007 | type[{0}]：生成验证码 key 时出错，key 为 null。
     002001008 | 请在 %d 秒后尝试获取验证码！
+    
+    
+### 编译运行部署
+
+```shell
+
+# 编译上传
+mvn clean package -Dmaven.test.skip=true -X && scp auth-service/target/auth-service*.jar root@liweichao.xyz:/data/jar/auth-service.jar
+
+# 运行部署
+java -server -Dfile.encoding=UTF-8 -jar auth-service.jar --spring.profiles.active=prod --server.port=80 &
+```

@@ -1,6 +1,11 @@
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://127.0.0.1:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+      url: jdbc:mysql://127.0.0.1:3306/colors_auth?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
       username: root
-      password: liweichao
+      password: root
+  redis:
+    host: 127.0.0.1
+    port: 6389
+    password: liweichao
+    database: 1

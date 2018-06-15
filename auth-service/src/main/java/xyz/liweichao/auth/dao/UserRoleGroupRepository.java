@@ -15,5 +15,5 @@ public interface UserRoleGroupRepository extends IRepository<UserRoleGroup, Long
 
     @Modifying
     @Query("delete from UserRoleGroup where user.id = ?1 and roleGroup.id = ?2")
-    void deleteByUserIdAndRoleGroupId(Long id, Long gid);
+    int deleteByUserIdAndRoleGroupId(Long id, Long gid);
 }
