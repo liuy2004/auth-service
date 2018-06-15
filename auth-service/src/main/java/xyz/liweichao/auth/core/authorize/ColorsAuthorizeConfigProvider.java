@@ -25,8 +25,7 @@ public class ColorsAuthorizeConfigProvider implements AuthorizeConfigProvider {
                 SecurityConstants.DEFAULT_UNAUTHORIZED_URL,
                 SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_MOBILE,
                 SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_OPENID,
-                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                "swagger-ui.html")
+                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*")
                 .permitAll();
         return false;
     }
