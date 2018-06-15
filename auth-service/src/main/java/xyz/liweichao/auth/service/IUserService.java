@@ -15,8 +15,8 @@ public interface IUserService extends IService<User, Long> {
 
     User groups(User user, ArrayList<Long> groups);
 
-    User deleteRoleGroup( Long id, Long gid);
+    void deleteRoleGroup(User user, Long gid);
 
-    User deleteRole( Long id,  Long rid);
+    void deleteRole(User user, Long rid);
 
 }

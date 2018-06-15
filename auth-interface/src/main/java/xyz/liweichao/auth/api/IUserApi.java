@@ -30,9 +30,9 @@ public interface IUserApi extends IController<User, Long> {
 
     @DeleteMapping("/{id}/role-group/{gid}")
     @ApiOperation("删除用户角色组权限")
-    User deleteRoleGroup(@PathVariable("id") Long id, @PathVariable("gid") Long gid);
+    void deleteRoleGroup(@PathVariable("id") Long id, @PathVariable("gid") Long gid);
 
     @DeleteMapping("/{id}/role/{rid}")
     @ApiOperation("删除用户角色权限")
-    User deleteRole(@PathVariable("id") Long id, @PathVariable("rid") Long rid);
+    void deleteRole(@PathVariable("id") Long id, @PathVariable("rid") Long rid);
 }

@@ -89,8 +89,8 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
 
     private Set<String> findAllRoles(Long userId) {
         Set<String> roles = new HashSet<>();
-        List<UserRoleGroup> userRoleGroups = userRoleGroupRepository.findAllByUserId(userId);
-        List<UserRole> userRoles = userRoleRepository.findAllByUserId(userId);
+        List<UserRoleGroup> userRoleGroups = userRoleGroupRepository.findByUserId(userId);
+        List<UserRole> userRoles = userRoleRepository.findByUserId(userId);
         userRoleGroups.forEach(e -> e.getRoleGroup().getRoles().forEach(e2 -> roles.add(e2.getCode())));
         userRoles.forEach(e -> roles.add(e.getRole().getCode()));
         return roles;
@@ -122,18 +122,16 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
         );
         return user;
     }
+
     @Transactional(rollbackFor = {Exception.class})
     @Override
-    public User deleteRoleGroup(Long id, Long gid) {
-        User user= repository.findOne(id);
-        userRoleGroupRepository.deleteById(id,gid);
-        return user;
+    public void deleteRoleGroup(User user, Long gid) {
+        userRoleGroupRepository.deleteByUserIdAndRoleGroupId(user.getId(), gid);
     }
+
     @Transactional(rollbackFor = {Exception.class})
     @Override
-    public User deleteRole(Long id, Long rid) {
-        User user= repository.findOne(id);
-        userRoleRepository.deleteByIdUserId(id, rid);
-        return user;
+    public void deleteRole(User user, Long rid) {
+        userRoleRepository.deleteByIdUserId(user.getId(), rid);
     }
 }
