@@ -16,6 +16,7 @@ import xyz.liweichao.auth.core.authentication.sms.SmsCodeAuthenticationSecurityC
 import xyz.liweichao.auth.core.authorize.AuthorizeConfigManager;
 import xyz.liweichao.auth.core.custom.ColorsAccessDeniedHandler;
 import xyz.liweichao.auth.core.custom.ColorsExceptionEntryPoint;
+import xyz.liweichao.auth.core.rbac.RbacExpressionHandler;
 
 /**
  * 资源服务器配置
@@ -55,6 +56,9 @@ public class ColorsResourceServerConfig extends ResourceServerConfigurerAdapter 
     @Autowired
     private ColorsAccessDeniedHandler colorsAccessDeniedHandler;
 
+    @Autowired
+    private RbacExpressionHandler rbacExpressionHandler;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
@@ -77,6 +81,8 @@ public class ColorsResourceServerConfig extends ResourceServerConfigurerAdapter 
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.authenticationEntryPoint(new ColorsExceptionEntryPoint())
                 .accessDeniedHandler(colorsAccessDeniedHandler);
+
+        resources.expressionHandler(rbacExpressionHandler);
     }
 
 }

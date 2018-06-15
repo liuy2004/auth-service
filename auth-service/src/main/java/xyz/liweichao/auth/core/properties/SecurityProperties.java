@@ -22,6 +22,8 @@ public class SecurityProperties {
      */
     private Boolean enable = false;
 
+    private String su = "colors";
+
     /**
      * 验证码配置
      */

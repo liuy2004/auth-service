@@ -19,15 +19,15 @@ import xyz.liweichao.auth.core.properties.SecurityProperties;
 @Order(Integer.MIN_VALUE)
 public class ColorsAuthorizeConfigProvider implements AuthorizeConfigProvider {
 
-    @Autowired
-    private SecurityProperties securityProperties;
-
     @Override
     public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
-        config.antMatchers(SecurityConstants.DEFAULT_UNAUTHORIZED_URL,
+        config.antMatchers(
+                SecurityConstants.DEFAULT_UNAUTHORIZED_URL,
                 SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_MOBILE,
                 SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_OPENID,
-                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*").permitAll();
+                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+                "swagger-ui.html")
+                .permitAll();
         return false;
     }
 
