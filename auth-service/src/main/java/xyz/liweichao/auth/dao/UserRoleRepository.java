@@ -17,6 +17,7 @@ public interface UserRoleRepository extends IRepository<UserRole, Long> {
     @Query(" from UserRole where user.id = :id")
     List<UserRole> findAllByUserId(@Param("id") Long id);
 
+
     @Modifying
     @Query("delete from UserRole where user.id = ?1 and role.id = ?2")
     void deleteByIdUserId( Long id,Long rid);

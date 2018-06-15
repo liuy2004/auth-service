@@ -34,6 +34,7 @@ public class UserController extends AbstractController<User, Long> implements IU
     public User roles(@PathVariable("id") Long id, @RequestBody ArrayList<Long> roles) {
         return service.roles(query(id), roles);
     }
+
     @Override
     public User groups(@PathVariable("id") Long id, @RequestBody ArrayList<Long> groups) {
         return service.groups(query(id), groups);

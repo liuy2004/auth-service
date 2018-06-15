@@ -129,7 +129,6 @@ public class UserServiceImpl extends AbstractService<User, Long> implements IUse
         userRoleGroupRepository.deleteById(id,gid);
         return user;
     }
-
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public User deleteRole(Long id, Long rid) {
