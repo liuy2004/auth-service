@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.api;
 
-import com.github.hicolors.colors.framework.common.controller.IController;
+import com.github.hicolors.colors.framework.abs.controller.Controller;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import xyz.liweichao.auth.model.persistence.UserRole;
@@ -15,5 +15,5 @@ import xyz.liweichao.auth.model.persistence.UserRole;
 
 @Api(tags = "user-role", description = "对用户角色关联信息操作接口")
 @RequestMapping("/user-role")
-public interface IUserRoleApi extends IController<UserRole, Long> {
+public interface IUserRoleApi extends Controller<UserRole, Long> {
 }

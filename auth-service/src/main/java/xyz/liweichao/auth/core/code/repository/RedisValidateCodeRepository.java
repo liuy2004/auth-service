@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import xyz.liweichao.auth.core.code.base.ValidateCode;
 import xyz.liweichao.auth.core.code.base.ValidateCodeType;
 import xyz.liweichao.auth.core.code.exception.ValidateCodeException;
-import xyz.liweichao.auth.core.code.exception.ValidateCodeExceptionEnum;
 
 import java.util.concurrent.TimeUnit;
 
@@ -64,7 +63,7 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
      */
     private String buildKey(String key, ValidateCodeType type) {
         if (StringUtils.isBlank(key)) {
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.KEY_IS_NULL, type.name());
+            throw new ValidateCodeException(ValidateCodeException.EnumMsg.KEY_IS_NULL, type.name());
         }
         return "auth:validate:code:" + type.name() + ":" + key;
     }

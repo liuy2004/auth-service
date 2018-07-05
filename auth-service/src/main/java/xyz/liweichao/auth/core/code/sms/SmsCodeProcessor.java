@@ -14,7 +14,6 @@ import xyz.liweichao.auth.core.code.base.AbstractValidateCodeProcessor;
 import xyz.liweichao.auth.core.code.base.ValidateCode;
 import xyz.liweichao.auth.core.code.base.ValidateCodeGenerator;
 import xyz.liweichao.auth.core.code.exception.ValidateCodeException;
-import xyz.liweichao.auth.core.code.exception.ValidateCodeExceptionEnum;
 import xyz.liweichao.auth.core.code.repository.RedisValidateCodeRepository;
 import xyz.liweichao.auth.core.properties.SecurityConstants;
 import xyz.liweichao.auth.core.properties.SecurityProperties;
@@ -55,7 +54,7 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
         try {
             mobile = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), paramName);
         } catch (ServletRequestBindingException e) {
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.REQUEST_PARAM_NOT_FOUND);
+            throw new ValidateCodeException(ValidateCodeException.EnumMsg.REQUEST_PARAM_NOT_FOUND);
         }
         smsCodeSender.send(mobile, validateCode.getCode());
         HttpServletResponse response = request.getResponse();
@@ -79,7 +78,7 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
         //校验
         if (redisValidateCodeRepository.hasKey(getUniqueKey(request), getValidateCodeType())) {
             long s = redisValidateCodeRepository.getExpire(getUniqueKey(request), getValidateCodeType());
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.OPERATION_VALIDATE_CODE_TOO_MUCH, s);
+            throw new ValidateCodeException(ValidateCodeException.EnumMsg.OPERATION_VALIDATE_CODE_TOO_MUCH, s);
         }
         return smsValidateCodeGenerator.generate(request);
     }
@@ -100,7 +99,7 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
         try {
             result = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), paramName);
         } catch (ServletRequestBindingException e) {
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.REQUEST_PARAM_NOT_FOUND);
+            throw new ValidateCodeException(ValidateCodeException.EnumMsg.REQUEST_PARAM_NOT_FOUND);
         }
         return result;
     }

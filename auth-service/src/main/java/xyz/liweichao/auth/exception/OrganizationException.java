@@ -1,7 +1,7 @@
 package xyz.liweichao.auth.exception;
 
-import com.github.hicolors.colors.framework.common.utils.ErrorCodeUtils;
 import com.github.hicolors.colors.framework.common.utils.StringUtils;
+import com.github.hicolors.colors.framework.exception.utils.ExceptionCodeUtils;
 import org.springframework.http.HttpStatus;
 import xyz.liweichao.auth.core.exception.AuthServiceException;
 
@@ -22,8 +22,8 @@ public class OrganizationException extends AuthServiceException {
     }
 
     public OrganizationException(int specific, String message, Object data) {
-        super(HttpStatus.BAD_REQUEST,
-                ErrorCodeUtils.generator(APP_ID, MODULE_ID, specific),
+        super(HttpStatus.BAD_REQUEST.value(),
+                ExceptionCodeUtils.generator(APP_ID, MODULE_ID, specific),
                 message, data);
     }
 }

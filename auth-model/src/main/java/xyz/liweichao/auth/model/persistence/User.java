@@ -1,7 +1,8 @@
 package xyz.liweichao.auth.model.persistence;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.hicolors.colors.framework.common.model.AbstractBean;
+import com.github.hicolors.colors.framework.model.bean.AbstractBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,6 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
 @Entity
 @Table(name = "auth_user")
 public class User extends AbstractBean {
@@ -120,6 +120,8 @@ public class User extends AbstractBean {
     @OrderBy("createTime desc")
     @JsonIgnoreProperties({"user", "roles"})
     private List<UserRoleGroup> userRoleGroups;
+
+    public User(){}
 
     public User(Long id) {
         this.id = id;

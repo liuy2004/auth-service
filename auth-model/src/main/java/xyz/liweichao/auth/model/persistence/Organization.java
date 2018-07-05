@@ -3,8 +3,8 @@ package xyz.liweichao.auth.model.persistence;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.github.hicolors.colors.framework.common.model.AbstractBean;
-import com.github.hicolors.colors.framework.common.valid.ValidatorGroup;
+import com.github.hicolors.colors.framework.model.bean.AbstractBean;
+import com.github.hicolors.colors.framework.model.consts.ValidatorGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,7 +27,6 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
 @ToString(exclude = {"parent", "children"})
 @Entity
 @Table(name = "auth_organization")
@@ -171,6 +170,7 @@ public class Organization extends AbstractBean {
     @JsonIgnoreProperties("children")
     private List<Organization> children;
 
+    public Organization(){}
 
     public Organization(Long id) {
         this.id = id;

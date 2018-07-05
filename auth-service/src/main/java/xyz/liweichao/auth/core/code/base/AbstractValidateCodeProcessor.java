@@ -6,7 +6,6 @@ import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 import xyz.liweichao.auth.core.code.exception.ValidateCodeException;
-import xyz.liweichao.auth.core.code.exception.ValidateCodeExceptionEnum;
 import xyz.liweichao.auth.core.code.repository.ValidateCodeRepository;
 
 import java.util.Map;
@@ -51,7 +50,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         String generatorName = type + ValidateCodeGenerator.class.getSimpleName();
         ValidateCodeGenerator validateCodeGenerator = validateCodeGenerators.get(generatorName);
         if (validateCodeGenerator == null) {
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.GENERATOR_NOT_FOUND, generatorName);
+            throw new ValidateCodeException(ValidateCodeException.EnumMsg.GENERATOR_NOT_FOUND, generatorName);
         }
         return (C) validateCodeGenerator.generate(request);
     }
@@ -91,24 +90,24 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         try {
             codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), codeType.getParamNameOnValidate());
         } catch (ServletRequestBindingException e) {
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.REQUEST_PARAM_NOT_FOUND);
+            throw new ValidateCodeException(ValidateCodeException.EnumMsg.REQUEST_PARAM_NOT_FOUND);
         }
 
         if (StringUtils.isBlank(codeInRequest)) {
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.VALIDATE_CODE_IS_NULL, codeType);
+            throw new ValidateCodeException(ValidateCodeException.EnumMsg.VALIDATE_CODE_IS_NULL, codeType);
         }
 
         if (c == null) {
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.VALIDATE_CODE_NOT_FOUND, codeType, codeInRequest);
+            throw new ValidateCodeException(ValidateCodeException.EnumMsg.VALIDATE_CODE_NOT_FOUND, codeType, codeInRequest);
         }
 
         if (c.isExpried()) {
             validateCodeRepository.remove(getUniqueKey(request), getValidateCodeType());
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.VALIDATE_CODE_OVERDUE, codeType, codeInRequest);
+            throw new ValidateCodeException(ValidateCodeException.EnumMsg.VALIDATE_CODE_OVERDUE, codeType, codeInRequest);
         }
 
         if (!StringUtils.equals(c.getCode(), codeInRequest)) {
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.VALIDATE_CODE_INCORRECTNESS, codeType, codeInRequest);
+            throw new ValidateCodeException(ValidateCodeException.EnumMsg.VALIDATE_CODE_INCORRECTNESS, codeType, codeInRequest);
         }
 
         validateCodeRepository.remove(getUniqueKey(request), getValidateCodeType());
@@ -137,7 +136,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         try {
             result = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "unique");
         } catch (ServletRequestBindingException e) {
-            throw new ValidateCodeException(ValidateCodeExceptionEnum.REQUEST_PARAM_NOT_FOUND);
+            throw new ValidateCodeException(ValidateCodeException.EnumMsg.REQUEST_PARAM_NOT_FOUND);
         }
         return result;
     }

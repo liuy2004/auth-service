@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.api;
 
-import com.github.hicolors.colors.framework.common.controller.IController;
+import com.github.hicolors.colors.framework.abs.controller.Controller;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import xyz.liweichao.auth.model.persistence.Organization;
@@ -15,5 +15,6 @@ import xyz.liweichao.auth.model.persistence.Organization;
 
 @Api(tags = "organization", description = "对组织机构信息操作接口")
 @RequestMapping("organization")
-public interface IOrganizationApi extends IController<Organization, Long> {
+public interface IOrganizationApi extends Controller<Organization, Long> {
+
 }

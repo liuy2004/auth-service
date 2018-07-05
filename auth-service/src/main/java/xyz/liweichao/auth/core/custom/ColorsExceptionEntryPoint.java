@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.core.custom;
 
-import com.github.hicolors.colors.framework.common.utils.ErrorCodeUtils;
+import com.github.hicolors.colors.framework.exception.utils.ExceptionCodeUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -22,8 +22,8 @@ public class ColorsExceptionEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) {
         AuthServiceException restfulException = new AuthServiceException(
-                HttpStatus.UNAUTHORIZED,
-                ErrorCodeUtils.generator(2, 2, 1),
+                HttpStatus.UNAUTHORIZED.value(),
+                ExceptionCodeUtils.generator(2, 2, 1),
                 authException.getMessage(),
                 authException);
         ResponseUtils.json(request, response, restfulException);

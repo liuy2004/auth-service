@@ -1,8 +1,9 @@
 package xyz.liweichao.auth.model.persistence;
 
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.github.hicolors.colors.framework.common.model.AbstractBean;
-import com.github.hicolors.colors.framework.common.valid.ValidatorGroup;
+import com.github.hicolors.colors.framework.model.bean.AbstractBean;
+import com.github.hicolors.colors.framework.model.consts.ValidatorGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import xyz.liweichao.auth.model.persistence.databinds.RoleGroupDeserializer;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+
 
 /**
  * comment: 角色信息

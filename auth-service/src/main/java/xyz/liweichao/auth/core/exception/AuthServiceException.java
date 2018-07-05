@@ -1,8 +1,8 @@
 package xyz.liweichao.auth.core.exception;
 
-import com.github.hicolors.colors.framework.common.exception.RestfulException;
-import com.github.hicolors.colors.framework.common.utils.ErrorCodeUtils;
 import com.github.hicolors.colors.framework.common.utils.StringUtils;
+import com.github.hicolors.colors.framework.exception.RestfulException;
+import com.github.hicolors.colors.framework.exception.utils.ExceptionCodeUtils;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -32,12 +32,12 @@ public class AuthServiceException extends RestfulException {
     }
 
     public AuthServiceException(int specific, String message, Object data) {
-        super(HttpStatus.BAD_REQUEST,
-                ErrorCodeUtils.generator(APP_ID, MODULE_ID, specific),
+        super(HttpStatus.BAD_REQUEST.value(),
+                ExceptionCodeUtils.generator(APP_ID, MODULE_ID, specific),
                 message, data);
     }
 
-    public AuthServiceException(HttpStatus statusCode, Long code, String message, Object data) {
+    public AuthServiceException(int statusCode, long code, String message, Object data) {
         super(statusCode, code, message, data);
     }
 

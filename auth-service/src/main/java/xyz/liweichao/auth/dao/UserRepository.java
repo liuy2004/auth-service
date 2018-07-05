@@ -1,13 +1,12 @@
 package xyz.liweichao.auth.dao;
 
-import com.github.hicolors.colors.framework.core.abs.intf.IRepository;
-import org.springframework.stereotype.Repository;
+import com.github.hicolors.colors.framework.core.abs.Repository;
 import xyz.liweichao.auth.model.persistence.User;
 
 import java.util.List;
 
-@Repository
-public interface UserRepository extends IRepository<User, Long> {
+@org.springframework.stereotype.Repository
+public interface UserRepository extends Repository<User, Long> {
 
     /**
      * 通过用户名查询用户

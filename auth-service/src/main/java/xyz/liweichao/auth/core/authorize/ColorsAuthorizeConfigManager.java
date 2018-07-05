@@ -44,7 +44,7 @@ public class ColorsAuthorizeConfigManager implements AuthorizeConfigManager {
             }
         }
 
-        if(!existAnyRequestConfig){
+        if (!existAnyRequestConfig) {
             config.anyRequest().authenticated();
         }
     }

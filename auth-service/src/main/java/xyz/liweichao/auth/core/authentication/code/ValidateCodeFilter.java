@@ -1,7 +1,7 @@
 package xyz.liweichao.auth.core.authentication.code;
 
-import com.github.hicolors.colors.framework.common.exception.RestfulException;
 import com.github.hicolors.colors.framework.common.utils.RegexpUtils;
+import com.github.hicolors.colors.framework.exception.RestfulException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

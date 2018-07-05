@@ -1,11 +1,10 @@
 package xyz.liweichao.auth.model.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.hicolors.colors.framework.common.model.AbstractBean;
-import com.github.hicolors.colors.framework.common.valid.ValidatorGroup;
+import com.github.hicolors.colors.framework.model.bean.AbstractBean;
+import com.github.hicolors.colors.framework.model.consts.ValidatorGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -21,7 +20,6 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(exclude = {"roles"})
-@NoArgsConstructor
 @Entity
 @Table(name = "auth_role_group")
 public class RoleGroup extends AbstractBean {
@@ -83,6 +81,8 @@ public class RoleGroup extends AbstractBean {
     @OrderBy("sort desc")
     @JsonIgnoreProperties("role_group")
     private List<Role> roles;
+
+    public RoleGroup(){}
 
     public RoleGroup(Long id) {
         this.id = id;

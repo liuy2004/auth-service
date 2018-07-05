@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.config;
 
-import com.github.hicolors.colors.framework.core.jpa.repository.ColorsComplexRepository;
+import com.github.hicolors.colors.framework.jpa.repository.ColorsComplexRepository;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;

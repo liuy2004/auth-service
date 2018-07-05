@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.api;
 
-import com.github.hicolors.colors.framework.common.controller.IController;
+import com.github.hicolors.colors.framework.abs.controller.Controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Api(tags = "user-detail", description = "对用户详细信息操作接口")
 @RequestMapping("user-detail")
-public interface IUserDetailApi extends IController<UserDetail, Long> {
+public interface IUserDetailApi extends Controller<UserDetail, Long> {
 
     @GetMapping("code/{type}")
     @ApiOperation("获取验证码")

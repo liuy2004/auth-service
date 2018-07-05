@@ -22,10 +22,8 @@ import java.util.Set;
 @Service("defaultRbacExpression")
 public class DefaultRbacExpression implements RbacExpression {
 
-    private AntPathMatcher antPathMatcher = new AntPathMatcher();
-
     private static final String ANONYMOUSUSER = "anonymoususer";
-
+    private AntPathMatcher antPathMatcher = new AntPathMatcher();
     @Autowired
     private IColorsUserService colorsUserService;
 

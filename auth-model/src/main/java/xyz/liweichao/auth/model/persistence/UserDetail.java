@@ -1,6 +1,7 @@
 package xyz.liweichao.auth.model.persistence;
 
-import com.github.hicolors.colors.framework.common.model.AbstractBean;
+
+import com.github.hicolors.colors.framework.model.bean.AbstractBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;

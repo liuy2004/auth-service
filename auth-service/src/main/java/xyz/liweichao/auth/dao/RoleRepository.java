@@ -1,7 +1,7 @@
 package xyz.liweichao.auth.dao;
 
-import com.github.hicolors.colors.framework.core.abs.intf.IRepository;
-import org.springframework.stereotype.Repository;
+
+import com.github.hicolors.colors.framework.core.abs.Repository;
 import xyz.liweichao.auth.model.persistence.Role;
 
 import java.util.List;
@@ -12,8 +12,8 @@ import java.util.List;
  * @author weichao.li (liweichao0102@gmail.com)
  * @date 2018/6/4
  */
-@Repository
-public interface RoleRepository extends IRepository<Role, Long> {
+@org.springframework.stereotype.Repository
+public interface RoleRepository extends Repository<Role, Long> {
 
     /**
      * 通过角色代码查询

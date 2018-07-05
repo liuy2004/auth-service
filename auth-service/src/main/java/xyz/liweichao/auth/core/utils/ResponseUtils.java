@@ -1,10 +1,10 @@
 package xyz.liweichao.auth.core.utils;
 
-import com.github.hicolors.colors.framework.common.exception.RestfulException;
+import com.github.hicolors.colors.framework.common.utils.SpringContextUtils;
+import com.github.hicolors.colors.framework.core.jackson.utils.JsonUtils;
 import com.github.hicolors.colors.framework.core.springmvc.error.ErrorEvent;
-import com.github.hicolors.colors.framework.core.springmvc.error.ErrorResponse;
-import com.github.hicolors.colors.framework.core.utils.JsonUtils;
-import com.github.hicolors.colors.framework.core.utils.SpringContextUtils;
+import com.github.hicolors.colors.framework.exception.RestfulException;
+import com.github.hicolors.colors.framework.model.error.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -47,9 +47,9 @@ public class ResponseUtils {
         Object data = new Object();
         if (exception instanceof RestfulException) {
             RestfulException restful = (RestfulException) exception;
-            error.setStatus(restful.getStatusCode().value()).setCode(restful.getCode()).setMessage(restful.getMessage());
+            error.setStatus(restful.getStatusCode()).setCode(restful.getCode()).setMessage(restful.getMessage());
             data = restful.getData();
-            response.setStatus(restful.getStatusCode().value());
+            response.setStatus(restful.getStatusCode());
         } else {
             LOGGER.error(exception.getMessage(), exception);
             error.setCode(1000000L);
@@ -68,7 +68,7 @@ public class ResponseUtils {
         Object data = new Object();
         if (exception instanceof RestfulException) {
             RestfulException restful = (RestfulException) exception;
-            error.setStatus(restful.getStatusCode().value()).setCode(restful.getCode()).setMessage(restful.getMessage());
+            error.setStatus(restful.getStatusCode()).setCode(restful.getCode()).setMessage(restful.getMessage());
             data = restful.getData();
         } else {
             LOGGER.error(exception.getMessage(), exception);

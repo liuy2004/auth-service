@@ -1,6 +1,6 @@
 package xyz.liweichao.auth.api;
 
-import com.github.hicolors.colors.framework.common.controller.IController;
+import com.github.hicolors.colors.framework.abs.controller.Controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 @Api(tags = "role-group", description = "对角色组信息操作接口")
 @RequestMapping("role-group")
-public interface IRoleGroupApi extends IController<RoleGroup, Long> {
+public interface IRoleGroupApi extends Controller<RoleGroup, Long> {
 
     @PostMapping("/{id}/users-details")
     @ApiOperation("绑定用户（绑定用户具有该角色组权限）")

@@ -1,7 +1,7 @@
 package xyz.liweichao.auth.service.impl;
 
+import com.github.hicolors.colors.framework.common.utils.BeanUtils;
 import com.github.hicolors.colors.framework.core.abs.AbstractService;
-import com.github.hicolors.colors.framework.core.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

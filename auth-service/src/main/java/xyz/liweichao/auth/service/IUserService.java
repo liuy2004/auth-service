@@ -1,11 +1,11 @@
 package xyz.liweichao.auth.service;
 
-import com.github.hicolors.colors.framework.core.abs.intf.IService;
+import com.github.hicolors.colors.framework.core.abs.Service;
 import xyz.liweichao.auth.model.persistence.User;
 
 import java.util.ArrayList;
 
-public interface IUserService extends IService<User, Long> {
+public interface IUserService extends Service<User, Long> {
 
     User queryUserByUniqueKey(String uniqueKey);
 
